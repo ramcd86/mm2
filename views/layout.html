@@ -1,0 +1,50 @@
+{# Automatically extends the right outer layout and also handles AJAX siutations #}
+{% extends data.outerLayout %}
+
+{% set title = data.piece.title or data.page.title %}
+{% block title %}
+  {{ title }}
+  {% if not title %}
+    {{ apos.log('Looks like you forgot to override the title block in a template that does not have access to an Apostrophe page or piece.') }}
+  {% endif %}
+{% endblock %}
+
+{% block beforeMain %}
+<div class="container-fluid mm-index">
+    <div class="mm-index__body">
+        <header class="mm-index__header">
+            <div class="container">
+                <div class="mm-index__logo">
+
+                </div>
+            </div>
+        </header>
+        <nav class="mm-index__nav">
+            <div class="container">
+                nav
+
+                {% if not data.user %}
+                <a class="bp-button bp-header__login" href="/login">Login</a>
+                {% endif %}
+            </div>
+        </nav>
+        <main class="mm-index__main">
+            <div class="container">
+                {% endblock %}
+
+                {% block main %}
+                {% endblock %}
+
+                {% block afterMain %}
+            </div>
+
+        </main>
+        <footer class="mm-index__footer">
+            <div class="container">
+                footer
+            </div>
+        </footer>
+    </div>
+</div>
+{# Close .bp-wrapper #}
+{% endblock %}
