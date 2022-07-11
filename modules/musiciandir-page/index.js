@@ -17,8 +17,8 @@ module.exports = {
     };
   },
   options: {
-    label: "Organ Builders Directory Page",
-    pluralLabel: "Organ Builders Directory Pages",
+    label: "Church Musicians Directory Page",
+    pluralLabel: "Church Musicians Directory Pages",
   },
   fields: {
     add: {
@@ -71,17 +71,6 @@ module.exports = {
           },
         },
       },
-      // _topics: {
-      //   type: "relationship",
-      //   label: "Blog post topic",
-      //   withType: "topic",
-      //   builders: {
-      //     project: {
-      //       title: 1,
-      //       _url: 1,
-      //     },
-      //   },
-      // },
     },
     group: {
       basics: {

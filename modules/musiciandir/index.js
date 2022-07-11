@@ -1,36 +1,15 @@
 module.exports = {
-  extend: "@apostrophecms/piece-page-type",
-  methods: (self, options) => {
-    self.buildUrl = (req, page, piece) => {
-      if (!page) {
-        return false;
-      }
-      return piece.externalUrl
-        ? piece.externalUrl
-        : page._url + "/" + piece.slug;
-    };
-    self.chooseParentPage = (pages, piece) => {
-      return pages.find((page) => page.alpha === piece.alpha);
-    };
-    self.filterByIndexPage = (query, page) => {
-      query.alpha(page.alpha);
-    };
-  },
+  extend: "@apostrophecms/piece-type",
+  methods: (self, options) => {},
   options: {
-    label: "Organ Builders Directory Page",
-    pluralLabel: "Organ Builders Directory Pages",
+    label: "Church Musician Directory",
+    // Additionally add a `pluralLabel` option if needed.
   },
   fields: {
     add: {
-      subtitle: {
-        type: "string",
-        label: "Page Header",
-        textarea: false,
-        required: true,
-      },
       alpha: {
         type: "select",
-        label: "Organs Builders by Alphabet",
+        label: "Church Musicians by Alphabet",
         required: true,
         readOnly: false,
         choices: [
@@ -62,6 +41,33 @@ module.exports = {
           { label: "Z", value: "Z" },
         ],
       },
+      isRetired: {
+        type: "select",
+        label: "Organ Company is Retired/Removed?",
+        required: true,
+        choices: [
+          { label: "No", value: false },
+          { label: "Yes", value: true },
+        ],
+      },
+      outsideGermany: {
+        type: "string",
+        label: "Outside Germany Label, (IE, DK, NL, etc)",
+        textarea: false,
+        required: false,
+      },
+      postcode: {
+        type: "string",
+        label: "Postcode",
+        textarea: false,
+        required: false,
+      },
+      externalUrl: {
+        type: "string",
+        label: "External URL? (WITHOUT http:// !)",
+        textarea: false,
+        required: false,
+      },
       main: {
         type: "area",
         options: {
@@ -71,22 +77,18 @@ module.exports = {
           },
         },
       },
-      // _topics: {
-      //   type: "relationship",
-      //   label: "Blog post topic",
-      //   withType: "topic",
-      //   builders: {
-      //     project: {
-      //       title: 1,
-      //       _url: 1,
-      //     },
-      //   },
-      // },
     },
     group: {
       basics: {
-        label: "Basics",
-        fields: ["title", 'subtitle', "main", "_topics", "alpha"],
+        fields: [
+          "title",
+          "main",
+          "externalUrl",
+          "postcode",
+          "isRetired",
+          "outsideGermany",
+          "alpha",
+        ],
       },
     },
   },

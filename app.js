@@ -3,6 +3,7 @@ require('apostrophe')({
   modules: {
     organdir: {},
     builderdir: {},
+    musiciandir: {},
     "custom-image-widget": {},
     // Apostrophe module configuration
     // *******************************
@@ -37,6 +38,8 @@ require('apostrophe')({
     "organdir-alphabase-page": {},
     "builderdir-page": {},
     "builderdir-alphabase-page": {},
+    "musiciandir-page": {},
+    "musiciandir-alphabase-page": {},
     "queens-page": {}
   }
 });

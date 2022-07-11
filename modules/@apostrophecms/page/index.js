@@ -29,6 +29,18 @@ module.exports = {
         label: "Organ Builders Alphabetical Base Page",
       },
       {
+        name: "musiciandir-alphabase-page",
+        label: "Church Musicians Alphabetical Base Page",
+      },
+      {
+        name: "musiciandir-page",
+        label: "Church Musicians Directory",
+      },
+      {
+        name: "musiciandir-alphabase-page",
+        label: "Church Musicians Alphabetical Base Page",
+      },
+      {
         name: "queens-page",
         label: "Queen's Portal",
       },
