@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block beforeMain %}
+<base href="/">
 <div class="container-fluid mm-index">
     <div class="mm-index__body">
         <header class="mm-index__header">
@@ -21,7 +22,12 @@
         </header>
         <nav class="mm-index__nav">
             <div class="container">
-                nav
+                {% for item in data.global.mainNavLinks %}
+
+                <li>
+                    <a href="{{ item._page[0]._url }}">{{ item.label }}</a>
+                </li>
+                {% endfor %}
 
                 {% if not data.user %}
                 <a class="bp-button bp-header__login" href="/login">Login</a>
@@ -41,12 +47,20 @@
         </main>
         <footer class="mm-index__footer">
             <div class="container">
-                <div class="col-4 mm-index__footer-image">
+                <div class="row">
+                    <div class="col-4 mm-index__footer-image">
 
-                </div>
-                <div class="col-8">
+                    </div>
+                    <div class="col-8 mm-index__footer-content">
+                        {% for item in data.global.mediaLinks %}
 
+                        <li>
+                            <a href="{{ item.url }}">{{ item.label }}</a>
+                        </li>
+                        {% endfor %}
+                    </div>
                 </div>
+
             </div>
         </footer>
     </div>

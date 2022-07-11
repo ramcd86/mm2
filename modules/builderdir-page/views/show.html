@@ -1,0 +1,17 @@
+{# modules/organdir-page/views/show.html #} {% extends "layout.html" %} {% block
+main %}
+
+<div class="row organ-builder-directory--show">
+  <div class="col-12">
+    <p>Topics:</p>
+    <ul>
+      {% for topic in data.piece._topics %}
+      <li>{{ topic.title }}</li>
+      {% endfor %}
+    </ul>
+    <h1>{{ data.piece.title }}</h1>
+    <section>{% area data.piece, 'main' %}</section>
+  </div>
+</div>
+
+{% endblock %}

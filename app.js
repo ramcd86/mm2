@@ -1,6 +1,9 @@
 require('apostrophe')({
   shortName: 'musikmedienhaus',
   modules: {
+    organdir: {},
+    builderdir: {},
+    "custom-image-widget": {},
     // Apostrophe module configuration
     // *******************************
     //
@@ -29,6 +32,11 @@ require('apostrophe')({
     // `asset` supports the project's webpack build for client-side assets.
     asset: {},
     // The project's first custom page type.
-    'default-page': {}
+    'default-page': {},
+    "organdir-page": {},
+    "organdir-alphabase-page": {},
+    "builderdir-page": {},
+    "builderdir-alphabase-page": {},
+    "queens-page": {}
   }
 });

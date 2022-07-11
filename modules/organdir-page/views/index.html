@@ -1,0 +1,30 @@
+{# modules/organdir-page/views/index.html #} {% extends "layout.html" %} {%
+import '@apostrophecms/pager:macros.html' as pager with context %} {% block main
+%}
+<div class="row organ-directory--index">
+  <div class="col-12 pt-4 pb-4">
+    <h2 class="pb-1">{{ data.page.subtitle }}</h2>
+  </div>
+  <div class="col-12 pt-4 pb-4">{% area data.page, 'main' %}</div>
+  <div class="col-12">
+    <div class="row">
+      <div class="col-6">Name</div>
+      <div class="col-3">Location (if not DE)</div>
+      <div class="col-3">Postcode</div>
+    </div>
+    {% for organ in data.pieces %}
+    <article
+      class="row mt-3 mb-3 pt-1 pb-1 {% if organ.isRetired %} organ-directory--index__retired {% endif %}"
+    >
+      <div class="col-6">
+        <a href="{{ organ._url }}">{{ organ.title }}</a>
+      </div>
+      <div class="col-3">{{ organ.outsideGermany }}</div>
+      <div class="col-3">{{ organ.postcode }}</div>
+    </article>
+    {% endfor %} {{ pager.render({ page: data.currentPage, total:
+    data.totalPages, class: 'blog-pager' }, data.url) }}
+  </div>
+</div>
+
+{% endblock %}
