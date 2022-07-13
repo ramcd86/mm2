@@ -4,6 +4,7 @@ require('apostrophe')({
     organdir: {},
     builderdir: {},
     musiciandir: {},
+    queensnews: {},
     "custom-image-widget": {},
     // Apostrophe module configuration
     // *******************************

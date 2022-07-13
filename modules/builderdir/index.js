@@ -3,6 +3,7 @@ module.exports = {
   methods: (self, options) => {},
   options: {
     label: "Organ Builder Directory",
+    pluralLabel: "Organ Builder Directories",
     // Additionally add a `pluralLabel` option if needed.
   },
   fields: {
