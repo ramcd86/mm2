@@ -11,6 +11,7 @@ module.exports = {
           widgets: {
             "custom-image": {},
             "@apostrophecms/rich-text": {},
+            "custom-divider": {},
           },
         },
       },

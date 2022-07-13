@@ -6,6 +6,7 @@ require('apostrophe')({
     musiciandir: {},
     queensnews: {},
     "custom-image-widget": {},
+    "custom-divider-widget": {},
     // Apostrophe module configuration
     // *******************************
     //

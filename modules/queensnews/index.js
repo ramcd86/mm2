@@ -13,6 +13,7 @@ module.exports = {
           widgets: {
             "@apostrophecms/rich-text": {},
             "custom-image": {},
+            "custom-divider": {},
           },
         },
       },

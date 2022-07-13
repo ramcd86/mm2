@@ -37,7 +37,7 @@ module.exports = {
               ]
             },
             "custom-image": {},
-            '@apostrophecms/video': {}
+            "custom-divider": {},
           }
         }
       }

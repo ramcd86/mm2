@@ -66,8 +66,9 @@ module.exports = {
         type: "area",
         options: {
           widgets: {
-            "@apostrophecms/rich-text": {},
             "custom-image": {},
+            "@apostrophecms/rich-text": {},
+            "custom-divider": {},
           },
         },
       },
