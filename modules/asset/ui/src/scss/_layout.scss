@@ -23,9 +23,24 @@ body {
 .mm-index {
   margin-top: 15px;
   margin-bottom: 15px;
-
+  &__login {
+    display: block;
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+    top: 30px;
+    right: 30px;
+    height: 30px;
+    text-align: right;
+  }
   &__body {
-    background-color: $cream;
+
+    &--home {
+      background-color: $cream;
+    }
+    &--queens-portal {
+      background-color: $grey;
+    }
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   }
   &__header {

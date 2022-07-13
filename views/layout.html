@@ -10,13 +10,24 @@
 {% endblock %}
 
 {% block beforeMain %}
+
 <base href="/">
 <div class="container-fluid mm-index">
-    <div class="mm-index__body">
+    {% if not data.user %}
+    <div class="mm-index__login">
+        <a class="bp-button bp-header__login" href="/login">Login</a>
+    </div>
+    {% endif %}
+    {% if data.page.type === '@apostrophecms/home-page' %}
+    <div class="mm-index__body--home">
+    {% endif %}
+    {% if data.page.type === 'queens-portal' %}
+    <div class="mm-index__body--queens-portal">
+    {% endif %}
+
         <header class="mm-index__header">
             <div class="container">
                 <div class="mm-index__logo">
-
                 </div>
             </div>
         </header>
@@ -29,15 +40,11 @@
                     </li>
                     {% endfor %}
                 </ul>
-
-
-                {% if not data.user %}
-                <a class="bp-button bp-header__login" href="/login">Login</a>
-                {% endif %}
             </div>
         </nav>
         <main class="mm-index__main">
             <div class="container">
+                {{data.page.type}}
                 {% endblock %}
 
                 {% block main %}
