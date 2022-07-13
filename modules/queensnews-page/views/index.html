@@ -10,7 +10,7 @@ import '@apostrophecms/pager:macros.html' as pager with context %} {% block main
 
   {% for news in data.pieces %}
 <div class="col-12">
-  <a href="http://{{ news._url }}">{{ news.title }}</a>
+  <a href="{{ news._url }}">{{ news.title }}</a>
 </div>
 
 
