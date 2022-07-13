@@ -22,12 +22,14 @@
         </header>
         <nav class="mm-index__nav">
             <div class="container">
-                {% for item in data.global.mainNavLinks %}
+                <ul>
+                    {% for item in data.global.mainNavLinks %}
+                    <li>
+                        <a href="{{ item._page[0]._url }}">{{ item.label }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
 
-                <li>
-                    <a href="{{ item._page[0]._url }}">{{ item.label }}</a>
-                </li>
-                {% endfor %}
 
                 {% if not data.user %}
                 <a class="bp-button bp-header__login" href="/login">Login</a>

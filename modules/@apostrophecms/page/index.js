@@ -41,8 +41,36 @@ module.exports = {
         label: "Church Musicians Alphabetical Base Page",
       },
       {
-        name: "queens-page",
+        name: "queens-portal",
         label: "Queen's Portal",
+      },
+      {
+        name: "queens-default-page",
+        label: "Queen's Portal Standard Page",
+      },
+      {
+        name: "shop-portal",
+        label: "Shop Portal",
+      },
+      {
+        name: "publisher-portal",
+        label: "Publisher (Book & Note) Portal",
+      },
+      {
+        name: "publisher-delivery-portal",
+        label: "Publisher Delivery (KDL-VA)",
+      },
+      {
+        name: "notenkeller-portal",
+        label: "Notenkeller Celle Portal",
+      },
+      {
+        name: "church-music-design-portal",
+        label: "Church Music Design (KMD)",
+      },
+      {
+        name: "queensnews-page",
+        label: "Queen's News Page",
       },
     ]
   }

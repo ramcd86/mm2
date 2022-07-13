@@ -48,11 +48,79 @@ body {
     height: 70px;
     background-color: $bark;
     text-align: center;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     font-family: "Vollkorn", serif;
     color: $cream;
-    padding-top: 16px;
+    padding-top: 0px;
+    display: flex;
+    align-items: center;
+    ul {
+      display: flex;
+      flex-direction: row;
+      padding-left: 0px;
+      margin-bottom: 0px;
+      justify-content: center;
+      :last-child {
+          border-right: 0px;
+      }
+      li {
+        list-style: none;
+        text-align: center;
+        justify-content: center;
+        border-right: 2px solid $cream;
+        padding-left: 15px;
+        padding-right: 15px;
+        a {
+          color: $white;
+          &:hover {
+            color: $peach;
+            text-decoration: none;
+            border-bottom: 2px solid $cream;
+          }
+        }
+      }
+    }
+  }
+  &__subnav {
+    display: flex;
+    align-items: center;
+    background-color: $white;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: "Vollkorn", serif;
+    padding-top: 10px;
+    margin-bottom: 20px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    ul {
+      display: flex;
+      flex-direction: row;
+      padding-left: 0px;
+      margin-bottom: 0px;
+      justify-content: center;
+      :last-child {
+        border-right: 0px;
+      }
+      padding-bottom: 10px;
+      li {
+        list-style: none;
+        text-align: center;
+        justify-content: center;
+        border-right: 2px solid $bark;
+        padding-left: 15px;
+        padding-right: 15px;
+        a {
+          color: $bark;
+          &:hover {
+            color: $slate;
+            text-decoration: none;
+            border-bottom: 2px solid $bark;
+          }
+        }
+      }
+    }
   }
   &__main {
 

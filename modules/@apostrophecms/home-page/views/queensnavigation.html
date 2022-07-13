@@ -1,0 +1,23 @@
+
+<div class="mm-index__subnav">
+    <div class="container">
+        <ul>
+            {% for item in data.global.queensPortalLinks %}
+            <li>
+                <a href="{{ item._page[0]._url }}">{{ item.label }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        <ul>
+            {% for item in data.global.queensPortalGeneralLinks %}
+            <li>
+                {% if item.url %}
+                <a href="{{ item.url }}">{{ item.label }}</a>
+                {% else %}
+                <a href="{{ item._page[0]._url }}">{{ item.label }}</a>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

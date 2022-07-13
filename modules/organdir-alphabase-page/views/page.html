@@ -1,6 +1,6 @@
 {# modules/default-page/views/page.html #} {% extends "layout.html" %} {% block
 main %}
-
+{% component '@apostrophecms/home-page:queensnavigation' %}
 <div class="row organ-directory--base">
   <div class="col-12 pt-4 pb-4">
     <h2 class="pb-1">{{ data.page.subtitle }}</h2>

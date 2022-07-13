@@ -40,6 +40,13 @@ require('apostrophe')({
     "builderdir-alphabase-page": {},
     "musiciandir-page": {},
     "musiciandir-alphabase-page": {},
-    "queens-page": {}
+    "queens-portal": {},
+    "queens-default-page": {},
+    "queensnews-page": {},
+    "church-music-design-portal": {},
+    "notenkeller-portal": {},
+    "publisher-delivery-portal": {},
+    "publisher-portal": {},
+    "shop-portal": {}
   }
 });

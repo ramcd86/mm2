@@ -1,4 +1,11 @@
 module.exports = {
+  components(self) {
+    return {
+      async queensnavigation(req, data) {
+        return [];
+      }
+    };
+  },
   options: {
     label: 'Home Page'
   },
