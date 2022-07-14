@@ -12,35 +12,7 @@ endblock %} {% block beforeMain %}
     <a class="bp-button bp-header__login" href="/login">Login</a>
   </div>
   {% endif %}
-
-    {% if data.page.type === '@apostrophecms/home-page' %}
-        <div class="mm-index__body--home">
-    {% endif %}
-
-    {% if data.page.type === 'queens-portal' %}
-        <div class="mm-index__body--queens-portal">
-    {% endif %}
-
-    {% if data.page.type === 'publisher-portal' %}
-        <div class="mm-index__body--publisher-portal">
-    {% endif %}
-
-    {% if data.page.type === 'publisher-delivery-portal' %}
-        <div class="mm-index__body--publisher-delivery-portal">
-    {% endif %}
-
-    {% if data.page.type === 'notenkeller-portal' %}
-        <div class="mm-index__body--notenkeller-portal">
-    {% endif %}
-
-    {% if data.page.type === 'church-music-design-portal' %}
-        <div class="mm-index__body--church-music-design-portal">
-    {% endif %}
-
-    {% if data.page.type === 'shop-portal' %}
-        <div class="mm-index__body--shop-portal">
-    {% endif %}
-
+        <div id="pageBase" class="mm-index__body">
                 <header class="mm-index__header">
                   <div class="container">
                     <div class="mm-index__logo"></div>
@@ -59,6 +31,22 @@ endblock %} {% block beforeMain %}
                 </nav>
                 <main class="mm-index__main">
                   <div class="container">
+                      {% if data.page and data.page._ancestors.length %}
+                      <nav class="breadcrumb">
+                          {# Loop over the ancestors. #}
+                          {% for page in data.page._ancestors %}
+                          <a href="{{ page._url }}">{{ page.title }}</a> ➡
+                          {% endfor %}
+                          {% if data.piece %}
+                          {# We're rendering a show page. #}
+                          <a href="{{ data.page._url }}">{{ data.page.title }}</a>  ➡
+                          <span>{{ data.piece.title }}</span>
+                          {% else %}
+                          {# We're rendering a normal page. #}
+                          <span>{{ data.page.title }}</span>
+                          {% endif %}
+                      </nav>
+                      {% endif %}
                     {% endblock %} {% block main %} {%
                     endblock %} {% block afterMain %}
                   </div>
