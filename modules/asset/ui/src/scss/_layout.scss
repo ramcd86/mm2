@@ -101,7 +101,7 @@ body {
     font-weight: bold;
     font-family: "Vollkorn", serif;
     padding-top: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
     ul {
@@ -119,6 +119,36 @@ body {
         text-align: center;
         justify-content: center;
         border-right: 2px solid $bark;
+        padding-left: 15px;
+        padding-right: 15px;
+        a {
+          color: $bark;
+          &:hover {
+            color: $slate;
+            text-decoration: none;
+            border-bottom: 2px solid $bark;
+          }
+        }
+      }
+    }
+  }
+  &__breadcrumbs {
+    font-size: 14px;
+    font-family: "Vollkorn", serif;
+    ul {
+      display: flex;
+      flex-direction: row;
+      padding-left: 0px;
+      margin-bottom: 0px;
+      justify-content: left;
+      :last-child {
+        border-right: 0px;
+      }
+      padding-bottom: 10px;
+      li {
+        list-style: none;
+        text-align: center;
+        justify-content: center;
         padding-left: 15px;
         padding-right: 15px;
         a {

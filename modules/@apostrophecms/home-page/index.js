@@ -3,6 +3,9 @@ module.exports = {
     return {
       async queensnavigation(req, data) {
         return [];
+      },
+      async breadcrumbs(req, data) {
+        return [];
       }
     };
   },
