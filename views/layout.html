@@ -1,78 +1,89 @@
-{# Automatically extends the right outer layout and also handles AJAX siutations #}
-{% extends data.outerLayout %}
+{# Automatically extends the right outer layout and also handles AJAX siutations
+#} {% extends data.outerLayout %} {% set title = data.piece.title or
+data.page.title %} {% block title %} {{ title }} {% if not title %} {{
+apos.log('Looks like you forgot to override the title block in a template that
+does not have access to an Apostrophe page or piece.') }} {% endif %} {%
+endblock %} {% block beforeMain %}
 
-{% set title = data.piece.title or data.page.title %}
-{% block title %}
-  {{ title }}
-  {% if not title %}
-    {{ apos.log('Looks like you forgot to override the title block in a template that does not have access to an Apostrophe page or piece.') }}
-  {% endif %}
-{% endblock %}
-
-{% block beforeMain %}
-
-<base href="/">
+<base href="/" />
 <div class="container-fluid mm-index">
-    {% if not data.user %}
-    <div class="mm-index__login">
-        <a class="bp-button bp-header__login" href="/login">Login</a>
-    </div>
-    {% endif %}
+  {% if not data.user %}
+  <div class="mm-index__login">
+    <a class="bp-button bp-header__login" href="/login">Login</a>
+  </div>
+  {% endif %}
+
     {% if data.page.type === '@apostrophecms/home-page' %}
-    <div class="mm-index__body--home">
+        <div class="mm-index__body--home">
     {% endif %}
+
     {% if data.page.type === 'queens-portal' %}
-    <div class="mm-index__body--queens-portal">
+        <div class="mm-index__body--queens-portal">
     {% endif %}
 
-        <header class="mm-index__header">
-            <div class="container">
-                <div class="mm-index__logo">
-                </div>
-            </div>
-        </header>
-        <nav class="mm-index__nav">
-            <div class="container">
-                <ul>
-                    {% for item in data.global.mainNavLinks %}
-                    <li>
+    {% if data.page.type === 'publisher-portal' %}
+        <div class="mm-index__body--publisher-portal">
+    {% endif %}
+
+    {% if data.page.type === 'publisher-delivery-portal' %}
+        <div class="mm-index__body--publisher-delivery-portal">
+    {% endif %}
+
+    {% if data.page.type === 'notenkeller-portal' %}
+        <div class="mm-index__body--notenkeller-portal">
+    {% endif %}
+
+    {% if data.page.type === 'church-music-design-portal' %}
+        <div class="mm-index__body--church-music-design-portal">
+    {% endif %}
+
+    {% if data.page.type === 'shop-portal' %}
+        <div class="mm-index__body--shop-portal">
+    {% endif %}
+
+                <header class="mm-index__header">
+                  <div class="container">
+                    <div class="mm-index__logo"></div>
+                  </div>
+                </header>
+                <nav class="mm-index__nav">
+                  <div class="container">
+                    <ul>
+                      {% for item in data.global.mainNavLinks %}
+                      <li>
                         <a href="{{ item._page[0]._url }}">{{ item.label }}</a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </nav>
-        <main class="mm-index__main">
-            <div class="container">
-                {{data.page.type}}
-                {% endblock %}
-
-                {% block main %}
-                {% endblock %}
-
-                {% block afterMain %}
-            </div>
-
-        </main>
-        <footer class="mm-index__footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-4 mm-index__footer-image">
-
-                    </div>
-                    <div class="col-8 mm-index__footer-content">
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </nav>
+                <main class="mm-index__main">
+                  <div class="container">
+                    {% endblock %} {% block main %} {%
+                    endblock %} {% block afterMain %}
+                  </div>
+                </main>
+                <footer class="mm-index__footer">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-4 mm-index__footer-image"></div>
+                      <div class="col-8 mm-index__footer-content">
                         {% for item in data.global.mediaLinks %}
 
                         <li>
-                            <a href="{{ item.url }}">{{ item.label }}</a>
+                          <a href="{{ item.url }}">{{ item.label }}</a>
                         </li>
                         {% endfor %}
+                      </div>
                     </div>
-                </div>
-
+                  </div>
+                </footer>
+              </div>
             </div>
-        </footer>
+            {# Close .bp-wrapper #} {% endblock %}
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
-{# Close .bp-wrapper #}
-{% endblock %}

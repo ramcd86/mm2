@@ -41,6 +41,21 @@ body {
     &--queens-portal {
       background-color: $grey;
     }
+    &--publisher-portal {
+      background-color: $rust;
+    }
+    &--publisher-delivery-portal {
+      background-color: $orange;
+    }
+    &--notenkeller-portal {
+      background-color: $sky;
+    }
+    &--church-music-design-portal {
+      background-color: $lime;
+    }
+    &--shop-portal {
+      background-color: $grass;
+    }
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   }
   &__header {

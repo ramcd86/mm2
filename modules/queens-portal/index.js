@@ -5,6 +5,12 @@ module.exports = {
   },
   fields: {
     add: {
+      pageTitle: {
+        type: "string",
+        label: "Page Header",
+        textarea: false,
+        required: true,
+      },
       main: {
         type: 'area',
         options: {
@@ -21,7 +27,8 @@ module.exports = {
         label: 'Basics',
         fields: [
           'title',
-          'main'
+          'pageTitle',
+          'main',
         ]
       }
     }
