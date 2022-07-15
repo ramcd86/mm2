@@ -22,6 +22,7 @@ body {
 .mm-index {
   margin-top: 15px;
   margin-bottom: 15px;
+
   &__login {
     display: block;
     position: absolute;
@@ -82,6 +83,7 @@ body {
         padding-right: 15px;
         a {
           color: $white;
+          text-decoration: none;
           &:hover {
             color: $peach;
             text-decoration: none;
@@ -110,17 +112,15 @@ body {
     }
     a {
       padding: 5px 10px;
-      //border-right: 2px solid $bark;
       display: inline-block;
       color: $bark;
-      text-decoration: none;
+      text-decoration: none !important;
       background-color: $white;
       &:hover {
-        color: $white;
+        color: $white !important;
         background-color: $bark;
         border-radius: 5px;
-        //text-decoration: underline;
-        //border-bottom: 2px solid $bark;
+        text-decoration: none !important;
       }
     }
   }
@@ -162,16 +162,23 @@ body {
     }
   }
   &__main {
-
+    a {
+      color: $bark;
+      text-decoration: underline;
+      &:hover {
+        color: $slate;
+        text-decoration: underline;
+      }
+    }
   }
   &__mini-footer  {
       font-size: 12px;
       background-color: $white;
-      padding: 5px;
       font-weight: 900;
-      margin-bottom: 10px;
+      padding: 5px 5px 10px;
       margin-top: 30px;
-      border-radius: 5px;
+      border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
       color: $black;
       ul {
         display: flex;
@@ -182,21 +189,17 @@ body {
         :last-child {
           border-right: 0px;
         }
-        //padding-bottom: 10px;
         li {
           list-style: none;
           text-align: center;
           justify-content: center;
-          //padding-left: 15px;
           padding-right: 5px;
           a {
             color: $bark;
-            //border-bottom: 1px solid $bark;
             text-decoration: underline;
             &:hover {
               color: $slate;
               text-decoration: underline;
-              //border-bottom: 1px solid $slate;
             }
           }
         }
@@ -247,4 +250,5 @@ body {
   color: $white !important;
   background-color: $bark !important;
   border-radius: 5px !important;
+  text-decoration: none !important;
 }
