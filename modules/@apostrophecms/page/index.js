@@ -5,12 +5,12 @@ module.exports = {
   options: {
     types: [
       {
-        name: 'default-page',
-        label: 'Default'
+        name: "default-page",
+        label: "Default",
       },
       {
-        name: '@apostrophecms/home-page',
-        label: 'Home'
+        name: "@apostrophecms/home-page",
+        label: "Home",
       },
       {
         name: "organdir-page",
@@ -72,6 +72,6 @@ module.exports = {
         name: "queensnews-page",
         label: "Queen's News Page",
       },
-    ]
-  }
+    ],
+  },
 };

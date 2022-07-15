@@ -15,8 +15,8 @@ module.exports = {
             },
             url: {
               label: "Link",
-              type: "string"
-            }
+              type: "string",
+            },
           },
         },
       },
@@ -168,7 +168,7 @@ module.exports = {
             },
             url: {
               label: "Link",
-              type: "string"
+              type: "string",
             },
             _page: {
               label: "Page to link",
@@ -190,15 +190,19 @@ module.exports = {
 
     group: {
       siteLayout: {
-        label: 'Layout Links',
-        fields: ['mediaLinks', 'mainNavLinks']
+        label: "Layout Links",
+        fields: ["mediaLinks", "mainNavLinks"],
       },
       queensPortal: {
-        label: 'Queen\'s Portal',
-        fields: ['queensPortalLinks', 'queensPortalOrganLinks', 'queensPortalOrganBuilderLinks', 'queensPortalChurchMusiciansLinks', 'queensPortalGeneralLinks']
-      }
-    }
+        label: "Queen's Portal",
+        fields: [
+          "queensPortalLinks",
+          "queensPortalOrganLinks",
+          "queensPortalOrganBuilderLinks",
+          "queensPortalChurchMusiciansLinks",
+          "queensPortalGeneralLinks",
+        ],
+      },
+    },
   },
-
 };
-

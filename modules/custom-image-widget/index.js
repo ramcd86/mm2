@@ -1,7 +1,7 @@
 module.exports = {
-  extend: '@apostrophecms/widget-type',
+  extend: "@apostrophecms/widget-type",
   options: {
-    label: 'Custom Image Widget',
+    label: "Custom Image Widget",
   },
   fields: {
     add: {
@@ -31,14 +31,14 @@ module.exports = {
         ],
       },
       image: {
-        type: 'area',
-        label: 'Selected Image',
+        type: "area",
+        label: "Selected Image",
         options: {
           widgets: {
-            '@apostrophecms/image': {}
-          }
-        }
+            "@apostrophecms/image": {},
+          },
+        },
       },
-    }
-  }
+    },
+  },
 };

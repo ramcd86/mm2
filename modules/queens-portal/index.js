@@ -1,7 +1,7 @@
 module.exports = {
-  extend: '@apostrophecms/page-type',
+  extend: "@apostrophecms/page-type",
   options: {
-    label: 'Queen\'s Portal'
+    label: "Queen's Portal",
   },
   fields: {
     add: {
@@ -12,25 +12,21 @@ module.exports = {
         required: false,
       },
       main: {
-        type: 'area',
+        type: "area",
         options: {
           widgets: {
             "custom-image": {},
             "@apostrophecms/rich-text": {},
             "custom-divider": {},
-          }
-        }
-      }
+          },
+        },
+      },
     },
     group: {
       basics: {
-        label: 'Basics',
-        fields: [
-          'title',
-          'pageDescription',
-          'main',
-        ]
-      }
-    }
-  }
+        label: "Basics",
+        fields: ["title", "pageDescription", "main"],
+      },
+    },
+  },
 };

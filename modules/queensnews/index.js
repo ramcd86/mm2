@@ -3,7 +3,7 @@ module.exports = {
   methods: (self, options) => {},
   options: {
     label: "Queens News Post",
-    pluralLabel: "Queens News Posts"
+    pluralLabel: "Queens News Posts",
   },
   fields: {
     add: {
@@ -20,10 +20,7 @@ module.exports = {
     },
     group: {
       basics: {
-        fields: [
-          "title",
-          "main",
-        ],
+        fields: ["title", "main"],
       },
     },
   },

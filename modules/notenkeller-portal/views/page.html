@@ -1,22 +1,14 @@
-{#
-  This is an example home page template. It inherits and extends a layout template
-  that lives in the top-level views/ folder for convenience
-#}
-
-{% extends "layout.html" %}
-
-{% block main %}
+{# This is an example home page template. It inherits and extends a layout
+template that lives in the top-level views/ folder for convenience #} {% extends
+"layout.html" %} {% block main %}
 <div class="row">
   <div class="col-4">
     {% for item in data.global.queensPortalLinks %}
     <li>
       <a href="{{ item._page[0]._url }}">{{ item.label }}</a>
     </li>
-    {% endfor %}
-
-    {{data.global.queensPortalGeneralLinks | dump}}
-
-    {% for item in data.global.queensPortalGeneralLinks %}
+    {% endfor %} {{data.global.queensPortalGeneralLinks | dump}} {% for item in
+    data.global.queensPortalGeneralLinks %}
     <li>
       {% if item.url %}
       <a href="{{ item.url }}">{{ item.label }}</a>
@@ -25,10 +17,7 @@
       {% endif %}
     </li>
     {% endfor %}
-
   </div>
-  <div class="col-8">
-
-  </div>
+  <div class="col-8"></div>
 </div>
 {% endblock %}

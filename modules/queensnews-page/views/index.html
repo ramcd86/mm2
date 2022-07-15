@@ -1,24 +1,18 @@
 {# modules/organdir-page/views/index.html #} {% extends "layout.html" %} {%
 import '@apostrophecms/pager:macros.html' as pager with context %} {% block main
-%}
-{% component '@apostrophecms/home-page:queensnavigation' %}
+%} {% component '@apostrophecms/home-page:queensnavigation' %}
 <div class="row">
   <div class="col-12">
-    {{ data.page.subtitle }}
-    {% area data.page, 'main' %}
+    {{ data.page.subtitle }} {% area data.page, 'main' %}
   </div>
 
   {% for news in data.pieces %}
-<div class="col-12">
-  <a href="{{ news._url }}">{{ news.title }}</a>
+  <div class="col-12">
+    <a href="{{ news._url }}">{{ news.title }}</a>
+  </div>
+
+  {% endfor %} {{ pager.render({ page: data.currentPage, total: data.totalPages,
+  class: 'blog-pager' }, data.url) }}
 </div>
-
-
-  {% endfor %}
-
-  {{ pager.render({ page: data.currentPage, total:
-    data.totalPages, class: 'blog-pager' }, data.url) }}
-</div>
-
 
 {% endblock %}

@@ -1,14 +1,13 @@
 {# modules/default-page/views/page.html #} {% extends "layout.html" %} {% block
-main %}
-{% component '@apostrophecms/home-page:queensnavigation' %}
+main %} {% component '@apostrophecms/home-page:queensnavigation' %}
 <div class="row organ-builder-directory--base">
   <div class="col-12 pt-4 pb-4">
     <h2 class="pb-1">{{ data.page.subtitle }}</h2>
   </div>
   <div class="col-12">
     <ul>
-      {# 👇 Referencing the global doc `primaryNav` property #}
-      {% for item in data.global.queensPortalChurchMusiciansLinks %}
+      {# 👇 Referencing the global doc `primaryNav` property #} {% for item in
+      data.global.queensPortalChurchMusiciansLinks %}
       <li>
         <a href="{{ item._page[0]._url }}/">{{ item.label }}</a>
       </li>

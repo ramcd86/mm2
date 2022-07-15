@@ -1,9 +1,7 @@
 {# modules/organdir-page/views/show.html #} {% extends "layout.html" %} {% block
-main %}
-{% component '@apostrophecms/home-page:queensnavigation' %}
+main %} {% component '@apostrophecms/home-page:queensnavigation' %}
 <div class="row organ-directory--show">
   <div class="col-12">
-
     <ul>
       {% for topic in data.piece._topics %}
       <li>{{ topic.title }}</li>

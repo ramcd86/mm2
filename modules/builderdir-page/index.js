@@ -87,7 +87,7 @@ module.exports = {
     group: {
       basics: {
         label: "Basics",
-        fields: ["title", 'subtitle', "main", "_topics", "alpha"],
+        fields: ["title", "subtitle", "main", "_topics", "alpha"],
       },
     },
   },

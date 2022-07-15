@@ -1,21 +1,18 @@
 {% if data.page and data.page._ancestors.length %}
 <div class="mm-index__breadcrumbs">
-    <ul>
-        {% for page in data.page._ancestors %}
-            <li>
-                <a href="{{ page._url }}">{{ page.title }}</a> &#8250;
-            </li>
-        {% endfor %}
-        {% if data.piece %}
-            <li>
-                <a href="{{ data.page._url }}">{{ data.page.title }}</a> &#8250; <span>{{ data.piece.title }}</span>
-            </li>
-        {% else %}
-            <li>
-                <span>{{ data.page.title }}</span>
-            </li>
-        {% endif %}
-    </ul>
-
+  <ul>
+    {% for page in data.page._ancestors %}
+    <li><a href="{{ page._url }}">{{ page.title }}</a> &#8250;</li>
+    {% endfor %} {% if data.piece %}
+    <li>
+      <a href="{{ data.page._url }}">{{ data.page.title }}</a> &#8250;
+      <span>{{ data.piece.title }}</span>
+    </li>
+    {% else %}
+    <li>
+      <span>{{ data.page.title }}</span>
+    </li>
+    {% endif %}
+  </ul>
 </div>
 {% endif %}

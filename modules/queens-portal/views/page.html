@@ -1,20 +1,10 @@
-{#
-  This is an example home page template. It inherits and extends a layout template
-  that lives in the top-level views/ folder for convenience
-#}
-
-{% extends "layout.html" %}
-
-{% block main %}
-
-{% component '@apostrophecms/home-page:queensnavigation' %}
+{# This is an example home page template. It inherits and extends a layout
+template that lives in the top-level views/ folder for convenience #} {% extends
+"layout.html" %} {% block main %} {% component
+'@apostrophecms/home-page:queensnavigation' %}
 
 <div class="row">
-  <div class="col-4">
-
-  </div>
-  <div class="col-8">
-
-  </div>
+  <div class="col-4"></div>
+  <div class="col-8"></div>
 </div>
 {% endblock %}

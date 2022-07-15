@@ -1,29 +1,26 @@
 module.exports = {
-  extend: '@apostrophecms/page-type',
+  extend: "@apostrophecms/page-type",
   options: {
-    label: 'Queen\'s Default Page'
+    label: "Queen's Default Page",
   },
   fields: {
     add: {
       main: {
-        type: 'area',
+        type: "area",
         options: {
           widgets: {
             "custom-image": {},
             "@apostrophecms/rich-text": {},
             "custom-divider": {},
-          }
-        }
-      }
+          },
+        },
+      },
     },
     group: {
       basics: {
-        label: 'Basics',
-        fields: [
-          'title',
-          'main'
-        ]
-      }
-    }
-  }
+        label: "Basics",
+        fields: ["title", "main"],
+      },
+    },
+  },
 };

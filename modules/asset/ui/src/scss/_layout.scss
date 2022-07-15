@@ -1,4 +1,4 @@
-@import '_vars';
+@import "_vars";
 
 // Use flex to keep the footer at the bottom.
 body,
@@ -10,7 +10,6 @@ body,
 
 [data-apos-refreshable],
 .bp-wrapper,
-
 body {
   font-family: "Raleway", sans-serif;
   font-size: 18px;
@@ -34,9 +33,7 @@ body {
     text-align: right;
   }
   &__body {
-
-
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   }
   &__header {
     height: 400px;
@@ -44,7 +41,6 @@ body {
     background-position: center top;
     background-size: cover;
     background-repeat: no-repeat;
-
   }
   &__logo {
     width: 100%;
@@ -72,7 +68,7 @@ body {
       margin-bottom: 0px;
       justify-content: center;
       :last-child {
-          border-right: 0px;
+        border-right: 0px;
       }
       li {
         list-style: none;
@@ -163,7 +159,6 @@ body {
     }
   }
   &__main {
-
   }
   &__footer {
     height: 300px;
@@ -193,7 +188,7 @@ body {
 .publisher-book-note-portal {
   background-color: $rust;
 }
-.publisher-delivery-kvd-la-portal{
+.publisher-delivery-kvd-la-portal {
   background-color: $orange;
 }
 .notenkeller-portal {

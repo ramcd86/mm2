@@ -12,51 +12,44 @@ endblock %} {% block beforeMain %}
     <a class="bp-button bp-header__login" href="/login">Login</a>
   </div>
   {% endif %}
-        <div id="pageBase" class="mm-index__body">
-                <header class="mm-index__header">
-                  <div class="container">
-                    <div class="mm-index__logo"></div>
-                  </div>
-                </header>
-                <nav class="mm-index__nav">
-                  <div class="container">
-                    <ul>
-                      {% for item in data.global.mainNavLinks %}
-                      <li>
-                        <a href="{{ item._page[0]._url }}">{{ item.label }}</a>
-                      </li>
-                      {% endfor %}
-                    </ul>
-                  </div>
-                </nav>
-                <main class="mm-index__main">
-                  <div class="container">
+  <div id="pageBase" class="mm-index__body">
+    <header class="mm-index__header">
+      <div class="container">
+        <div class="mm-index__logo"></div>
+      </div>
+    </header>
+    <nav class="mm-index__nav">
+      <div class="container">
+        <ul>
+          {% for item in data.global.mainNavLinks %}
+          <li>
+            <a href="{{ item._page[0]._url }}">{{ item.label }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </nav>
+    <main class="mm-index__main">
+      <div class="container">
+        {% endblock %} {% block main %} {% endblock %} {% block afterMain %}
+      </div>
+    </main>
+    <footer class="mm-index__footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-4 mm-index__footer-image"></div>
+          <div class="col-8 mm-index__footer-content">
+            {% for item in data.global.mediaLinks %}
 
-                    {% endblock %} {% block main %} {%
-                    endblock %} {% block afterMain %}
-                  </div>
-                </main>
-                <footer class="mm-index__footer">
-                  <div class="container">
-                    <div class="row">
-                      <div class="col-4 mm-index__footer-image"></div>
-                      <div class="col-8 mm-index__footer-content">
-                        {% for item in data.global.mediaLinks %}
-
-                        <li>
-                          <a href="{{ item.url }}">{{ item.label }}</a>
-                        </li>
-                        {% endfor %}
-                      </div>
-                    </div>
-                  </div>
-                </footer>
-              </div>
-            </div>
-            {# Close .bp-wrapper #} {% endblock %}
+            <li>
+              <a href="{{ item.url }}">{{ item.label }}</a>
+            </li>
+            {% endfor %}
           </div>
         </div>
       </div>
-    </div>
+    </footer>
   </div>
 </div>
+
+{# Close .bp-wrapper #} {% endblock %}
