@@ -32,6 +32,9 @@ body {
     height: 30px;
     text-align: right;
   }
+  &__outer-body {
+    background-color: $cream;
+  }
   &__body {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   }
@@ -159,7 +162,46 @@ body {
     }
   }
   &__main {
+    margin-bottom: 40px;
   }
+  &__mini-footer  {
+      font-size: 12px;
+      background-color: $white;
+      padding: 5px;
+      font-weight: 900;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      color: $black;
+      ul {
+        display: flex;
+        flex-direction: row;
+        padding-left: 0px;
+        margin-bottom: 0px;
+        justify-content: left;
+        :last-child {
+          border-right: 0px;
+        }
+        //padding-bottom: 10px;
+        li {
+          list-style: none;
+          text-align: center;
+          justify-content: center;
+          //padding-left: 15px;
+          padding-right: 5px;
+          a {
+            color: $bark;
+            //border-bottom: 1px solid $bark;
+            text-decoration: underline;
+            &:hover {
+              color: $slate;
+              text-decoration: underline;
+              //border-bottom: 1px solid $slate;
+            }
+          }
+        }
+      }
+    }
+
   &__footer {
     height: 300px;
     background-image: url("./../../../images/footer.png");

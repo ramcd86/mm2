@@ -47,6 +47,37 @@ module.exports = {
           },
         },
       },
+      miniFooter: {
+        label: "Mini Footer Links",
+        type: "array",
+        titleField: "label",
+        // The array schema for each item
+        fields: {
+          add: {
+            label: {
+              label: "Nav item label",
+              type: "string",
+            },
+            url: {
+              label: "Link",
+              type: "string",
+            },
+            _page: {
+              label: "Page to link",
+              type: "relationship",
+              withType: "@apostrophecms/page",
+              max: 1,
+              required: false,
+              builders: {
+                project: {
+                  title: 1,
+                  _url: 1,
+                },
+              },
+            },
+          },
+        },
+      },
       queensPortalLinks: {
         label: "Queen's Portal Links",
         type: "array",
@@ -191,7 +222,7 @@ module.exports = {
     group: {
       siteLayout: {
         label: "Layout Links",
-        fields: ["mediaLinks", "mainNavLinks"],
+        fields: ["mediaLinks", "mainNavLinks", 'miniFooter'],
       },
       queensPortal: {
         label: "Queen's Portal",

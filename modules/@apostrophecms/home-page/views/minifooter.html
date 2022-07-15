@@ -1,0 +1,15 @@
+{% if data.global.miniFooter.length %}
+<div class="mm-index__mini-footer">
+  <ul>
+    {% for item in data.global.miniFooter %}
+    {% if item.url %}
+    <li><a href="{{ link.url }}">{{ link.label }}</a> &#8250;</li>
+    {% else %}
+    <li><a href="{{ item._page[0]._url }}">{{ item.label }}</a></li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+
