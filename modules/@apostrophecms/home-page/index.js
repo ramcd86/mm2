@@ -7,7 +7,7 @@ module.exports = {
       async breadcrumbs(req, data) {
         return [];
       },
-      async miniFooter(req, data) {
+      async minifooter(req, data) {
         return [];
       },
     };
