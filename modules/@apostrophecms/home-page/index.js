@@ -10,7 +10,7 @@ module.exports = {
       async minifooter(req, data) {
         return [];
       },
-      async queensnews(req, data) {
+      async queensheadlines(req, data) {
         const handledQueryData = [];
 
         const dbData = await self.apos.db
@@ -18,9 +18,9 @@ module.exports = {
           .find({ type: "queensnews" })
           .toArray();
 
-        console.log('dbData', dbData)
+        console.log(dbData)
 
-        // const slicedDbData = dbData.slice(-(data.max + 1)).reverse();
+        const slicedDbData = dbData.slice(-(data.max + 1)).reverse();
 
         // slicedDbData.forEach((item) => {
         //   if (!item.archived && item.visibility === "public") {
@@ -48,7 +48,9 @@ module.exports = {
         //   Math.max(handledQueryData.length - 5, 1)
         // );
 
-        return {};
+        return {
+          slicedDbData
+        };
       },
     };
   },
