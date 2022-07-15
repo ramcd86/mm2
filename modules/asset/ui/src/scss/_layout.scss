@@ -89,6 +89,7 @@ body {
     }
   }
   &__subnav {
+
     display: flex;
     align-items: center;
     background-color: $white;
@@ -97,40 +98,37 @@ body {
     font-weight: bold;
     font-family: "Vollkorn", serif;
     padding-top: 10px;
-    margin-bottom: 5px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    ul {
-      display: flex;
-      flex-direction: row;
-      padding-left: 0px;
-      margin-bottom: 0px;
-      justify-content: center;
-      :last-child {
-        border-right: 0px;
-      }
-      padding-bottom: 10px;
-      li {
-        list-style: none;
-        text-align: center;
-        justify-content: center;
-        border-right: 2px solid $bark;
-        padding-left: 15px;
-        padding-right: 15px;
-        a {
-          color: $bark;
-          &:hover {
-            color: $slate;
-            text-decoration: none;
-            border-bottom: 2px solid $bark;
-          }
-        }
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    :last-child {
+      border-right: 0px;
+    }
+    a {
+      padding: 5px 10px;
+      //border-right: 2px solid $bark;
+      display: inline-block;
+      color: $bark;
+      text-decoration: none;
+      background-color: $white;
+      &:hover {
+        color: $white;
+        background-color: $bark;
+        border-radius: 5px;
+        //text-decoration: underline;
+        //border-bottom: 2px solid $bark;
       }
     }
   }
   &__breadcrumbs {
-    font-size: 14px;
-    font-family: "Vollkorn", serif;
+    font-size: 12px;
+    background-color: $white;
+    padding: 5px;
+    font-weight: 900;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: $black;
     ul {
       display: flex;
       flex-direction: row;
@@ -140,19 +138,21 @@ body {
       :last-child {
         border-right: 0px;
       }
-      padding-bottom: 10px;
+      //padding-bottom: 10px;
       li {
         list-style: none;
         text-align: center;
         justify-content: center;
-        padding-left: 15px;
-        padding-right: 15px;
+        //padding-left: 15px;
+        padding-right: 5px;
         a {
           color: $bark;
+          //border-bottom: 1px solid $bark;
+          text-decoration: underline;
           &:hover {
             color: $slate;
-            text-decoration: none;
-            border-bottom: 2px solid $bark;
+            text-decoration: underline;
+            //border-bottom: 1px solid $slate;
           }
         }
       }
@@ -199,4 +199,9 @@ body {
 }
 .shop-portal {
   background-color: $grass;
+}
+.selected-subnav-item {
+  color: $white !important;
+  background-color: $bark !important;
+  border-radius: 5px !important;
 }
