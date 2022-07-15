@@ -10,6 +10,46 @@ module.exports = {
       async minifooter(req, data) {
         return [];
       },
+      async queensnews(req, data) {
+        const handledQueryData = [];
+
+        const dbData = await self.apos.db
+          .collection("aposDocs")
+          .find({ type: "queensnews" })
+          .toArray();
+
+        console.log('dbData', dbData)
+
+        // const slicedDbData = dbData.slice(-(data.max + 1)).reverse();
+
+        // slicedDbData.forEach((item) => {
+        //   if (!item.archived && item.visibility === "public") {
+        //     handledQueryData.push({
+        //       title: item.title || "",
+        //       summary: item.summary || "",
+        //       historicUrls: item.historicUrls || [],
+        //       slug: item.slug || "",
+        //       visibility: item.visibility || "",
+        //       archived: item.archived || true,
+        //       updatedAt:
+        //         new Date(item.updatedAt).toLocaleDateString("de-DE", {
+        //           weekday: "long",
+        //           year: "numeric",
+        //           month: "long",
+        //           day: "numeric",
+        //           hour: "numeric",
+        //           minute: "numeric",
+        //         }) || "",
+        //     });
+        //   }
+        // });
+        //
+        // const headlines = handledQueryData.slice(
+        //   Math.max(handledQueryData.length - 5, 1)
+        // );
+
+        return {};
+      },
     };
   },
   options: {
