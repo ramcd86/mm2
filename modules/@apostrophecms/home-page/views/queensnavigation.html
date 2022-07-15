@@ -1,15 +1,13 @@
 <div class="mm-index__subnav">
   <div class="container">
-      {% for item in data.global.queensPortalLinks %}
-        <a class="subnav-items" href="{{ item._page[0]._url }}">{{ item.label }}</a>
-      {% endfor %}
-      {% for item in data.global.queensPortalGeneralLinks %}
-        {% if item.url %}
-        <a class="subnav-items" href="{{ item.url }}">{{ item.label }}</a>
-        {% else %}
-        <a class="subnav-items" href="{{ item._page[0]._url }}">{{ item.label }}</a>
-        {% endif %}
-      {% endfor %}
+    {% for item in data.global.queensPortalLinks %}
+    <a class="subnav-items" href="{{ item._page[0]._url }}">{{ item.label }}</a>
+    {% endfor %} {% for item in data.global.queensPortalGeneralLinks %} {% if
+    item.url %}
+    <a class="subnav-items" href="{{ item.url }}">{{ item.label }}</a>
+    {% else %}
+    <a class="subnav-items" href="{{ item._page[0]._url }}">{{ item.label }}</a>
+    {% endif %} {% endfor %}
   </div>
 </div>
 {% component '@apostrophecms/home-page:breadcrumbs' %}

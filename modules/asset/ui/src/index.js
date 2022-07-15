@@ -1,5 +1,4 @@
 export default () => {
-
   const handlePageStyling = () => {
     const urlSegments = window.location.pathname.split("/");
     const pageBase = document.getElementById("pageBase");
@@ -13,12 +12,12 @@ export default () => {
   };
 
   const handleSubnavLinkHighlighting = () => {
-    const subNavLinks = document.querySelectorAll('.subnav-items');
+    const subNavLinks = document.querySelectorAll(".subnav-items");
     if (subNavLinks && subNavLinks.length > 0) {
-      subNavLinks.forEach(navLink => {
+      subNavLinks.forEach((navLink) => {
         console.log(navLink.href);
         if (navLink.href === window.location.href) {
-          navLink.classList.add('selected-subnav-item');
+          navLink.classList.add("selected-subnav-item");
         }
       });
     }
@@ -26,5 +25,4 @@ export default () => {
 
   handlePageStyling();
   handleSubnavLinkHighlighting();
-
 };

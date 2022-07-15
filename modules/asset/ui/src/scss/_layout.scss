@@ -94,7 +94,6 @@ body {
     }
   }
   &__subnav {
-
     display: flex;
     align-items: center;
     background-color: $white;
@@ -171,40 +170,40 @@ body {
       }
     }
   }
-  &__mini-footer  {
-      font-size: 12px;
-      background-color: $white;
-      font-weight: 900;
-      padding: 5px 5px 10px;
-      margin-top: 30px;
-      border-top-left-radius: 5px;
+  &__mini-footer {
+    font-size: 12px;
+    background-color: $white;
+    font-weight: 900;
+    padding: 5px 5px 10px;
+    margin-top: 30px;
+    border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-      color: $black;
-      ul {
-        display: flex;
-        flex-direction: row;
-        padding-left: 0px;
-        margin-bottom: 0px;
-        justify-content: right;
-        :last-child {
-          border-right: 0px;
-        }
-        li {
-          list-style: none;
-          text-align: center;
-          justify-content: center;
-          padding-right: 5px;
-          a {
-            color: $bark;
+    color: $black;
+    ul {
+      display: flex;
+      flex-direction: row;
+      padding-left: 0px;
+      margin-bottom: 0px;
+      justify-content: right;
+      :last-child {
+        border-right: 0px;
+      }
+      li {
+        list-style: none;
+        text-align: center;
+        justify-content: center;
+        padding-right: 5px;
+        a {
+          color: $bark;
+          text-decoration: underline;
+          &:hover {
+            color: $slate;
             text-decoration: underline;
-            &:hover {
-              color: $slate;
-              text-decoration: underline;
-            }
           }
         }
       }
     }
+  }
 
   &__footer {
     height: 300px;
