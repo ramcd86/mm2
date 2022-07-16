@@ -14,14 +14,15 @@ template that lives in the top-level views/ folder for convenience #} {% extends
     <div class="row">
       <div class="col-6">
         <h3>Aktuelle Nachrichtenbeiträge</h3>
-        {% component '@apostrophecms/home-page:queensheadlines' %}
+        {% component '@apostrophecms/home-page:queensheadlines' with { max: 5 } %}
       </div>
       <div class="col-6">
         <h3>Aktuelle Nachrichtenbeiträge</h3>
-        {% component '@apostrophecms/home-page:organsheadlines' %}/div>
+        {% component '@apostrophecms/home-page:organsheadlines' with { max: 5 } %}
     </div>
 
     {% area data.page, 'main' %}
   </div>
+</div>
 </div>
 {% endblock %}

@@ -1,5 +1,23 @@
 .headlines {
-  a {
-    display: block;
+  :nth-child(even) {
+    margin-bottom: 10px;
   }
+  div {
+    display: block;
+    height: 20px;
+    a {
+      font-family: "Vollkorn", serif;
+      font-size: 18px;
+    }
+    span {
+      font-size: 12px;
+      padding-left: 10px;
+      font-style: italic;
+    }
+  }
+  margin-bottom: 25px;
+  background-color: $white;
+  padding: 5px 15px 10px;
+  border-radius: 5px;
+  font-weight: 900;
 }

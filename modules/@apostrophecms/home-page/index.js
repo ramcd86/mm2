@@ -26,6 +26,7 @@ module.exports = {
             item.visibility === 'public' &&
             item.aposLocale === 'en:published'
           ) {
+            console.log('item.updatedAt', item.updatedAt);
             queensNewsHeadlines.push({
               title: item.title || '',
               summary: item.summary || '',
@@ -53,7 +54,7 @@ module.exports = {
         };
       },
       async organsheadlines(req, data) {
-        let organsHeadlines = [];
+        const organsHeadlines = [];
 
         const dbData = await self.apos.db
           .collection('aposDocs')
@@ -62,7 +63,7 @@ module.exports = {
 
         const slicedDbData = dbData.slice(-(data.max + 1)).reverse();
 
-        console.log('slicedDbData', slicedDbData);
+        // console.log('slicedDbData', slicedDbData);
 
         slicedDbData.forEach((item) => {
           if (
@@ -72,7 +73,7 @@ module.exports = {
           ) {
             organsHeadlines.push({
               title: item.title || '',
-              alpha: item.alpha || '',
+              alpha: item.alpha.toLowerCase() || '',
               slug: item.slug || '',
               updatedAt:
                 new Date(item.updatedAt).toLocaleDateString('de-DE', {
@@ -87,10 +88,12 @@ module.exports = {
           }
         });
 
-        organsHeadlines = [ ...new Set(organsHeadlines) ];
+        // organsHeadlines = [ ...new Set(organsHeadlines) ];
+
+        // console.log('organsHeadlines', organsHeadlines);
 
         return {
-          slicedDbData
+          organsHeadlines
         };
       }
     };
