@@ -80,7 +80,7 @@ module.exports = {
         }
       },
       queensPortalLinks: {
-        label: 'Queen\'s Portal Links',
+        label: 'Queen\'s Portal Directory Links',
         type: 'array',
         titleField: 'label',
         // The array schema for each item
@@ -188,7 +188,38 @@ module.exports = {
         }
       },
       queensPortalGeneralLinks: {
-        label: 'Queen\'s Portal Sidebar Links',
+        label: 'Queen\'s Portal Top Bar Links',
+        type: 'array',
+        titleField: 'label',
+        // The array schema for each item
+        fields: {
+          add: {
+            label: {
+              label: 'Nav item label',
+              type: 'string'
+            },
+            url: {
+              label: 'Link',
+              type: 'string'
+            },
+            _page: {
+              label: 'Page to link',
+              type: 'relationship',
+              withType: '@apostrophecms/page',
+              max: 1,
+              required: false,
+              builders: {
+                project: {
+                  title: 1,
+                  _url: 1
+                }
+              }
+            }
+          }
+        }
+      },
+      publisherPortalGeneralLinks: {
+        label: 'Publisher\'s Portal Top Bar Links',
         type: 'array',
         titleField: 'label',
         // The array schema for each item
@@ -233,6 +264,12 @@ module.exports = {
           'queensPortalOrganBuilderLinks',
           'queensPortalChurchMusiciansLinks',
           'queensPortalGeneralLinks'
+        ]
+      },
+      publisherPortal: {
+        label: 'Publisher Portal',
+        fields: [
+          'publisherPortalGeneralLinks'
         ]
       }
     }
