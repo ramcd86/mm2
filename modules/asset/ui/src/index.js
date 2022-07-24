@@ -61,7 +61,38 @@ export default () => {
     }
   };
 
+  const handleImagesForLightBox = () => {
+    const imageContainer = document.querySelector('.image-container');
+    const imageClickFunction = (imageHtmlString) => {
+      console.log(imageHtmlString);
+    };
+    document.querySelectorAll('.custom-image-widget').forEach(widgets => {
+
+      const widgetImages = widgets.getElementsByTagName('img');
+
+      console.log(widgetImages);
+      for (let i = 0; i < widgetImages.length; i++) {
+        widgetImages[i].addEventListener('click', () => imageClickFunction(widgetImages[i]));
+        // console.log(widgetImages[i]);
+        //   imageContainer.style.display = 'block';
+        //   imageContainer.innerHTML = `
+        //     <div class="image-container__wrapper">
+        //         <img src="${widgetImages[i].currentSrc}">
+        //     </div>
+        //     <button class="image-container__close">Zurückweisen</button>
+        // `;
+        //   document.querySelector('.image-container__close').addEventListener('click', () => {
+        //     imageContainer.innerHTML = '';
+        //     imageContainer.style.display = 'none';
+        //   });
+        // });
+
+      }
+    });
+  };
+
   handlePageStyling();
   handleSubnavLinkHighlighting();
   handleGalleryGeneration();
+  handleImagesForLightBox();
 };
