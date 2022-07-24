@@ -1,5 +1,6 @@
 export default () => {
-  const handlePageStyling = () => {
+
+  function handlePageStyling() {
     const urlSegments = window.location.pathname.split('/');
     const pageBase = document.getElementById('pageBase');
     if (pageBase && urlSegments) {
@@ -26,7 +27,7 @@ export default () => {
 
   };
 
-  const handleSubnavLinkHighlighting = () => {
+  function handleSubnavLinkHighlighting() {
     const subNavLinks = document.querySelectorAll('.subnav-items');
     if (subNavLinks && subNavLinks.length > 0) {
       subNavLinks.forEach((navLink) => {
@@ -38,7 +39,7 @@ export default () => {
     }
   };
 
-  const handleGalleryGeneration = () => {
+  function handleGalleryGeneration() {
     if (document.querySelectorAll('.custom-gallery-widget').length > 0) {
       document.querySelectorAll('.custom-gallery-widget').forEach((gallery, index) => {
         const wrapper = document.querySelectorAll('.custom-gallery-widget__wrapper')[index];
@@ -55,44 +56,61 @@ export default () => {
         });
         next.addEventListener('click', () => {
           wrapper.scrollLeft += 270;
-          console.log('?');
         });
+
       });
+      generateGalleryClickhandlers();
     }
   };
 
-  const handleImagesForLightBox = () => {
+  function generateGalleryClickhandlers() {
     const imageContainer = document.querySelector('.image-container');
+    document.querySelectorAll('.custom-gallery-widget__slide').forEach(slide => {
+      const extractedUrl = slide.style.backgroundImage.slice(4, -1).replace(/"/g, '');
+      slide.addEventListener('click', () => {
+        imageContainer.style.display = 'block';
+        imageContainer.innerHTML = `
+         <div class="image-container__wrapper">
+              <img class="image-container__clickable" src="${extractedUrl}">
+          </div>
+          <button class="image-container__close">Zurückweisen</button>
+      `;
+        document.querySelector('.image-container__close').addEventListener('click', () => {
+          imageContainer.innerHTML = '';
+          imageContainer.style.display = 'none';
+        });
+      });
+    });
+  }
+
+  function handleImagesForLightBox() {
     const imageClickFunction = (imageHtmlString) => {
-      console.log(imageHtmlString);
+      const imageContainer = document.querySelector('.image-container');
+      imageContainer.style.display = 'block';
+      imageContainer.innerHTML = `
+         <div class="image-container__wrapper">
+              <img class="image-container__clickable" src="${imageHtmlString}">
+          </div>
+          <button class="image-container__close">Zurückweisen</button>
+      `;
+      document.querySelector('.image-container__close').addEventListener('click', () => {
+        imageContainer.innerHTML = '';
+        imageContainer.style.display = 'none';
+      });
     };
     document.querySelectorAll('.custom-image-widget').forEach(widgets => {
-
       const widgetImages = widgets.getElementsByTagName('img');
-
-      console.log(widgetImages);
       for (let i = 0; i < widgetImages.length; i++) {
-        widgetImages[i].addEventListener('click', () => imageClickFunction(widgetImages[i]));
-        // console.log(widgetImages[i]);
-        //   imageContainer.style.display = 'block';
-        //   imageContainer.innerHTML = `
-        //     <div class="image-container__wrapper">
-        //         <img src="${widgetImages[i].currentSrc}">
-        //     </div>
-        //     <button class="image-container__close">Zurückweisen</button>
-        // `;
-        //   document.querySelector('.image-container__close').addEventListener('click', () => {
-        //     imageContainer.innerHTML = '';
-        //     imageContainer.style.display = 'none';
-        //   });
-        // });
-
+        widgetImages[i].addEventListener('click', () => imageClickFunction(widgetImages[i].currentSrc));
       }
     });
   };
 
   handlePageStyling();
   handleSubnavLinkHighlighting();
-  handleGalleryGeneration();
   handleImagesForLightBox();
+
+  setTimeout(() => {
+    handleGalleryGeneration();
+  }, 1500);
 };

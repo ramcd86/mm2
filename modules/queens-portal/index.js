@@ -18,8 +18,7 @@ module.exports = {
             'custom-image': {},
             '@apostrophecms/rich-text': {},
             '@apostrophecms/html': {},
-            'custom-divider': {},
-            'custom-gallery': {}
+            'custom-divider': {}
           }
         }
       }
