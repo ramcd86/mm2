@@ -250,7 +250,6 @@ module.exports = {
         }
       }
     },
-
     group: {
       siteLayout: {
         label: 'Layout Links',

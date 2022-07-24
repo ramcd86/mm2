@@ -1,10 +1,31 @@
 h1 {
+  display: inline-block;
+  position: relative;
   font-family: "Vollkorn", serif;
   font-weight: 900;
   font-size: 40px;
   line-height: 1.5;
   letter-spacing: 0.4px;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  &::before {
+    content: "{ ";
+    margin-top: -11px;
+    position: absolute;
+    left: -30px;
+    font-size: 50px;
+    opacity: 0.3;
+  }
+  &::after {
+    content: " }";
+    margin-top: -11px;
+    position: absolute;
+    right: -30px;
+    font-size: 50px;
+    opacity: 0.3;
+  }
 }
+
 
 h2 {
   font-family: "Raleway", sans-serif;
@@ -15,11 +36,31 @@ h2 {
 }
 
 h3 {
+  display: inline-block;
+  position: relative;
+  &::before {
+    content: "{ ";
+    margin-top: -8px;
+    position: absolute;
+    left: -16px;
+    font-size: 30px;
+    opacity: 0.3;
+  }
+  &::after {
+    content: " }";
+    margin-top: -8px;
+    position: absolute;
+    right: -16px;
+    font-size: 30px;
+    opacity: 0.3;
+  }
   font-family: "Vollkorn", serif;
   font-weight: 900;
   font-size: 20px;
   line-height: 1.5;
   letter-spacing: 0.4px;
+  margin-bottom: 15px;
+  margin-top: 15px;
 }
 
 h4 {

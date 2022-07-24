@@ -45,10 +45,25 @@ body {
     background-position: center top;
     background-size: cover;
     background-repeat: no-repeat;
+    &--mod {
+      height: 150px;
+      background-image: url("./../../../images/header.png");
+      background-position: center top;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
   }
   &__logo {
-    width: 100%;
+    &--mod {
+      height: 150px;
+      width: 100%;
+      background-image: url("./../../../images/mm-logo.png");
+      background-size: auto 100%;
+      background-position: center top;
+      background-repeat: no-repeat;
+    }
     height: 400px;
+    width: 100%;
     background-image: url("./../../../images/mm-logo.png");
     background-size: auto 100%;
     background-position: center top;
@@ -250,4 +265,18 @@ body {
   background-color: $bark !important;
   border-radius: 5px !important;
   text-decoration: none !important;
+}
+
+
+table {
+  width: 100% !important;
+  background-color: $white !important;
+  border-radius: 5px !important;
+  tbody {
+    border-radius: 5px !important;
+  }
+  tr, td, th {
+    padding: 2px 10px;
+    border-radius: 5px !important;
+  }
 }
