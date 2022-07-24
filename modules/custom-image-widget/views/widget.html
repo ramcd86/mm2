@@ -1,6 +1,18 @@
-<section
-  data-custom-image-widget
-  class="custom-image-widget {{ data.widget.alignment }} {{ data.widget.width }}"
->
+
+  {% if data.widget.isGallery %}
+  <section class="custom-gallery-widget">
+    <div class="custom-gallery-widget__wrapper">
+      <div id="imagesources" style="display: none;">{% area data.widget, 'image' %}</div>
+    </div>
+    <span id="prev" class="custom-gallery-widget__prev">&#129092;</span><span class="custom-gallery-widget__next" id="next">&#129094;</span>
+  </section>
+
+  {% else %}
+  <section
+          data-custom-image-widget
+          class="custom-image-widget {{ data.widget.alignment }} {{ data.widget.width }}"
+  >
   <div>{% area data.widget, 'image' %}</div>
-</section>
+  </section>
+  {% endif %}
+

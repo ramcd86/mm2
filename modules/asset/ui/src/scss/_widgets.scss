@@ -1,3 +1,5 @@
+@import "_vars";
+
 .bp-video-widget {
   width: 100%;
 }
@@ -10,6 +12,104 @@
   padding-left: 10px;
   padding-right: 10px;
   margin-bottom: 15px;
+}
+
+.custom-gallery-widget__wrapper::-webkit-scrollbar {
+  width: 5px !important;
+  height: 5px;
+}
+
+/* Track */
+.custom-gallery-widget__wrapper::-webkit-scrollbar-track {
+  background: #f1f1f1 !important;
+  width: 5px !important;
+}
+
+/* Handle */
+.custom-gallery-widget__wrapper::-webkit-scrollbar-thumb {
+  background: $bark !important;
+  width: 5px !important;
+}
+
+/* Handle on hover */
+.custom-gallery-widget__wrapper::-webkit-scrollbar-thumb:hover {
+  background: $slate !important;
+  width: 5px !important;
+}
+
+.custom-gallery-widget {
+  background-color: $white;
+  padding: 5px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  position: relative;
+  &__prev {
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+    position: absolute;
+    z-index: 10;
+    top: 135px;
+    left: -13px;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-color: $white;
+    padding: 7px;
+    border-radius: 24px;
+    font-size: 27px;
+    color: $bark;
+    &:hover {
+      color: $slate;
+    }
+  }
+  &__next {
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+    position: absolute;
+    z-index: 10;
+    top: 135px;
+    right: -13px;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-color: $white;
+    padding: 7px;
+    border-radius: 24px;
+    font-size: 27px;
+    color: $bark;
+    &:hover {
+      color: $slate;
+    }
+  }
+  &__wrapper {
+    margin-bottom: 10px;
+    max-height: 270px;
+    height: 270px;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    display: block;
+    flex-direction: row;
+    width: 100%;
+    white-space: nowrap;
+    margin-top: 10px;
+    scroll-behavior: smooth;
+  }
+  &__slide {
+    display: inline-block;
+    width: 250px;
+    height: 250px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 }
 
 .img-left {
