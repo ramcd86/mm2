@@ -6,8 +6,7 @@ main %} {% component '@apostrophecms/home-page:queensnavigation' %}
   </div>
   <div class="col-12">
     <ul>
-      {# 👇 Referencing the global doc `primaryNav` property #} {% for item in
-      data.global.queensPortalChurchMusiciansLinks %}
+{% for item in data.global.queensPortalChurchMusiciansLinks %}
       <li>
         <a href="{{ item._page[0]._url }}/">{{ item.label }}</a>
       </li>
