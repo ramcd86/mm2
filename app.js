@@ -4,6 +4,7 @@ require('apostrophe')({
     organdir: {},
     builderdir: {},
     musiciandir: {},
+    publicationsdir: {},
     queensnews: {},
     'custom-image-widget': {},
     'custom-divider-widget': {},
@@ -50,6 +51,8 @@ require('apostrophe')({
     'publisher-delivery-portal': {},
     'publisher-portal': {},
     'publisher-default-page': {},
+    'publicationsdir-page': {},
+    'publicationsdir-alphabase-page': {},
     'shop-portal': {}
   }
 });

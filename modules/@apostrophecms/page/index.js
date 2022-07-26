@@ -37,10 +37,6 @@ module.exports = {
         label: 'Church Musicians Directory'
       },
       {
-        name: 'musiciandir-alphabase-page',
-        label: 'Church Musicians Alphabetical Base Page'
-      },
-      {
         name: 'queens-portal',
         label: 'Queen\'s Portal'
       },
@@ -67,6 +63,14 @@ module.exports = {
       {
         name: 'publisher-delivery-portal',
         label: 'Publisher Delivery (KDL-VA)'
+      },
+      {
+        name: 'publicationsdir-alphabase-page',
+        label: 'Publications Alphabetical Base Page'
+      },
+      {
+        name: 'publicationsdir-page',
+        label: 'Publications Directory'
       },
       {
         name: 'notenkeller-portal',
