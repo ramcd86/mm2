@@ -1,14 +1,13 @@
 {# modules/default-page/views/page.html #} {% extends "layout.html" %} {% block
-main %} {% component '@apostrophecms/home-page:queensnavigation' %}
+main %} {% component '@apostrophecms/home-page:publishernavigation' %}
 <div class="row organ-builder-directory--base">
-  <div class="col-12 pt-4 pb-4">
-    <h2 class="pb-1">{{ data.page.subtitle }}</h2>
+  <div class="col-12">
+    <h1>{{ data.page.title }}</h1>
+    <h2>{{ data.page.subtitle }}</h2>
   </div>
   <div class="col-12">
     <ul>
-      ?
-      {% for item in
-      data.global.queensPortalOrganBuilderLinks %}
+      {% for item in data.global.publisherPortalPublisherLinks %}
       <li>
         <a href="{{ item._page[0]._url }}/">{{ item.label }}</a>
       </li>

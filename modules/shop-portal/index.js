@@ -1,33 +1,33 @@
 module.exports = {
-  extend: '@apostrophecms/page-type',
+  extend: "@apostrophecms/page-type",
   options: {
-    label: 'Shop Portal'
+    label: "Shop Portal",
   },
   fields: {
     add: {
       pageDescription: {
-        type: 'string',
-        label: 'Page Description',
+        type: "string",
+        label: "Page Description",
         textarea: true,
-        required: false
+        required: false,
       },
       main: {
-        type: 'area',
+        type: "area",
         options: {
           widgets: {
-            'custom-image': {},
-            '@apostrophecms/rich-text': {},
-            '@apostrophecms/html': {},
-            'custom-divider': {}
-          }
-        }
-      }
+            "custom-image": {},
+            "@apostrophecms/rich-text": {},
+            "@apostrophecms/html": {},
+            "custom-divider": {},
+          },
+        },
+      },
     },
     group: {
       basics: {
-        label: 'Basics',
-        fields: [ 'title', 'pageDescription', 'main' ]
-      }
-    }
-  }
+        label: "Basics",
+        fields: ["title", "pageDescription", "main"],
+      },
+    },
+  },
 };

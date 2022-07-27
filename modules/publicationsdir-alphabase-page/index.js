@@ -1,26 +1,26 @@
 module.exports = {
-  extend: '@apostrophecms/page-type',
+  extend: "@apostrophecms/page-type",
   fields: {
     add: {
       subtitle: {
-        type: 'string'
+        type: "string",
       },
       main: {
-        type: 'area',
+        type: "area",
         options: {
           widgets: {
-            'custom-image': {},
-            '@apostrophecms/rich-text': {},
-            '@apostrophecms/html': {},
-            'custom-divider': {}
-          }
-        }
-      }
+            "custom-image": {},
+            "@apostrophecms/rich-text": {},
+            "@apostrophecms/html": {},
+            "custom-divider": {},
+          },
+        },
+      },
     },
     group: {
       basics: {
-        fields: [ 'title', 'subtitle', 'main' ]
-      }
-    }
-  }
+        fields: ["title", "subtitle", "main"],
+      },
+    },
+  },
 };

@@ -1,13 +1,13 @@
-require('apostrophe')({
-  shortName: 'musikmedienhaus',
+require("apostrophe")({
+  shortName: "musikmedienhaus",
   modules: {
     organdir: {},
     builderdir: {},
     musiciandir: {},
     publicationsdir: {},
     queensnews: {},
-    'custom-image-widget': {},
-    'custom-divider-widget': {},
+    "custom-image-widget": {},
+    "custom-divider-widget": {},
     // Apostrophe module configuration
     // *******************************
     //
@@ -18,41 +18,41 @@ require('apostrophe')({
     // have a minimal configuration here to turn them on: `moduleName: {}`
     // ***********************************************************************
     // `className` options set custom CSS classes for Apostrophe core widgets.
-    '@apostrophecms/rich-text-widget': {
+    "@apostrophecms/rich-text-widget": {
       options: {
-        className: 'bp-rich-text'
-      }
+        className: "bp-rich-text",
+      },
     },
-    '@apostrophecms/image-widget': {
+    "@apostrophecms/image-widget": {
       options: {
-        className: 'bp-image-widget'
-      }
+        className: "bp-image-widget",
+      },
     },
-    '@apostrophecms/video-widget': {
+    "@apostrophecms/video-widget": {
       options: {
-        className: 'bp-video-widget'
-      }
+        className: "bp-video-widget",
+      },
     },
     // `asset` supports the project's webpack build for client-side assets.
     asset: {},
     // The project's first custom page type.
-    'default-page': {},
-    'organdir-page': {},
-    'organdir-alphabase-page': {},
-    'builderdir-page': {},
-    'builderdir-alphabase-page': {},
-    'musiciandir-page': {},
-    'musiciandir-alphabase-page': {},
-    'queens-portal': {},
-    'queens-default-page': {},
-    'queensnews-page': {},
-    'church-music-design-portal': {},
-    'notenkeller-portal': {},
-    'publisher-delivery-portal': {},
-    'publisher-portal': {},
-    'publisher-default-page': {},
-    'publicationsdir-page': {},
-    'publicationsdir-alphabase-page': {},
-    'shop-portal': {}
-  }
+    "default-page": {},
+    "organdir-page": {},
+    "organdir-alphabase-page": {},
+    "builderdir-page": {},
+    "builderdir-alphabase-page": {},
+    "musiciandir-page": {},
+    "musiciandir-alphabase-page": {},
+    "queens-portal": {},
+    "queens-default-page": {},
+    "queensnews-page": {},
+    "church-music-design-portal": {},
+    "notenkeller-portal": {},
+    "publisher-delivery-portal": {},
+    "publisher-portal": {},
+    "publisher-default-page": {},
+    "publicationsdir-page": {},
+    "publicationsdir-alphabase-page": {},
+    "shop-portal": {},
+  },
 });

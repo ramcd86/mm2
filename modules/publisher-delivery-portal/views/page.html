@@ -3,8 +3,7 @@ template that lives in the top-level views/ folder for convenience #} {% extends
 "layout.html" %} {% block main %}
 <div class="row">
   <div class="col-4">
-?
-    {% for item in data.global.queensPortalLinks %}
+    ? {% for item in data.global.queensPortalLinks %}
     <li>
       <a href="{{ item._page[0]._url }}">{{ item.label }}</a>
     </li>
@@ -18,7 +17,6 @@ template that lives in the top-level views/ folder for convenience #} {% extends
       {% endif %}
     </li>
     {% endfor %}
-
   </div>
   <div class="col-8"></div>
 </div>

@@ -1,8 +1,11 @@
-
-
 <div class="headlines">
   {% for headline in data.queensNewsHeadlines %}
-  <div>&#8250; <a class="subnav-items" href="./queens-portal/news/{{ headline.slug }}">{{ headline.title }}</a></div>
+  <div>
+    &#8250;
+    <a class="subnav-items" href="./queens-portal/news/{{ headline.slug }}"
+      >{{ headline.title }}</a
+    >
+  </div>
   <div><span>{{headline.updatedAt}}</span></div>
   {% endfor %}
 </div>

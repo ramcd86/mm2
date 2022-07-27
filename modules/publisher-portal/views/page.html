@@ -1,7 +1,7 @@
 {# This is an example home page template. It inherits and extends a layout
 template that lives in the top-level views/ folder for convenience #} {% extends
-"layout.html" %} {% block main %}
-{% component '@apostrophecms/home-page:publishernavigation' %}
+"layout.html" %} {% block main %} {% component
+'@apostrophecms/home-page:publishernavigation' %}
 
 <div class="row std-page">
   <div class="col-12 std-page__title">
@@ -10,8 +10,6 @@ template that lives in the top-level views/ folder for convenience #} {% extends
   <div class="col-12 std-page__desc">
     <h2>{{ data.page.pageDescription }}</h2>
   </div>
-  <div class="col-12 std-page__main">
-    {% area data.page, 'main' %}
-  </div>
+  <div class="col-12 std-page__main">{% area data.page, 'main' %}</div>
 </div>
 {% endblock %}

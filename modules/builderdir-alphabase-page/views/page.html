@@ -6,9 +6,7 @@ main %} {% component '@apostrophecms/home-page:queensnavigation' %}
   </div>
   <div class="col-12">
     <ul>
-      ?
-      {% for item in
-      data.global.queensPortalOrganBuilderLinks %}
+      ? {% for item in data.global.queensPortalOrganBuilderLinks %}
       <li>
         <a href="{{ item._page[0]._url }}/">{{ item.label }}</a>
       </li>

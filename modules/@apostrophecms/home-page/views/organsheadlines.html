@@ -1,8 +1,13 @@
-
-
 <div class="headlines">
-    {% for organ in data.organsHeadlines %}
-    <div>&#8250; <a class="subnav-items" href="./queens-portal/organs/organs-{{organ.alpha}}/{{organ.slug}}">{{ organ.title }}</a> </div>
-    <div><span>{{organ.updatedAt}}</span></div>
-    {% endfor %}
+  {% for organ in data.organsHeadlines %}
+  <div>
+    &#8250;
+    <a
+      class="subnav-items"
+      href="./queens-portal/organs/organs-{{organ.alpha}}/{{organ.slug}}"
+      >{{ organ.title }}</a
+    >
+  </div>
+  <div><span>{{organ.updatedAt}}</span></div>
+  {% endfor %}
 </div>

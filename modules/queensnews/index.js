@@ -1,28 +1,28 @@
 module.exports = {
-  extend: '@apostrophecms/piece-type',
+  extend: "@apostrophecms/piece-type",
   methods: (self, options) => {},
   options: {
-    label: 'Queens News Post',
-    pluralLabel: 'Queens News Posts'
+    label: "Queens News Post",
+    pluralLabel: "Queens News Posts",
   },
   fields: {
     add: {
       main: {
-        type: 'area',
+        type: "area",
         options: {
           widgets: {
-            'custom-image': {},
-            '@apostrophecms/rich-text': {},
-            '@apostrophecms/html': {},
-            'custom-divider': {}
-          }
-        }
-      }
+            "custom-image": {},
+            "@apostrophecms/rich-text": {},
+            "@apostrophecms/html": {},
+            "custom-divider": {},
+          },
+        },
+      },
     },
     group: {
       basics: {
-        fields: [ 'title', 'main' ]
-      }
-    }
-  }
+        fields: ["title", "main"],
+      },
+    },
+  },
 };
