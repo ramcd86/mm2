@@ -1,19 +1,15 @@
 {# modules/default-page/views/page.html #} {% extends "layout.html" %} {% block
 main %} {% component '@apostrophecms/home-page:queensnavigation' %}
-<div class="row organ-builder-directory--base">
-  <div class="col-12 pt-4 pb-4">
-    <h2 class="pb-1">{{ data.page.subtitle }}</h2>
+
+<div class="row directory-base">
+  <div class="col-12 directory-base__title">
+    <h1>{{ data.page.title }}</h1>
   </div>
-  <div class="col-12">
-    <ul>
-      ? {% for item in data.global.queensPortalOrganBuilderLinks %}
-      <li>
-        <a href="{{ item._page[0]._url }}/">{{ item.label }}</a>
-      </li>
-      {% endfor %}
-    </ul>
+  <div class="col-12 directory-base__desc">
+    <h2>{{ data.page.subtitle }}</h2>
   </div>
-  <div class="col-12">{% area data.page, 'main' %}</div>
+  {% component '@apostrophecms/home-page:dirnav' with { selectedPageNav: 'queensPortalOrganBuilderLinks' } %}
+  <div class="col-12 directory-base__content-area">{% area data.page, 'main' %}</div>
 </div>
 
 {% endblock %}

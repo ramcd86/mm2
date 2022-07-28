@@ -8,15 +8,7 @@ main %} {% component '@apostrophecms/home-page:queensnavigation' %}
   <div class="col-12 directory-base__desc">
     <h2>{{ data.page.subtitle }}</h2>
   </div>
-  <div class="col-12 directory-base__subnav">
-    <ul>{% for item in
-      data.global.queensPortalOrganLinks %}
-      <li>
-        <a href="{{ item._page[0]._url }}/">{{ item.label }}</a>
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
+  {% component '@apostrophecms/home-page:dirnav' with { selectedPageNav: 'queensPortalOrganLinks' } %}
   <div class="col-12 directory-base__content-area">{% area data.page, 'main' %}</div>
 </div>
 
