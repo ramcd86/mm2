@@ -33,4 +33,38 @@
   }
   &__content-area {
   }
+  &__list-header {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    background-color: $white;
+    border-radius: 5px;
+    font-weight: bold;
+    padding: 5px;
+  }
+  &__organ-row {
+    padding: 5px;
+    margin-bottom: 3px;
+    &--retired {
+      border-radius: 5px;
+      background-color: #727272;
+      color: $white;
+      a {
+        color: $white;
+        &:hover {
+          color: $peach;
+        }
+      }
+    }
+    &--foreign {
+      border-radius: 5px;
+      background-color: #6274be;
+      color: $white;
+      a {
+        color: $white;
+        &:hover {
+          color: $peach;
+        }
+      }
+    }
+  }
 }
