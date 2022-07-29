@@ -1,9 +1,5 @@
-{% extends data.outerLayout %}
-{% block title %}{{ data.page.title }}{% endblock %}
-
-{% block main %}
-
-
+{% extends data.outerLayout %} {% block title %}{{ data.page.title }}{% endblock
+%} {% block main %}
 
 <div id="base" class="container-fluid mm-index">
   {% if not data.user %}
@@ -31,11 +27,19 @@
       </nav>
       <main class="mm-index__main">
         <div class="container">
-
           <div class="search">
             <div class="search__min-bar search__min-bar--on-page">
-              <form data-apos-search-page-form method="GET" action="{{ data.url | e }}#main">
-                <input type="search" data-apos-search-field value="{{ data.query.q | e }}" name="q">
+              <form
+                data-apos-search-page-form
+                method="GET"
+                action="{{ data.url | e }}#main"
+              >
+                <input
+                  type="search"
+                  data-apos-search-field
+                  value="{{ data.query.q | e }}"
+                  name="q"
+                />
                 <button type="submit" value="Search">&#128269;</button>
               </form>
             </div>
@@ -49,20 +53,15 @@
 
           <div class="row">
             <div class="col-12 search__entries-list">
-              {% for doc in data.docs %}
-              {% if doc._url %}
-                <a href="{{ doc._url }}">{{ doc.title }}</a>
-              {% endif %}
-              {% endfor %}
-              {% if data.docs.length === 0 %}
+              {% for doc in data.docs %} {% if doc._url %}
+              <a href="{{ doc._url }}">{{ doc.title }}</a>
+              {% endif %} {% endfor %} {% if data.docs.length === 0 %}
               <h2>Keine Suchergebnisse</h2>
               {% endif %}
             </div>
           </div>
           <div class="row">
-            <div class="col-12 search__pager">
-              {% include "pager.html" %}
-            </div>
+            <div class="col-12 search__pager">{% include "pager.html" %}</div>
           </div>
 
           {% component '@apostrophecms/home-page:minifooter' %}

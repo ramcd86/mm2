@@ -44,28 +44,28 @@
 // are edge cases not relevant enough to explicitly offer a filter for, but
 // which should nevertheless be included in results.
 
-const { stripIndent } = require('common-tags');
-const _ = require('lodash');
+const { stripIndent } = require("common-tags");
+const _ = require("lodash");
 
 module.exports = {
-  extend: '@apostrophecms/page-type',
+  extend: "@apostrophecms/page-type",
   options: {
-    alias: 'search',
+    alias: "search",
     perPage: 10,
-    label: 'apostrophe:searchLabel'
+    label: "apostrophe:searchLabel",
   },
   init(self) {
-
     self.perPage = self.options.perPage;
 
     if (self.options.suggestions === undefined) {
       // bc fallback, not great
-      self.options.suggestions = { url: '/search' };
+      self.options.suggestions = { url: "/search" };
     } else {
       // will catch the new, better standard route URL
       self.options.suggestions = {};
     }
-    self.options.suggestions.url = self.options.suggestions.url || self.action + '/suggest';
+    self.options.suggestions.url =
+      self.options.suggestions.url || self.action + "/suggest";
     self.dispatchAll();
     self.enableFilters();
   },
@@ -74,56 +74,68 @@ module.exports = {
       get: {
         async suggest(req, res) {
           try {
-            const docs = await self.suggest(req, self.apos.launder.string(req.query.q));
+            const docs = await self.suggest(
+              req,
+              self.apos.launder.string(req.query.q)
+            );
             return res.send(docs);
           } catch (err) {
             self.apos.util.error(err);
-            return res.status(500).send('error');
+            return res.status(500).send("error");
           }
-        }
-      }
+        },
+      },
     };
   },
   handlers(self) {
     return {
-      'apostrophe:modulesRegistered': {
+      "apostrophe:modulesRegistered": {
         determineTypes() {
-          self.types = self.options.types || _.map(self.apos.page.typeChoices, 'name');
+          self.types =
+            self.options.types || _.map(self.apos.page.typeChoices, "name");
           if (self.options.types) {
             // Explicit configuration was chosen
             return;
           }
           // A chance to rewrite the array
-          return self.emit('determineTypes', self.types);
-        }
+          return self.emit("determineTypes", self.types);
+        },
       },
-      '@apostrophecms/doc-type:beforeSave': {
+      "@apostrophecms/doc-type:beforeSave": {
         indexDoc(req, doc) {
           self.indexDoc(req, doc);
-        }
-      }
+        },
+      },
     };
   },
   methods(self) {
     return {
-
       enableFilters() {
         if (self.options.filters) {
           self.filters = self.options.filters;
-          if (!_.find(self.filters, { name: '__else' })) {
-            self.filters = self.options.filters.concat([ {
-              label: 'apostrophe:everythingElse',
-              name: '__else'
-            } ]);
+          if (!_.find(self.filters, { name: "__else" })) {
+            self.filters = self.options.filters.concat([
+              {
+                label: "apostrophe:everythingElse",
+                name: "__else",
+              },
+            ]);
           }
         }
       },
 
       suggest(req, q) {
-        return self.apos.doc.find(req).limit(self.options.suggestions && (self.options.suggestions.limit || 10)).search(q).project({
-          _url: 1,
-          title: 1
-        }).toArray();
+        return self.apos.doc
+          .find(req)
+          .limit(
+            self.options.suggestions && (self.options.suggestions.limit || 10)
+          )
+          .search(q)
+          .project({
+            _url: 1,
+            title: 1,
+          })
+          .toArray();
       },
 
       // This method implements the search results page. It populates `req.data.docs`
@@ -133,7 +145,6 @@ module.exports = {
       // respected.
 
       async indexPage(req) {
-
         // Finesse so we can use applyBuildersSafely but we still support q, which is
         // a common expectation/preference
         req.query.search = req.query.search || req.query.q;
@@ -143,16 +154,24 @@ module.exports = {
 
         let defaultingToAll = false;
 
-        const query = self.apos.doc.find(req, {}).applyBuildersSafely(req.query).perPage(self.perPage);
+        const query = self.apos.doc
+          .find(req, {})
+          .applyBuildersSafely(req.query)
+          .perPage(self.perPage);
         if (self.filters) {
-          const filterTypes = _.filter(_.map(self.filters, 'name'), function (name) {
-            return name !== '__else';
-          });
+          const filterTypes = _.filter(
+            _.map(self.filters, "name"),
+            function (name) {
+              return name !== "__else";
+            }
+          );
           allowedTypes = _.filter(self.types, function (name) {
             return _.has(req.query, name);
           });
           if (req.query.__else) {
-            allowedTypes = allowedTypes.concat(_.difference(self.types, filterTypes));
+            allowedTypes = allowedTypes.concat(
+              _.difference(self.types, filterTypes)
+            );
           }
           if (!allowedTypes.length) {
             // Default is everything
@@ -175,36 +194,37 @@ module.exports = {
         }
 
         const count = await query.toCount();
-        if (query.get('page') > query.get('totalPages')) {
+        if (query.get("page") > query.get("totalPages")) {
           req.notFound = true;
           return;
         }
         req.data.totalDocs = count;
-        req.data.totalPages = query.get('totalPages');
+        req.data.totalPages = query.get("totalPages");
 
         const docs = await findDocs();
 
         if (self.apos.util.isAjaxRequest(req)) {
-          self.setTemplate(req, 'indexAjax');
+          self.setTemplate(req, "indexAjax");
         } else {
-          self.setTemplate(req, 'index');
+          self.setTemplate(req, "index");
         }
-        req.data.currentPage = query.get('page');
+        req.data.currentPage = query.get("page");
         req.data.docs = docs;
 
-        return self.emit('beforeIndex', req);
+        return self.emit("beforeIndex", req);
 
         async function findDocs() {
-
           // Polymorphic find: fetch just the ids at first, then go back
           // and fetch them via their own type managers so that we get the
           // expected relationships and urls and suchlike.
 
-          const idsAndTypes = await query.project({
-            _id: 1,
-            type: 1
-          }).toArray();
-          const byType = _.groupBy(idsAndTypes, 'type');
+          const idsAndTypes = await query
+            .project({
+              _id: 1,
+              type: 1,
+            })
+            .toArray();
+          const byType = _.groupBy(idsAndTypes, "type");
           let docs = [];
 
           for (const type in byType) {
@@ -213,32 +233,35 @@ module.exports = {
           // Restore the intended order ($in doesn't respect it and neither does
           // fetching them all by type). ACHTUNG: without this search quality goes
           // right out the window. -Tom
-          return self.apos.util.orderById(_.map(idsAndTypes, '_id'), docs);
+          return self.apos.util.orderById(_.map(idsAndTypes, "_id"), docs);
 
           async function getDocsOfType(type) {
             const manager = self.apos.doc.getManager(type);
             if (!manager) {
               return;
             }
-            docs = docs.concat(await manager.find(req, {
-              type: type,
-              _id: { $in: _.map(byType[type], '_id') }
-            }).toArray());
+            docs = docs.concat(
+              await manager
+                .find(req, {
+                  type: type,
+                  _id: { $in: _.map(byType[type], "_id") },
+                })
+                .toArray()
+            );
           }
         }
       },
 
       dispatchAll() {
-        self.dispatch('/', self.indexPage);
+        self.dispatch("/", self.indexPage);
       },
 
       indexDoc(req, doc) {
-
         const texts = self.getSearchTexts(doc);
 
         _.each(texts, function (text) {
           if (text.text === undefined) {
-            text.text = '';
+            text.text = "";
           }
         });
 
@@ -246,11 +269,14 @@ module.exports = {
           return text.weight > 10;
         });
 
-        const searchSummary = _.map(_.filter(texts, function (text) {
-          return !text.silent;
-        }), function (text) {
-          return text.text;
-        }).join(' ');
+        const searchSummary = _.map(
+          _.filter(texts, function (text) {
+            return !text.silent;
+          }),
+          function (text) {
+            return text.text;
+          }
+        ).join(" ");
         const highText = self.boilTexts(highTexts);
         const lowText = self.boilTexts(texts);
         const titleSortified = self.apos.util.sortify(doc.title);
@@ -262,7 +288,7 @@ module.exports = {
           highSearchText: highText,
           highSearchWords: highWords,
           lowSearchText: lowText,
-          searchSummary: searchSummary
+          searchSummary: searchSummary,
         });
       },
 
@@ -273,17 +299,20 @@ module.exports = {
       async indexTaskOne(req, doc) {
         self.indexDoc(req, doc);
 
-        return self.apos.doc.db.updateOne({
-          _id: doc._id
-        }, {
-          $set: {
-            titleSortified: doc.titleSortified,
-            highSearchText: doc.highSearchText,
-            highSearchWords: doc.highSearchWords,
-            lowSearchText: doc.lowSearchText,
-            searchSummary: doc.searchSummary
+        return self.apos.doc.db.updateOne(
+          {
+            _id: doc._id,
+          },
+          {
+            $set: {
+              titleSortified: doc.titleSortified,
+              highSearchText: doc.highSearchText,
+              highSearchWords: doc.highSearchWords,
+              lowSearchText: doc.lowSearchText,
+              searchSummary: doc.searchSummary,
+            },
           }
-        });
+        );
       },
 
       // Returns texts which are a reasonable basis for
@@ -299,7 +328,7 @@ module.exports = {
         texts.push({
           weight: 100,
           text: doc.title,
-          silent: true
+          silent: true,
         });
         // Usually redundant to the text of the page, so don't
         // show it in the description, but it's highly-weighted stuff
@@ -308,13 +337,13 @@ module.exports = {
         texts.push({
           weight: 100,
           text: doc.seoDescription,
-          silent: true
+          silent: true,
         });
         // The slug often reveals more useful search-targeting information
         texts.push({
           weight: 100,
           text: doc.slug,
-          silent: true
+          silent: true,
         });
 
         // Areas can be schemaless so find them automatically
@@ -346,9 +375,13 @@ module.exports = {
       // through apos.util.sortify to eliminate unwanted characters and case differences
 
       boilTexts(texts) {
-        let text = _.reduce(texts, function (memo, text) {
-          return memo + ' ' + text.text;
-        }, '');
+        let text = _.reduce(
+          texts,
+          function (memo, text) {
+            return memo + " " + text.text;
+          },
+          ""
+        );
         text = self.apos.util.sortify(text);
         return text;
       },
@@ -357,8 +390,14 @@ module.exports = {
       // Identify fields that should never be rolled back
 
       docUnversionedFields(req, doc, fields) {
-        fields.push('titleSortified', 'highSearchText', 'highSearchWords', 'lowSearchText', 'searchSummary');
-      }
+        fields.push(
+          "titleSortified",
+          "highSearchText",
+          "highSearchWords",
+          "lowSearchText",
+          "searchSummary"
+        );
+      },
     };
   },
   tasks(self) {
@@ -371,9 +410,12 @@ module.exports = {
         `,
         task(argv) {
           const req = self.apos.task.getReq();
-          return self.apos.migration.eachDoc({}, _.partial(self.indexTaskOne, req));
-        }
-      }
+          return self.apos.migration.eachDoc(
+            {},
+            _.partial(self.indexTaskOne, req)
+          );
+        },
+      },
     };
-  }
+  },
 };

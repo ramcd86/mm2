@@ -19,16 +19,7 @@ import '@apostrophecms/pager:macros.html' as pager with context %} {% block main
     </div>
     {% for organ in data.pieces %}
     <article
-      class="row
-      directory-base__organ-row
-       {% if organ.isRetired %}
-         directory-base__organ-row--retired
-       {% endif %}
-       {% if organ.outsideGermany %}
-         directory-base__organ-row--foreign
-       {% endif %}
-"
-
+      class="row directory-base__organ-row {% if organ.isRetired %} directory-base__organ-row--retired {% endif %} {% if organ.outsideGermany %} directory-base__organ-row--foreign {% endif %}"
     >
       <div class="col-5">
         <a href="{{ organ._url }}">{{ organ.title }}</a>
