@@ -41,12 +41,30 @@
             </div>
           </div>
 
+          <div class="row">
+            <div class="col-12 search__title">
+              <h1>Suchergebnisse</h1>
+            </div>
+          </div>
 
+          <div class="row">
+            <div class="col-12 search__entries-list">
+              {% for doc in data.docs %}
+              {% if doc._url %}
+                <a href="{{ doc._url }}">{{ doc.title }}</a>
+              {% endif %}
+              {% endfor %}
+              {% if data.docs.length === 0 %}
+              <h2>Keine Suchergebnisse</h2>
+              {% endif %}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 search__pager">
+              {% include "pager.html" %}
+            </div>
+          </div>
 
-          {% for doc in data.docs %}
-          <h4>{% if doc._url %}<a href="{{ doc._url }}">{% endif %}{{ doc.title }}{% if doc._url %}</a>{% endif %}</h4>
-          {% endfor %}
-          {% include "pager.html" %}
           {% component '@apostrophecms/home-page:minifooter' %}
         </div>
       </main>
