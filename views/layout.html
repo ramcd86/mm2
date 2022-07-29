@@ -32,6 +32,7 @@ endblock %} {% block beforeMain %}
       </nav>
       <main class="mm-index__main">
         <div class="container">
+          {% component '@apostrophecms/home-page:searchcomponent' %}
           {% endblock %} {% block main %} {% endblock %} {% block afterMain %}
           {% component '@apostrophecms/home-page:minifooter' %}
         </div>
