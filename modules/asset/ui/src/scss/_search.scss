@@ -1,0 +1,36 @@
+.search {
+  &__min-bar {
+    background-color: $white;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    &--on-page {
+      padding-bottom: 20px;
+      border-bottom-right-radius: 5px;
+      border-bottom-left-radius: 5px;
+    }
+    input {
+      display: inline-block;
+      width: calc(90% - 20px);
+      outline: none;
+      border: 0px;
+      border-radius: 5px;
+      background-color: $grey;
+      font-size: 18px;
+      font-weight: 900;
+      color: $bark;
+      padding-left: 8px;
+    }
+    button {
+      width: 9.5%;
+      display: inline-block;
+      outline: none;
+      border: 0px;
+      background-color: $bark;
+      border-radius: 5px;
+      color: white;
+      font-weight: 900;
+      margin-left: 20px;
+    }
+  }
+}

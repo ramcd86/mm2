@@ -2,28 +2,70 @@
 {% block title %}{{ data.page.title }}{% endblock %}
 
 {% block main %}
-WAH
-  <form data-apos-search-page-form method="GET" action="{{ data.url | e }}#main">
-    {% if data.filters %}
-      <div class="ld-meta">{{ __t('apostrophe:filterResultsByType') }}</div>
-      <ul>
-        {% for filter in data.filters %}
-          <li>
-            <input data-apos-search-filter type="checkbox" name="{{ filter.name | e }}"
-              {% if filter.value %}checked{% endif %}
-              value="1"
-            />{{ filter.label | e }}
-          </li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-    <div class="ld-meta">{{ __t('apostrophe:newSearch') }}</div>
-    <input type="search" data-apos-search-field value="{{ data.query.q | e }}" name="q" />
-    <input type="submit" value="Search" />
-  </form>
-  {% for doc in data.docs %}
-    <h4>{% if doc._url %}<a href="{{ doc._url }}">{% endif %}{{ doc.title }}{% if doc._url %}</a>{% endif %}</h4>
-  {% endfor %}
-  {% include "pager.html" %}
-{% endblock %}
 
+
+
+<div id="base" class="container-fluid mm-index">
+  {% if not data.user %}
+  <div class="mm-index__login">
+    <a class="bp-button bp-header__login" href="/login">Login</a>
+  </div>
+  {% endif %}
+  <div class="mm-index__outer-body">
+    <div id="pageBase" class="mm-index__body">
+      <header id="header" class="mm-index__header">
+        <div class="container">
+          <div id="logo" class="mm-index__logo"></div>
+        </div>
+      </header>
+      <nav class="mm-index__nav">
+        <div class="container">
+          <ul>
+            {% for item in data.global.mainNavLinks %}
+            <li>
+              <a href="{{ item._page[0]._url }}">{{ item.label }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </nav>
+      <main class="mm-index__main">
+        <div class="container">
+
+          <div class="search">
+            <div class="search__min-bar search__min-bar--on-page">
+              <form data-apos-search-page-form method="GET" action="{{ data.url | e }}#main">
+                <input type="search" data-apos-search-field value="{{ data.query.q | e }}" name="q">
+                <button type="submit" value="Search">&#128269;</button>
+              </form>
+            </div>
+          </div>
+
+
+
+          {% for doc in data.docs %}
+          <h4>{% if doc._url %}<a href="{{ doc._url }}">{% endif %}{{ doc.title }}{% if doc._url %}</a>{% endif %}</h4>
+          {% endfor %}
+          {% include "pager.html" %}
+          {% component '@apostrophecms/home-page:minifooter' %}
+        </div>
+      </main>
+      <footer class="mm-index__footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-4 mm-index__footer-image"></div>
+            <div class="col-8 mm-index__footer-content">
+              {% for item in data.global.mediaLinks %}
+
+              <li>
+                <a href="{{ item.url }}">{{ item.label }}</a>
+              </li>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+</div>
+{% endblock %}
