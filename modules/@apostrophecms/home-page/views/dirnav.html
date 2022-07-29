@@ -1,6 +1,5 @@
 <div class="col-12 directory-base__subnav">
-    {% for item in
-    data.global[data.selectedPageNav] %}
-    <a href="{{ item._page[0]._url }}/">{{ item.label }}</a>
-    {% endfor %}
+  {% for item in data.global[data.selectedPageNav] %}
+  <a href="{{ item._page[0]._url }}/">{{ item.label }}</a>
+  {% endfor %}
 </div>

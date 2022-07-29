@@ -8,8 +8,11 @@ main %} {% component '@apostrophecms/home-page:queensnavigation' %}
   <div class="col-12 directory-base__desc">
     <h2>{{ data.page.subtitle }}</h2>
   </div>
-  {% component '@apostrophecms/home-page:dirnav' with { selectedPageNav: 'queensPortalChurchMusiciansLinks' } %}
-  <div class="col-12 directory-base__content-area">{% area data.page, 'main' %}</div>
+  {% component '@apostrophecms/home-page:dirnav' with { selectedPageNav:
+  'queensPortalChurchMusiciansLinks' } %}
+  <div class="col-12 directory-base__content-area">
+    {% area data.page, 'main' %}
+  </div>
 </div>
 
 {% endblock %}
