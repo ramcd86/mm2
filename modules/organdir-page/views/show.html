@@ -1,13 +1,12 @@
 {# modules/organdir-page/views/show.html #} {% extends "layout.html" %} {% block
 main %} {% component '@apostrophecms/home-page:queensnavigation' %}
-<div class="row organ-directory--show">
-  <div class="col-12">
-    <ul>
-      {% for topic in data.piece._topics %}
-      <li>{{ topic.title }}</li>
-      {% endfor %}
-    </ul>
+<div class="row directory-base">
+  <div class="col-12 directory-base__title">
     <h1>{{ data.piece.title }}</h1>
+  </div>
+  <div class="col-12 directory-base__desc">
+  </div>
+  <div class="col-12">
     <section>{% area data.piece, 'main' %}</section>
   </div>
 </div>
