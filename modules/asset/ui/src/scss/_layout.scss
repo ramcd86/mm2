@@ -22,6 +22,55 @@ img {
   border-radius: 5px;
 }
 
+.pager {
+  margin-top: 20px;
+  > div {
+    display: block;
+    text-align: center;
+    .is-active {
+      text-decoration: none !important;
+      background-color: $bark !important;
+      color: $white !important;
+      display: inline-block;
+      min-width: 36px;
+      text-align: center;
+      font-weight: 900;
+      font-family: "Vollkorn", serif;
+      font-size: 18px;
+      padding: 3px;
+      border-radius: 5px;
+      margin-left: 1px;
+      margin-right: 1px;
+      margin-bottom: 5px;
+    }
+    span {
+      display: inline-block;
+
+      a {
+        cursor: pointer;
+        display: inline-block;
+        min-width: 36px;
+        text-align: center;
+        font-weight: 900;
+        font-family: "Vollkorn", serif;
+        font-size: 18px;
+        background-color: #fff;
+        padding: 3px;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-left: 1px;
+        margin-right: 1px;
+        margin-bottom: 5px;
+        &:hover {
+          text-decoration: none;
+          background-color: $bark;
+          color: $white;
+        }
+      }
+    }
+  }
+}
+
 .mm-index {
   margin-top: 15px;
   margin-bottom: 15px;

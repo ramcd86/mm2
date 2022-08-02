@@ -18,17 +18,26 @@ import '@apostrophecms/pager:macros.html' as pager with context %} {% block main
       <div class="col-3">Postleitzahl</div>
     </div>
     {% for organ in data.pieces %}
+
     <article
       class="row directory-base__organ-row {% if organ.isRetired %} directory-base__organ-row--retired {% endif %} {% if organ.outsideGermany %} directory-base__organ-row--foreign {% endif %}"
     >
       <div class="col-5">
-        <a href="{{ organ._url }}">{{ organ.title }}</a>
+        <strong>
+          <a href="{{ organ._url }}">{{ organ.title }}</a>
+        </strong>
       </div>
       <div class="col-4">{{ organ.outsideGermany }}</div>
       <div class="col-3">{{ organ.postcode }}</div>
     </article>
-    {% endfor %} {{ pager.render({ page: data.currentPage, total:
-    data.totalPages, class: 'blog-pager' }, data.url) }}
+    {% endfor %}
+
+    <div class="row">
+      <div class="col-12 pager">
+        {{ pager.render({ page: data.currentPage, total:
+        data.totalPages }, data.url) }}
+      </div>
+    </div>
   </div>
 </div>
 
