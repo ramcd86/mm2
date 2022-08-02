@@ -18,10 +18,7 @@ import '@apostrophecms/pager:macros.html' as pager with context %} {% block main
     </div>
     {% for musician in data.pieces %}
 
-
-    <article
-            class="row directory-base__organ-row"
-    >
+    <article class="row directory-base__organ-row">
       <div class="col-8">
         <strong>
           <a href="./../../../../{{ musician._parentUrl }}/{{ musician.slug }}">
@@ -38,11 +35,10 @@ import '@apostrophecms/pager:macros.html' as pager with context %} {% block main
     {% endfor %}
     <div class="row">
       <div class="col-12 pager">
-        {{ pager.render({ page: data.currentPage, total:
-        data.totalPages }, data.url) }}
+        {{ pager.render({ page: data.currentPage, total: data.totalPages },
+        data.url) }}
       </div>
     </div>
-
   </div>
 </div>
 
