@@ -6,9 +6,7 @@ import '@apostrophecms/pager:macros.html' as pager with context %} {% block main
     <h1>{{ data.page.subtitle }}</h1>
   </div>
   <div class="col-12 directory-base__desc"></div>
-  <div class="col-12">
-     {% area data.page, 'main' %}
-  </div>
+  <div class="col-12">{% area data.page, 'main' %}</div>
 
   {% for news in data.pieces %}
 

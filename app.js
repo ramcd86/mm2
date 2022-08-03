@@ -8,6 +8,7 @@ require("apostrophe")({
     queensnews: {},
     "custom-image-widget": {},
     "custom-divider-widget": {},
+    "custom-area-widget": {},
     // Apostrophe module configuration
     // *******************************
     //

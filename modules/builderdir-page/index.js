@@ -180,6 +180,7 @@ module.exports = {
             },
             "@apostrophecms/html": {},
             "custom-divider": {},
+            "custom-area": {},
           },
         },
       },

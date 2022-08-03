@@ -38,6 +38,7 @@ module.exports = {
             },
             "custom-image": {},
             "custom-divider": {},
+            "custom-area": {},
           },
         },
       },
