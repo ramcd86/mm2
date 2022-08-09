@@ -78,6 +78,7 @@ module.exports = {
           }
         }
       },
+      //
       queensPortalLinks: {
         label: 'Queen\'s Portal Directory Links',
         type: 'array',
@@ -217,6 +218,7 @@ module.exports = {
           }
         }
       },
+      //
       publisherPortalGeneralLinks: {
         label: 'Publisher\'s Portal Top Bar Links',
         type: 'array',
@@ -274,6 +276,134 @@ module.exports = {
             }
           }
         }
+      },
+      //
+      publisherDeliveryPortalGeneralLinks: {
+        label: 'Publisher\'s Delivery Portal Top Bar Links',
+        type: 'array',
+        titleField: 'label',
+        // The array schema for each item
+        fields: {
+          add: {
+            label: {
+              label: 'Nav item label',
+              type: 'string'
+            },
+            url: {
+              label: 'Link',
+              type: 'string'
+            },
+            _page: {
+              label: 'Page to link',
+              type: 'relationship',
+              withType: '@apostrophecms/page',
+              max: 1,
+              required: false,
+              builders: {
+                project: {
+                  title: 1,
+                  _url: 1
+                }
+              }
+            }
+          }
+        }
+      },
+      //
+      notenkellerPortalGeneralLinks: {
+        label: 'Notenkeller Portal Top Bar Links',
+        type: 'array',
+        titleField: 'label',
+        // The array schema for each item
+        fields: {
+          add: {
+            label: {
+              label: 'Nav item label',
+              type: 'string'
+            },
+            url: {
+              label: 'Link',
+              type: 'string'
+            },
+            _page: {
+              label: 'Page to link',
+              type: 'relationship',
+              withType: '@apostrophecms/page',
+              max: 1,
+              required: false,
+              builders: {
+                project: {
+                  title: 1,
+                  _url: 1
+                }
+              }
+            }
+          }
+        }
+      },
+      //
+      churchMusicPortalGeneralLinks: {
+        label: 'Church Music Portal Top Bar Links',
+        type: 'array',
+        titleField: 'label',
+        // The array schema for each item
+        fields: {
+          add: {
+            label: {
+              label: 'Nav item label',
+              type: 'string'
+            },
+            url: {
+              label: 'Link',
+              type: 'string'
+            },
+            _page: {
+              label: 'Page to link',
+              type: 'relationship',
+              withType: '@apostrophecms/page',
+              max: 1,
+              required: false,
+              builders: {
+                project: {
+                  title: 1,
+                  _url: 1
+                }
+              }
+            }
+          }
+        }
+      },
+      //
+      eShopPortalGeneralLinks: {
+        label: 'e-Shop Portal Top Bar Links',
+        type: 'array',
+        titleField: 'label',
+        // The array schema for each item
+        fields: {
+          add: {
+            label: {
+              label: 'Nav item label',
+              type: 'string'
+            },
+            url: {
+              label: 'Link',
+              type: 'string'
+            },
+            _page: {
+              label: 'Page to link',
+              type: 'relationship',
+              withType: '@apostrophecms/page',
+              max: 1,
+              required: false,
+              builders: {
+                project: {
+                  title: 1,
+                  _url: 1
+                }
+              }
+            }
+          }
+        }
       }
     },
     group: {
@@ -294,6 +424,22 @@ module.exports = {
       publisherPortal: {
         label: 'Publisher Portal',
         fields: [ 'publisherPortalGeneralLinks', 'publisherPortalPublisherLinks' ]
+      },
+      publisherDeliveryPortal: {
+        label: 'Publisher Delivery Portal',
+        fields: [ 'publisherDeliveryPortalGeneralLinks' ]
+      },
+      notenkellerPortal: {
+        label: 'Notenkeller Portal',
+        fields: [ 'notenkellerPortalGeneralLinks' ]
+      },
+      churchMusicPortal: {
+        label: 'Church Music Portal',
+        fields: [ 'churchMusicPortalGeneralLinks' ]
+      },
+      eShopPortal: {
+        label: 'e-Shop Portal',
+        fields: [ 'eShopPortalGeneralLinks' ]
       }
     }
   }

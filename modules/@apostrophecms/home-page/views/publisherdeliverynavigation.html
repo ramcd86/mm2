@@ -1,0 +1,10 @@
+<div class="mm-index__subnav">
+    <div class="container">
+        {% for item in data.global.publisherDeliveryPortalGeneralLinks %} {% if item.url %}
+        <a class="subnav-items" href="{{ item.url }}">{{ item.label }}</a>
+        {% else %}
+        <a class="subnav-items" href="{{ item._page[0]._url }}">{{ item.label }}</a>
+        {% endif %} {% endfor %}
+    </div>
+</div>
+{% component '@apostrophecms/home-page:breadcrumbs' %}
