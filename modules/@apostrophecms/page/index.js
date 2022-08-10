@@ -9,97 +9,92 @@ module.exports = {
         label: 'Search'
       },
       {
-        name: 'default-page',
-        label: 'Default'
-      },
-      {
         name: '@apostrophecms/home-page',
         label: 'Home'
       },
       {
-        name: 'organdir-page',
-        label: 'Organ Directory'
-      },
-      {
         name: 'organdir-alphabase-page',
-        label: 'Organs Alphabetical Base Page'
-      },
-      {
-        name: 'builderdir-page',
-        label: 'Organ Builder Directory'
+        label: 'Organs Listing BASE Page'
       },
       {
         name: 'builderdir-alphabase-page',
-        label: 'Organ Builders Alphabetical Base Page'
+        label: 'Organ Builders Listing BASE Page'
       },
       {
         name: 'musiciandir-alphabase-page',
-        label: 'Church Musicians Alphabetical Base Page'
+        label: 'Church Musicians Listing BASE Page'
+      },
+      {
+        name: 'publicationsdir-alphabase-page',
+        label: 'Publications Listing BASE Page'
+      },
+      {
+        name: 'organdir-page',
+        label: 'Organ Listing Page (A-Z)'
+      },
+      {
+        name: 'builderdir-page',
+        label: 'Organ Builder Listing Page (A-Z)'
       },
       {
         name: 'musiciandir-page',
-        label: 'Church Musicians Directory'
-      },
-      {
-        name: 'queens-portal',
-        label: 'Queen\'s Portal'
-      },
-      {
-        name: 'queens-default-page',
-        label: 'Queen\'s Portal Standard Page'
-      },
-      {
-        name: 'queensnews-page',
-        label: 'Queen\'s News Page'
-      },
-      {
-        name: 'shop-portal',
-        label: 'e-Shop PORTAL Page'
-      },
-      {
-        name: 'shop-default-page',
-        label: 'e-Shop STANDARD Page'
-      },
-      {
-        name: 'publisher-portal',
-        label: 'Publisher (Book & Note) Portal'
-      },
-
-      {
-        name: 'publicationsdir-alphabase-page',
-        label: 'Publications Alphabetical Base Page'
+        label: 'Church Listing Page (A-Z)'
       },
       {
         name: 'publicationsdir-page',
-        label: 'Publications Directory'
+        label: 'Publications Listing Page (A-Z)'
       },
       {
-        name: 'publisher-default-page',
-        label: 'Publisher\'s STANDARD page'
+        name: 'queensnews-page',
+        label: 'Queen\'s NEWS Page'
+      },
+      {
+        name: 'queens-portal',
+        label: 'Queen\'s PORTAL Page'
+      },
+      {
+        name: 'publisher-portal',
+        label: 'Publisher (Book & Note) PORTAL Page'
       },
       {
         name: 'publisher-delivery-portal',
         label: 'Publisher Delivery (KDL-VA) PORTAL Page'
       },
       {
-        name: 'publisher-delivery-default-page',
-        label: 'Publisher Delivery (KDL-VA) STANDARD Page'
-      },
-      {
         name: 'notenkeller-portal',
-        label: 'Notenkeller Celle PORTAL Page'
-      },
-      {
-        name: 'notenkeller-default-page',
-        label: 'Notenkeller STANDARD page'
+        label: 'Notenkeller PORTAL Page'
       },
       {
         name: 'church-music-design-portal',
         label: 'Church Music Design (KMD) PORTAL Page'
       },
       {
+        name: 'shop-portal',
+        label: 'e-Shop PORTAL Page'
+      },
+      {
+        name: 'queens-default-page',
+        label: 'Queen\'s STANDARD Page'
+      },
+      {
+        name: 'publisher-default-page',
+        label: 'Publisher (Book & Note) STANDARD page'
+      },
+      {
+        name: 'publisher-delivery-default-page',
+        label: 'Publisher Delivery (KDL-VA) STANDARD Page'
+      },
+      {
+        name: 'notenkeller-default-page',
+        label: 'Notenkeller STANDARD page'
+      },
+      {
         name: 'church-music-default-page',
         label: 'Church Music STANDARD page'
+      },
+      {
+        name: 'shop-default-page',
+        label: 'e-Shop STANDARD Page'
       }
     ]
   }
