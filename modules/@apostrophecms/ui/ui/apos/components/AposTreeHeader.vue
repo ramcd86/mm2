@@ -1,6 +1,7 @@
 <template>
   <div
-    class="apos-tree__row-data apos-tree__header" :class="headerClasses"
+    class="apos-tree__row-data apos-tree__header"
+    :class="headerClasses"
     :aria-hidden="spacerOnly"
   >
     <span
@@ -12,7 +13,8 @@
       :style="getCellStyles(col)"
     >
       <component
-        v-if="col.columnHeaderIcon" :is="icons[col.columnHeaderIcon]"
+        v-if="col.columnHeaderIcon"
+        :is="icons[col.columnHeaderIcon]"
         class="apos-tree__cell__icon"
       />
       {{ $t(col.columnHeader) }}
@@ -21,44 +23,44 @@
 </template>
 
 <script>
-import { debounce } from '../utils/index';
+import { debounce } from "../utils/index";
 
 export default {
-  name: 'AposTreeHeader',
+  name: "AposTreeHeader",
   props: {
     headers: {
       type: Array,
-      required: true
+      required: true,
     },
     icons: {
       type: Object,
       default() {
         return {};
-      }
+      },
     },
     hidden: {
       type: Boolean,
-      default: false
+      default: false,
     },
     spacerOnly: {
       type: Boolean,
-      default: false
+      default: false,
     },
     colWidths: {
       type: Object,
-      default () {
+      default() {
         return {};
-      }
-    }
+      },
+    },
   },
-  emits: [ 'calculated' ],
+  emits: ["calculated"],
   computed: {
     headerClasses() {
       if (this.spacerOnly || this.hidden) {
-        return 'apos-tree__header--hidden';
+        return "apos-tree__header--hidden";
       }
-      return '';
-    }
+      return "";
+    },
   },
   watch: {
     headers() {
@@ -68,18 +70,18 @@ export default {
           this.calculateWidths();
         });
       }
-    }
+    },
   },
   mounted() {
     if (this.spacerOnly) {
       this.calculateWidths();
 
-      window.addEventListener('resize', debounce(this.calculateWidths, 100));
+      window.addEventListener("resize", debounce(this.calculateWidths, 100));
     }
   },
   destroyed() {
     if (this.spacerOnly) {
-      window.removeEventListener('resize', debounce(this.calculateWidths, 100));
+      window.removeEventListener("resize", debounce(this.calculateWidths, 100));
     }
   },
   methods: {
@@ -88,7 +90,7 @@ export default {
       // every cell's content has the opportunity to inform the overall column width.
       const colWidths = {};
 
-      this.headers.forEach(col => {
+      this.headers.forEach((col) => {
         const ref = this.$el.querySelector(`[data-spacer="${col.property}"]`);
 
         if (!ref) {
@@ -99,22 +101,22 @@ export default {
         // room.
         colWidths[col.property] = ref.clientWidth + 15;
       });
-      this.$emit('calculated', colWidths);
+      this.$emit("calculated", colWidths);
     },
-    getCellStyles (cell) {
+    getCellStyles(cell) {
       const styles = {};
       if (this.colWidths && this.colWidths[cell.property]) {
         styles.width = `${this.colWidths[cell.property]}px`;
       }
       return styles;
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-@import '../scss/shared/_table-vars';
-@import '../scss/shared/_table-rows';
+@import "../scss/shared/_table-vars";
+@import "../scss/shared/_table-rows";
 
 .apos-tree__header {
   color: var(--a-base-3);

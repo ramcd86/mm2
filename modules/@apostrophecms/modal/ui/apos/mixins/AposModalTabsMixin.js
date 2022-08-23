@@ -1,4 +1,4 @@
-import cuid from 'cuid';
+import cuid from "cuid";
 
 // Provide basic bridging functionality between tabs
 // and the modal body.
@@ -7,25 +7,25 @@ export default {
   data() {
     return {
       tabKey: cuid(),
-      currentTab: null
+      currentTab: null,
     };
   },
   computed: {
     groups() {
       const groupSet = {};
 
-      this.schema.forEach(field => {
+      this.schema.forEach((field) => {
         if (
           this.filterOutParkedFields &&
-          !this.filterOutParkedFields([ field.name ]).length
+          !this.filterOutParkedFields([field.name]).length
         ) {
           return;
         }
         if (field.group && !groupSet[field.group.name]) {
           groupSet[field.group.name] = {
             label: field.group.label,
-            fields: [ field.name ],
-            schema: [ field ]
+            fields: [field.name],
+            schema: [field],
           };
         } else if (field.group) {
           groupSet[field.group.name].fields.push(field.name);
@@ -34,9 +34,9 @@ export default {
       });
       if (!groupSet.utility) {
         groupSet.utility = {
-          label: 'apostrophe:utility',
+          label: "apostrophe:utility",
           fields: [],
-          schema: []
+          schema: [],
         };
       }
 
@@ -45,24 +45,27 @@ export default {
     tabs() {
       const tabs = [];
       for (const key in this.groups) {
-        if (key !== 'utility') {
+        if (key !== "utility") {
           tabs.push({
             name: key,
-            label: this.groups[key].label
+            label: this.groups[key].label,
           });
         }
-      };
+      }
 
       return tabs;
-    }
+    },
   },
 
   watch: {
     tabs() {
-      if ((!this.currentTab) || (!this.tabs.find(tab => tab.name === this.currentTab))) {
+      if (
+        !this.currentTab ||
+        !this.tabs.find((tab) => tab.name === this.currentTab)
+      ) {
         this.currentTab = this.tabs[0] && this.tabs[0].name;
       }
-    }
+    },
   },
 
   mounted() {
@@ -71,6 +74,6 @@ export default {
   methods: {
     switchPane(id) {
       this.currentTab = id;
-    }
-  }
+    },
+  },
 };

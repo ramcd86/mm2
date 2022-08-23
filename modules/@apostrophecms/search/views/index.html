@@ -54,7 +54,9 @@
           <div class="row">
             <div class="col-12 search__entries-list">
               {% for doc in data.docs %} {% if doc.slug %}
-              <a href="./../../../{{ doc._parentSlug }}/{{ doc.slug }}">{{ doc.title }}</a>
+              <a href="./../../../{{ doc._parentSlug }}/{{ doc.slug }}"
+                >{{ doc.title }}</a
+              >
               {% endif %} {% endfor %} {% if data.docs.length === 0 %}
               <h2>Keine Suchergebnisse</h2>
               {% endif %}

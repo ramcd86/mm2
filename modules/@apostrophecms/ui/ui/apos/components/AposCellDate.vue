@@ -8,25 +8,24 @@
 </template>
 
 <script>
-
-import AposCellMixin from 'Modules/@apostrophecms/ui/mixins/AposCellMixin';
-import dayjs from 'dayjs';
+import AposCellMixin from "Modules/@apostrophecms/ui/mixins/AposCellMixin";
+import dayjs from "dayjs";
 
 export default {
-  name: 'AposCellDate',
-  mixins: [ AposCellMixin ],
+  name: "AposCellDate",
+  mixins: [AposCellMixin],
   computed: {
-    formattedDate () {
+    formattedDate() {
       const value = this.get(this.header.name);
       return this.formatDateColumn(value);
-    }
+    },
   },
   methods: {
-    formatDateColumn (value) {
-      const format = this.$t('apostrophe:dayjsCellDateFormat');
+    formatDateColumn(value) {
+      const format = this.$t("apostrophe:dayjsCellDateFormat");
       // endsWith allows it to still match when the i18n show debug mode
       // is in effect
-      if (format.endsWith('apostrophe')) {
+      if (format.endsWith("apostrophe")) {
         const d = new Date(value);
         if (Number.isNaN(d.getDate())) {
           // We're not sure what this is, but it's not a date.
@@ -36,7 +35,7 @@ export default {
         const date = d.getDate();
         const year = d.getFullYear();
         let hour = d.getHours();
-        const period = hour > 11 ? 'pm' : 'am';
+        const period = hour > 11 ? "pm" : "am";
         if (hour > 12) {
           hour = hour - 12;
         } else if (hour === 0) {
@@ -44,7 +43,9 @@ export default {
         }
         const minute = d.getMinutes();
 
-        return `${toTwoChars(month)}/${toTwoChars(date)}/${toTwoChars(year)} at ${hour}:${minute} ${period}`;
+        return `${toTwoChars(month)}/${toTwoChars(date)}/${toTwoChars(
+          year
+        )} at ${hour}:${minute} ${period}`;
       } else {
         return dayjs(value).format(format);
       }
@@ -60,10 +61,9 @@ export default {
         } else {
           // If it's more than 12 and less than 1000, the problem isn't here.
           return num;
-        };
+        }
       }
-    }
-
-  }
+    },
+  },
 };
 </script>

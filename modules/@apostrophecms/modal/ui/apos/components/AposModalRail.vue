@@ -5,23 +5,20 @@
 </template>
 <script>
 export default {
-  name: 'AposModalRail',
+  name: "AposModalRail",
   props: {
     type: {
       type: String,
-      default: 'left'
-    }
+      default: "left",
+    },
   },
-  computed: {
-
-  }
+  computed: {},
 };
 </script>
 
 <style lang="scss" scoped>
-  .apos-modal__rail {
-    overflow-y: auto;
-    background-color: var(--a-base-10);
-  }
-
+.apos-modal__rail {
+  overflow-y: auto;
+  background-color: var(--a-base-10);
+}
 </style>

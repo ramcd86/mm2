@@ -1,10 +1,7 @@
 <template>
   <div class="apos-tag">
     <button @click="click" class="apos-tag__button">
-      <close-icon
-        class="apos-tag__remove" title="Remove Tag"
-        :size="10"
-      />
+      <close-icon class="apos-tag__remove" title="Remove Tag" :size="10" />
     </button>
     {{ label }}
   </div>
@@ -15,19 +12,19 @@ export default {
   props: {
     label: {
       type: String,
-      required: true
+      required: true,
     },
     slug: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
-  emits: [ 'click' ],
+  emits: ["click"],
   methods: {
     click() {
-      this.$emit('click', this.slug);
-    }
-  }
+      this.$emit("click", this.slug);
+    },
+  },
 };
 </script>
 

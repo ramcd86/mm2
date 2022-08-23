@@ -25,20 +25,20 @@ export default {
       type: Array,
       default() {
         return [];
-      }
+      },
     },
     title: {
-      default: 'Filter by Tag',
-      type: String
-    }
+      default: "Filter by Tag",
+      type: String,
+    },
   },
-  emits: [ 'update' ],
+  emits: ["update"],
   data() {
     return {
       active: null,
       emptyState: {
-        message: 'apostrophe:tagYourImages'
-      }
+        message: "apostrophe:tagYourImages",
+      },
     };
   },
   methods: {
@@ -48,14 +48,13 @@ export default {
       } else {
         this.active = id;
       }
-      this.$emit('update', this.active);
-    }
-  }
+      this.$emit("update", this.active);
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-
 .apos-tag-list {
   display: flex;
   width: 100%;
@@ -86,5 +85,4 @@ export default {
 .apos-tag-list__empty-text {
   text-align: center;
 }
-
 </style>

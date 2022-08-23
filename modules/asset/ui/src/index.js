@@ -1,14 +1,50 @@
 export default () => {
+
+  // queens-page
+  // publisher-page
+  // publisher-delivery-page
+  // church-music-page
+  // notenkeller-page
+  // shop-page
+
   function handlePageStyling() {
     const urlSegments = window.location.pathname.split('/');
     const pageBase = document.getElementById('pageBase');
-    if (pageBase && urlSegments) {
-      if (urlSegments[1] === '') {
-        pageBase.classList.add('home');
-      } else {
-        pageBase.classList.add(`${urlSegments[1]}`);
+    const el = (id) => document.getElementById(id);
+    const cAdd = (className, el) => el.classList.add(className);
+
+    console.log('blampo');
+
+    if (el('pageBase')) {
+      if (el('home-page')) {
+        cAdd('home', el('pageBase'));
+      }
+      if (el('queens-page')) {
+        cAdd('queens-portal', el('pageBase'));
+      }
+      if (el('publisher-page')) {
+        cAdd('publisher-book-note-portal', el('pageBase'));
+      }
+      if (el('publisher-delivery-page')) {
+        cAdd('publisher-delivery-kvd-la-portal', el('pageBase'));
+      }
+      if (el('church-music-page')) {
+        cAdd('church-music-design-kmd-portal', el('pageBase'));
+      }
+      if (el('notenkeller-page')) {
+        cAdd('notenkeller-portal', el('pageBase'));
+      }
+      if (el('shop-page')) {
+        cAdd('shop-portal', el('pageBase'));
       }
     }
+    //
+    //   if (urlSegments[1] === '') {
+    //     pageBase.classList.add('home');
+    //   } else {
+    //     pageBase.classList.add(`${urlSegments[1]}`);
+    //   }
+    // }
 
     if (document.getElementById('header') && document.getElementById('logo')) {
       if (window.location.pathname === '/') {

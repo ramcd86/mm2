@@ -26,69 +26,69 @@ export default {
   props: {
     filters: {
       type: Array,
-      required: true
+      required: true,
     },
     choices: {
       type: Object,
       required: false,
       default() {
         return {};
-      }
+      },
     },
     values: {
       type: Object,
       required: false,
       default() {
         return {};
-      }
+      },
     },
     button: {
       type: Object,
       default() {
         return {
-          label: 'apostrophe:filter',
-          icon: 'chevron-down-icon',
-          modifiers: [ 'icon-right' ],
-          type: 'outline'
+          label: "apostrophe:filter",
+          icon: "chevron-down-icon",
+          modifiers: ["icon-right"],
+          type: "outline",
         };
-      }
-    }
+      },
+    },
   },
-  emits: [ 'input' ],
+  emits: ["input"],
   data() {
     return {
       map: {
-        radio: 'AposInputRadio',
-        checkbox: 'AposInputCheckboxes',
-        select: 'AposInputSelect'
+        radio: "AposInputRadio",
+        checkbox: "AposInputCheckboxes",
+        select: "AposInputSelect",
       },
-      generation: 0
+      generation: 0,
     };
   },
   computed: {
     filterSets() {
       const sets = [];
-      this.filters.forEach(filter => {
+      this.filters.forEach((filter) => {
         sets.push({
           name: filter.name,
           key: `${this.generation}:${filter.name}`,
           field: {
             name: filter.name,
-            type: filter.inputType || 'select',
+            type: filter.inputType || "select",
             label: filter.label || filter.name,
             choices: this.addNullChoice(
               filter,
               this.choices[filter.name] || filter.choices
-            )
+            ),
           },
           value: {
-            data: this.values[filter.name]
+            data: this.values[filter.name],
           },
-          status: {}
+          status: {},
         });
       });
       return sets;
-    }
+    },
   },
   watch: {
     choices() {
@@ -96,11 +96,11 @@ export default {
       // permission to display an old version of the filter
       // even though the choices have changed
       this.generation++;
-    }
+    },
   },
   methods: {
     input(value, filterName) {
-      this.$emit('input', filterName, value);
+      this.$emit("input", filterName, value);
     },
     addNullChoice(filter, choices) {
       if (filter.required) {
@@ -110,22 +110,22 @@ export default {
         // Still pending
         return [
           {
-            label: 'Loading Choices...',
-            value: filter.def
-          }
+            label: "Loading Choices...",
+            value: filter.def,
+          },
         ];
       }
-      if (choices.find(choice => choice.value === null)) {
+      if (choices.find((choice) => choice.value === null)) {
         return choices;
       }
       return [
         {
           label: filter.nullLabel,
-          value: null
-        }
+          value: null,
+        },
       ].concat(choices);
-    }
-  }
+    },
+  },
 };
 </script>
 

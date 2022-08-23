@@ -1,14 +1,13 @@
 <template>
-  <AposContextMenu
-    @open="open = $event"
-    menu-placement="bottom-end"
-  >
+  <AposContextMenu @open="open = $event" menu-placement="bottom-end">
     <div class="apos-apply-tag-menu__inner">
       <AposInputString
         @input="updateSearchInput"
         @return="create"
-        :field="searchField" :value="searchValue"
-        :status="searchStatus" ref="textInput"
+        :field="searchField"
+        :value="searchValue"
+        :status="searchStatus"
+        ref="textInput"
       />
       <div class="apos-apply-tag__create">
         <AposButton
@@ -20,9 +19,13 @@
         />
       </div>
       <transition name="fade">
-        <ol v-if="searchTags.length && !creating" class="apos-apply-tag-menu__tags">
+        <ol
+          v-if="searchTags.length && !creating"
+          class="apos-apply-tag-menu__tags"
+        >
           <li
-            class="apos-apply-tag-menu__tag" v-for="tag in searchTags"
+            class="apos-apply-tag-menu__tag"
+            v-for="tag in searchTags"
             :key="`${keyPrefix}-${tag.slug}`"
           >
             <AposCheckbox
@@ -36,7 +39,10 @@
             />
           </li>
         </ol>
-        <div v-if="(!searchTags.length && myTags.length) && !creating" class="apos-apply-tag-menu__empty">
+        <div
+          v-if="!searchTags.length && myTags.length && !creating"
+          class="apos-apply-tag-menu__empty"
+        >
           <p class="apos-apply-tag-menu__empty-message">
             We couldn't find any matching tags. Perhaps
             <AposButton
@@ -47,9 +53,7 @@
               :disable-focus="!open"
             />
           </p>
-          <span class="apos-apply-tag-menu__empty-icon">
-            🌾
-          </span>
+          <span class="apos-apply-tag-menu__empty-icon"> 🌾 </span>
         </div>
       </transition>
     </div>
@@ -57,7 +61,7 @@
 </template>
 
 <script>
-import cuid from 'cuid';
+import cuid from "cuid";
 
 export default {
   props: {
@@ -65,47 +69,47 @@ export default {
       type: Object,
       default() {
         return {
-          label: 'Add Tag',
-          action: 'add-tag'
+          label: "Add Tag",
+          action: "add-tag",
         };
-      }
+      },
     },
     tags: {
       type: Array,
       default() {
         return [];
-      }
+      },
     },
     applyTo: {
       type: Array,
-      required: true
+      required: true,
     },
     tipAlignment: {
       type: String,
-      default: 'left'
-    }
+      default: "left",
+    },
   },
-  emits: [ 'create-tag', 'update' ],
+  emits: ["create-tag", "update"],
   data() {
     return {
       creating: false,
-      searchValue: { data: '' },
+      searchValue: { data: "" },
       searchStatus: {},
       checkboxes: {},
       // `myTags` will be the canonical array of tags and matching doc IDs that
       // we will emit.
-      myTags: [ ...this.tags ],
+      myTags: [...this.tags],
       checked: [],
-      searchInputValue: '',
+      searchInputValue: "",
       keyPrefix: `key-${cuid()}`, // used to keep checkboxes in sync w state
-      origin: 'below',
+      origin: "below",
       open: false,
       button: {
-        label: 'Context Menu Label',
+        label: "Context Menu Label",
         iconOnly: true,
-        icon: 'Label',
-        type: 'outline'
-      }
+        icon: "Label",
+        type: "outline",
+      },
     };
   },
   computed: {
@@ -140,22 +144,25 @@ export default {
       if (this.searchInputValue.length) {
         return `Create tag "${this.searchInputValue}"`;
       } else {
-        return 'Create new tag';
+        return "Create new tag";
       }
     },
     // Generate the field object for the search field.
     searchField() {
       return {
-        name: 'tagSearch',
-        label: 'Apply Tags',
-        placeholder: 'Tags...',
-        help: 'apostrophe:findOrAddTag',
-        icon: (!this.searchTags || !this.searchTags.length) ? 'pencil-icon' : 'magnify-icon',
-        disableFocus: !this.open
+        name: "tagSearch",
+        label: "Apply Tags",
+        placeholder: "Tags...",
+        help: "apostrophe:findOrAddTag",
+        icon:
+          !this.searchTags || !this.searchTags.length
+            ? "pencil-icon"
+            : "magnify-icon",
+        disableFocus: !this.open,
       };
-    }
+    },
   },
-  mounted () {
+  mounted() {
     const checkboxes = {};
     this.tags.forEach((tag) => {
       checkboxes[tag.slug] = this.createCheckbox(tag, this.applyTo);
@@ -173,19 +180,19 @@ export default {
 
       if (!this.searchInputValue || !this.searchInputValue.length) {
         this.creating = true;
-        this.searchValue.data = 'New Tag';
-        this.$refs.textInput.$el.querySelector('input').focus();
+        this.searchValue.data = "New Tag";
+        this.$refs.textInput.$el.querySelector("input").focus();
         this.$nextTick(() => {
-          this.$refs.textInput.$el.querySelector('input').select();
+          this.$refs.textInput.$el.querySelector("input").select();
         });
       } else {
         // TODO: No current sign of `create-tag` usage. Delete if unused.
-        this.$emit('create-tag', this.searchInputValue);
+        this.$emit("create-tag", this.searchInputValue);
 
         const tag = {
           label: this.searchInputValue,
           slug: this.searchInputValue,
-          match: this.applyTo
+          match: this.applyTo,
         };
         this.checkboxes[tag.slug] = this.createCheckbox(tag, this.applyTo);
         this.myTags.unshift(tag);
@@ -198,7 +205,7 @@ export default {
     updateTag($event) {
       const slug = $event.target.value;
       // Find the matching tag.
-      const tag = this.myTags.find(tag => tag.slug === slug);
+      const tag = this.myTags.find((tag) => tag.slug === slug);
       // Find the matching checkbox.
       const box = this.checkboxes[slug];
       if (!box) {
@@ -230,7 +237,7 @@ export default {
       this.emitState();
     },
     emitState() {
-      this.$emit('update', this.myTags);
+      this.$emit("update", this.myTags);
     },
     // Take the string field value and get a lower case version.
     updateSearchInput(value) {
@@ -242,115 +249,115 @@ export default {
     createCheckbox(tag, applyTo) {
       const checkbox = {
         field: {
-          type: 'checkbox',
-          name: tag.slug
+          type: "checkbox",
+          name: tag.slug,
         },
         // TODO: status and value are not needed.
         status: {},
         value: { data: [] },
         choice: {
           label: tag.label,
-          value: tag.slug
-        }
+          value: tag.slug,
+        },
       };
 
       const state = this.getCheckedState(tag);
 
       // If so, add those slugs to the `checked` array.
-      if (state !== 'unchecked') {
+      if (state !== "unchecked") {
         this.checked.push(tag.slug);
       }
 
       // If only some of `applyTo` matches, use the indeterminate state.
-      if (state === 'indeterminate') {
+      if (state === "indeterminate") {
         checkbox.choice.indeterminate = true;
         checkbox.status.indeterminate = true;
       }
       return checkbox;
     },
-    getCheckedState (tag) {
+    getCheckedState(tag) {
       if (!tag.match) {
-        return 'unchecked';
+        return "unchecked";
       }
       // Go over the docs, checking how well they match the tag.
-      if (this.applyTo.every(id => tag.match.includes(id))) {
-        return 'checked';
-      } else if (this.applyTo.some(id => tag.match.includes(id))) {
-        return 'indeterminate';
+      if (this.applyTo.every((id) => tag.match.includes(id))) {
+        return "checked";
+      } else if (this.applyTo.some((id) => tag.match.includes(id))) {
+        return "indeterminate";
       }
 
-      return 'unchecked';
-    }
-  }
+      return "unchecked";
+    },
+  },
 };
-
 </script>
 
 <style lang="scss" scoped>
-  .apos-apply-tag-menu__inner {
-    min-width: 280px;
-  }
+.apos-apply-tag-menu__inner {
+  min-width: 280px;
+}
 
-  .apos-apply-tag-menu__primary-action {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 10px;
-  }
+.apos-apply-tag-menu__primary-action {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
 
-  .apos-apply-tag__create {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 10px;
-  }
+.apos-apply-tag__create {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
 
-  .apos-apply-tag-menu__tags {
-    @include apos-list-reset();
-    max-height: 160px;
-    overflow-y: auto;
-    margin-top: 15px;
-    // Negative margin/padding below is for the checkbox focus state.
-    margin-left: -10px;
-    padding-left: 10px;
-  }
+.apos-apply-tag-menu__tags {
+  @include apos-list-reset();
+  max-height: 160px;
+  overflow-y: auto;
+  margin-top: 15px;
+  // Negative margin/padding below is for the checkbox focus state.
+  margin-left: -10px;
+  padding-left: 10px;
+}
 
-  .apos-apply-tag-menu__tag {
-    margin-top: 10px;
-  }
+.apos-apply-tag-menu__tag {
+  margin-top: 10px;
+}
 
-  .apos-apply-tag-menu__empty {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    padding: 40px 0 20px;
-  }
+.apos-apply-tag-menu__empty {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 40px 0 20px;
+}
 
-  .apos-apply-tag-menu__empty-message {
-    @include type-base;
-    margin-bottom: 20px;
-    max-width: 240px;
-    text-align: center;
-  }
+.apos-apply-tag-menu__empty-message {
+  @include type-base;
+  margin-bottom: 20px;
+  max-width: 240px;
+  text-align: center;
+}
 
-  .apos-apply-tag-menu__empty-icon {
-    color: var(--a-base-5);
-  }
+.apos-apply-tag-menu__empty-icon {
+  color: var(--a-base-5);
+}
 
-  .apos-apply-tag-menu__empty-icon {
-    // Variable sizes are less important for icons.
-    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
-    @include type-title;
-    margin: 0;
-  }
+.apos-apply-tag-menu__empty-icon {
+  // Variable sizes are less important for icons.
+  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+  @include type-title;
+  margin: 0;
+}
 
-  .fade-enter-active, .fade-leave-active {
-    transition: all 0.5s;
-  }
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s;
+}
 
-  .fade-enter, .fade-leave-to {
-    position: absolute;
-    width: 100%;
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-
+.fade-enter,
+.fade-leave-to {
+  position: absolute;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(-5px);
+}
 </style>

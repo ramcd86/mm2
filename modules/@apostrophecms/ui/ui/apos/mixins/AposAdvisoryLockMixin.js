@@ -9,10 +9,10 @@ export default {
       locked: false,
       lockTimeout: null,
       lockRefreshing: null,
-      lockApiUrl: null
+      lockApiUrl: null,
     };
   },
-  async destroyed () {
+  async destroyed() {
     await this.unlock();
   },
   methods: {
@@ -35,41 +35,47 @@ export default {
           body: {
             _advisoryLock: {
               tabId: apos.adminBar.tabId,
-              lock: true
-            }
+              lock: true,
+            },
           },
           draft: true,
-          busy: true
+          busy: true,
         });
         this.markLockedAndScheduleRefresh();
         return true;
       } catch (e) {
         if (this.isLockedError(e)) {
-          if (await apos.confirm({
-            heading: e.body.data.me ? 'apostrophe:docInUseBySelf' : 'apostrophe:docInUseByAnother',
-            description: e.body.data.me ? 'apostrophe:takeControlFromSelf' : 'apostrophe:takeControlFromOther',
-            interpolate: {
-              who: e.body.data.title
-            }
-          })) {
+          if (
+            await apos.confirm({
+              heading: e.body.data.me
+                ? "apostrophe:docInUseBySelf"
+                : "apostrophe:docInUseByAnother",
+              description: e.body.data.me
+                ? "apostrophe:takeControlFromSelf"
+                : "apostrophe:takeControlFromOther",
+              interpolate: {
+                who: e.body.data.title,
+              },
+            })
+          ) {
             try {
               await apos.http.patch(this.lockApiUrl, {
                 body: {
                   _advisoryLock: {
                     tabId: apos.adminBar.tabId,
                     lock: true,
-                    force: true
-                  }
+                    force: true,
+                  },
                 },
                 draft: true,
-                busy: true
+                busy: true,
               });
               this.markLockedAndScheduleRefresh();
               return true;
             } catch (e) {
               await apos.notify(e.message, {
-                type: 'error',
-                localize: false
+                type: "error",
+                localize: false,
               });
               return false;
             }
@@ -89,18 +95,20 @@ export default {
     // it is called for you.
     async showLockedError(e) {
       await apos.alert({
-        heading: 'apostrophe:multipleEditors',
-        description: e.body.data.me ? 'apostrophe:youTookControl' : 'apostrophe:someoneElseTookControl',
+        heading: "apostrophe:multipleEditors",
+        description: e.body.data.me
+          ? "apostrophe:youTookControl"
+          : "apostrophe:someoneElseTookControl",
         interpolate: {
-          who: e.body.data.title
-        }
+          who: e.body.data.title,
+        },
       });
     },
 
     // Convenience function to determine if an error is a lock error.
     // See `addLockToRequest` for more information.
     isLockedError(e) {
-      return e && e.body && e.body.name === 'locked';
+      return e && e.body && e.body.name === "locked";
     },
 
     // Call this method on a request body you are about to send with a PUT or PATCH
@@ -113,7 +121,7 @@ export default {
     addLockToRequest(body) {
       body._advisoryLock = {
         tabId: apos.adminBar.tabId,
-        lock: true
+        lock: true,
       };
     },
 
@@ -136,11 +144,11 @@ export default {
             body: {
               _advisoryLock: {
                 tabId: apos.adminBar.tabId,
-                lock: false
-              }
+                lock: false,
+              },
             },
             draft: true,
-            busy: true
+            busy: true,
           });
         } catch (e) {
           // Not our concern, just being polite
@@ -162,10 +170,10 @@ export default {
             body: {
               _advisoryLock: {
                 tabId: apos.adminBar.tabId,
-                lock: true
-              }
+                lock: true,
+              },
             },
-            draft: true
+            draft: true,
           });
           // Reset this each time to avoid various race conditions
           this.lockTimeout = setTimeout(this.refreshLock, 10000);
@@ -181,6 +189,6 @@ export default {
         }
         this.lockRefreshing = null;
       })();
-    }
-  }
+    },
+  },
 };

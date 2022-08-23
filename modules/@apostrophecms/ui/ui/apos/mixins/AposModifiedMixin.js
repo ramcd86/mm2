@@ -15,10 +15,10 @@
 export default {
   data() {
     return {
-      cancelHeading: 'apostrophe:unsavedChanges',
-      cancelDescription: 'apostrophe:discardChangesPrompt',
-      cancelNegativeLabel: 'apostrophe:resumeEditing',
-      cancelAffirmativeLabel: 'apostrophe:discardChanges'
+      cancelHeading: "apostrophe:unsavedChanges",
+      cancelDescription: "apostrophe:discardChangesPrompt",
+      cancelNegativeLabel: "apostrophe:resumeEditing",
+      cancelAffirmativeLabel: "apostrophe:discardChanges",
     };
   },
   methods: {
@@ -30,11 +30,11 @@ export default {
           heading: this.cancelHeading,
           description: this.cancelDescription,
           negativeLabel: this.cancelNegativeLabel,
-          affirmativeLabel: this.cancelAffirmativeLabel
+          affirmativeLabel: this.cancelAffirmativeLabel,
         });
         if (discard) {
-          await apos.notify('apostrophe:changesDiscarded', {
-            dismiss: true
+          await apos.notify("apostrophe:changesDiscarded", {
+            dismiss: true,
           });
           dismiss = true;
         } else {
@@ -51,6 +51,6 @@ export default {
         }
       }
       return dismiss;
-    }
-  }
+    },
+  },
 };

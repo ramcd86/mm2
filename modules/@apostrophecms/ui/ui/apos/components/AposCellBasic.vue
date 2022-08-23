@@ -8,11 +8,10 @@
 </template>
 
 <script>
-
-import AposCellMixin from 'Modules/@apostrophecms/ui/mixins/AposCellMixin';
+import AposCellMixin from "Modules/@apostrophecms/ui/mixins/AposCellMixin";
 
 export default {
-  name: 'AposCellBasic',
-  mixins: [ AposCellMixin ]
+  name: "AposCellBasic",
+  mixins: [AposCellMixin],
 };
 </script>

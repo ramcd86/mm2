@@ -142,6 +142,7 @@ module.exports = {
       },
       main: {
         type: "area",
+        label: "Main Summary",
         options: {
           widgets: {
             "custom-image": {},
@@ -184,22 +185,19 @@ module.exports = {
           },
         },
       },
-      // _topics: {
-      //   type: "relationship",
-      //   label: "Blog post topic",
-      //   withType: "topic",
-      //   builders: {
-      //     project: {
-      //       title: 1,
-      //       _url: 1,
-      //     },
-      //   },
-      // },
     },
     group: {
       basics: {
         label: "Basics",
-        fields: ["title", "subtitle", "main", "_topics", "alpha"],
+        fields: [
+          "title",
+          "subtitle",
+          "sideContent",
+          "main",
+          "paidContent",
+          "_topics",
+          "alpha",
+        ],
       },
     },
   },

@@ -1,5 +1,8 @@
 <template>
-  <div class="apos-modal__body" :class="{ 'apos-modal__body--flex': hasSlot('footer') }">
+  <div
+    class="apos-modal__body"
+    :class="{ 'apos-modal__body--flex': hasSlot('footer') }"
+  >
     <div class="apos-modal__body-inner">
       <div v-if="hasSlot('bodyHeader')" class="apos-modal__body-header">
         <slot name="bodyHeader" />
@@ -16,12 +19,12 @@
 
 <script>
 export default {
-  name: 'AposModalBody',
+  name: "AposModalBody",
   methods: {
     hasSlot(name) {
       return !!this.$slots[name];
-    }
-  }
+    },
+  },
 };
 </script>
 

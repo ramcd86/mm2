@@ -13,7 +13,7 @@
         <template #bodyMain>
           <div class="apos-share-draft__header">
             <h2 class="apos-share-draft__heading">
-              {{ $t('apostrophe:shareDraftHeader') }}
+              {{ $t("apostrophe:shareDraftHeader") }}
             </h2>
             <Close
               class="apos-share-draft__close"
@@ -30,26 +30,20 @@
                 @toggle="toggle"
               />
               <p class="apos-share-draft__toggle-label">
-                {{ $t('apostrophe:shareDraftEnable') }}
+                {{ $t("apostrophe:shareDraftEnable") }}
               </p>
             </div>
             <p class="apos-share-draft__description">
-              {{ $t('apostrophe:shareDraftDescription') }}
+              {{ $t("apostrophe:shareDraftDescription") }}
             </p>
-            <transition
-              name="collapse"
-              :duration="200"
-            >
-              <div
-                class="apos-share-draft__url-block"
-                v-show="!disabled"
-              >
+            <transition name="collapse" :duration="200">
+              <div class="apos-share-draft__url-block" v-show="!disabled">
                 <input
                   v-model="shareUrl"
                   type="text"
                   disabled
                   class="apos-share-draft__url"
-                >
+                />
                 <a
                   href=""
                   class="apos-share-draft__link-copy"
@@ -60,7 +54,7 @@
                     :title="$t('apostrophe:shareDraftCopyLink')"
                     :size="16"
                   />
-                  &nbsp;{{ $t('apostrophe:shareDraftCopyLink') }}
+                  &nbsp;{{ $t("apostrophe:shareDraftCopyLink") }}
                 </a>
               </div>
             </transition>
@@ -72,32 +66,32 @@
 </template>
 
 <script>
-import Close from 'vue-material-design-icons/Close.vue';
-import LinkVariant from 'vue-material-design-icons/LinkVariant.vue';
+import Close from "vue-material-design-icons/Close.vue";
+import LinkVariant from "vue-material-design-icons/LinkVariant.vue";
 
 export default {
   components: {
     Close,
-    LinkVariant
+    LinkVariant,
   },
   props: {
     doc: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
-  emits: [ 'safe-close' ],
+  emits: ["safe-close"],
   data() {
     return {
       modal: {
         active: false,
-        type: 'overlay',
+        type: "overlay",
         showModal: false,
         disableHeader: true,
-        trapFocus: true
+        trapFocus: true,
       },
-      shareUrl: '',
-      disabled: true
+      shareUrl: "",
+      disabled: true,
     };
   },
   async mounted() {
@@ -117,18 +111,19 @@ export default {
     async setShareUrl() {
       try {
         const { aposShareKey } = await apos.http.post(
-          `${apos.modules[this.doc.type].action}/${this.doc._id}/share`, {
+          `${apos.modules[this.doc.type].action}/${this.doc._id}/share`,
+          {
             busy: true,
             body: {
-              share: !this.disabled
+              share: !this.disabled,
             },
-            draft: true
+            draft: true,
           }
         );
 
         if (this.disabled) {
           setTimeout(() => {
-            this.shareUrl = '';
+            this.shareUrl = "";
           }, 200);
           return;
         }
@@ -140,7 +135,7 @@ export default {
         this.shareUrl = this.generateShareUrl(aposShareKey);
       } catch {
         if (this.disabled) {
-          this.shareUrl = '';
+          this.shareUrl = "";
           return;
         }
         await this.showError();
@@ -157,7 +152,8 @@ export default {
     async getAposShareKey() {
       try {
         const { aposShareKey } = await apos.http.get(
-          `${apos.modules[this.doc.type].action}/${this.doc._id}`, {}
+          `${apos.modules[this.doc.type].action}/${this.doc._id}`,
+          {}
         );
 
         if (aposShareKey) {
@@ -169,10 +165,10 @@ export default {
       }
     },
     async showError() {
-      await apos.notify('apostrophe:shareDraftError', {
-        type: 'danger',
-        icon: 'alert-circle-icon',
-        dismiss: true
+      await apos.notify("apostrophe:shareDraftError", {
+        type: "danger",
+        icon: "alert-circle-icon",
+        dismiss: true,
       });
     },
     generateShareUrl(aposShareKey) {
@@ -184,18 +180,18 @@ export default {
       const url = new URL(docUrl);
 
       const urlInfo = {
-        url: url.href
+        url: url.href,
       };
 
-      apos.bus.$emit('shared-draft-link', urlInfo);
+      apos.bus.$emit("shared-draft-link", urlInfo);
 
       return apos.http.addQueryToUrl(urlInfo.url, {
         ...(url.search ? apos.http.parseQuery(url.search) : {}),
         aposShareKey,
-        aposShareId: this.doc._id
+        aposShareId: this.doc._id,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -318,6 +314,6 @@ export default {
   margin-top: $spacing-double;
   text-decoration: none;
   color: var(--a-primary);
-  font-weight: var(--a-weight-bold);;
+  font-weight: var(--a-weight-bold);
 }
 </style>

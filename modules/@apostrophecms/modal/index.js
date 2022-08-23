@@ -4,7 +4,7 @@
 module.exports = {
   options: {
     components: {},
-    alias: 'modal'
+    alias: "modal",
   },
   init(self) {
     self.modals = [];
@@ -19,18 +19,18 @@ module.exports = {
         self.modals.push({
           itemName,
           componentName,
-          props
+          props,
         });
       },
       getBrowserData(req) {
         return {
           modals: self.modals,
           components: {
-            the: self.options.components.the || 'TheAposModals',
-            confirm: self.options.components.confirm || 'AposModalConfirm'
-          }
+            the: self.options.components.the || "TheAposModals",
+            confirm: self.options.components.confirm || "AposModalConfirm",
+          },
         };
-      }
+      },
     };
-  }
+  },
 };

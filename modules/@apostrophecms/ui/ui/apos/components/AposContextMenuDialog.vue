@@ -12,10 +12,7 @@
     />
     <div class="apos-context-menu__pane">
       <slot>
-        <ul
-          v-if="menu"
-          class="apos-context-menu__items" role="menu"
-        >
+        <ul v-if="menu" class="apos-context-menu__items" role="menu">
           <AposContextMenuItem
             v-for="item in menu"
             :key="item.action"
@@ -31,74 +28,71 @@
 </template>
 
 <script>
-
 export default {
-  name: 'AposContextMenuDialog',
+  name: "AposContextMenuDialog",
   props: {
     menuPlacement: {
       type: String,
-      required: true
+      required: true,
     },
     menu: {
       type: Array,
-      default: null
+      default: null,
     },
     classList: {
       type: String,
-      default: ''
+      default: "",
     },
     isOpen: {
       type: Boolean,
-      default: false
+      default: false,
     },
     modifiers: {
       type: Array,
       default() {
         return [];
-      }
+      },
     },
     hasTip: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
-  emits: [ 'item-clicked' ],
+  emits: ["item-clicked"],
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
-    menuPositions () {
-      return this.menuPlacement.split('-');
+    menuPositions() {
+      return this.menuPlacement.split("-");
     },
     menuOrigin() {
       return this.menuPositions[0];
     },
     tipAlignment() {
       if (!this.menuPositions[1]) {
-        return 'center';
+        return "center";
       } else {
         return this.menuPositions[1];
       }
     },
     classes() {
-      const classes = this.classList.split(' ');
-      this.modifiers.forEach(c => {
+      const classes = this.classList.split(" ");
+      this.modifiers.forEach((c) => {
         classes.push(`apos-context-menu__dialog--${c}`);
       });
-      return classes.join(' ');
-    }
+      return classes.join(" ");
+    },
   },
   methods: {
     menuItemClicked(action) {
-      this.$emit('item-clicked', action);
-    }
-  }
+      this.$emit("item-clicked", action);
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-
 .apos-context-menu__dialog--unpadded > .apos-context-menu__pane {
   padding: 0;
 }
@@ -147,5 +141,4 @@ export default {
     margin-top: 5px;
   }
 }
-
 </style>

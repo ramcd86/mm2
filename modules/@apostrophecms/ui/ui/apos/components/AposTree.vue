@@ -7,8 +7,10 @@
       @calculated="setWidths"
     />
     <AposTreeHeader
-      :headers="headers" :icons="icons"
-      :col-widths="colWidths" :hidden="options.hideHeader"
+      :headers="headers"
+      :icons="icons"
+      :col-widths="colWidths"
+      :hidden="options.hideHeader"
     />
     <AposTreeRows
       v-model="checkedProxy"
@@ -27,36 +29,36 @@
 </template>
 
 <script>
-import { klona } from 'klona';
-import cuid from 'cuid';
+import { klona } from "klona";
+import cuid from "cuid";
 
 export default {
-  name: 'AposTree',
+  name: "AposTree",
   model: {
-    prop: 'checked',
-    event: 'change'
+    prop: "checked",
+    event: "change",
   },
   props: {
     headers: {
       type: Array,
-      required: true
+      required: true,
     },
     icons: {
       type: Object,
       default() {
         return {};
-      }
+      },
     },
     items: {
       type: Array,
-      required: true
+      required: true,
     },
     checked: {
       type: Array,
       default() {
         // If this is not provided, we don't need to initiate an array.
         return null;
-      }
+      },
     },
     // Active options include:
     // - hideHeader: The tree header row will be visibly hidden.
@@ -67,19 +69,19 @@ export default {
     // - draggable: Rows can be moved around within the tree.
     options: {
       type: Object,
-      default () {
+      default() {
         return {};
-      }
-    }
+      },
+    },
   },
-  emits: [ 'update', 'change' ],
+  emits: ["update", "change"],
   data() {
     return {
       // Copy the `items` property to mutate with VueDraggable.
       myItems: klona(this.items),
       nested: false,
       colWidths: null,
-      treeId: cuid()
+      treeId: cuid(),
     };
   },
   computed: {
@@ -89,22 +91,22 @@ export default {
         return this.checked;
       },
       set(val) {
-        this.$emit('change', val);
-      }
+        this.$emit("change", val);
+      },
     },
     spacingRow() {
       let spacingRow = {};
       // Combine the header with the items, the limit to a reasonable 50 items.
       const headers = {};
       if (this.headers) {
-        this.headers.forEach(header => {
+        this.headers.forEach((header) => {
           headers[header.property] = header.label;
         });
       }
 
-      let completeRows = [ headers ];
+      let completeRows = [headers];
       // Add child items into `completeRows`.
-      this.items.forEach(row => {
+      this.items.forEach((row) => {
         completeRows.push(row);
 
         if (row._children && row._children.length > 0) {
@@ -116,18 +118,19 @@ export default {
 
       // Loop over the combined header/items array, finding the largest value
       // for each key.
-      completeRows.forEach(row => {
+      completeRows.forEach((row) => {
         if (spacingRow.length === 0) {
           spacingRow = Object.assign({}, row);
           return;
         }
 
-        this.headers.forEach(col => {
+        this.headers.forEach((col) => {
           const key = col.property;
           if (
-            (!spacingRow[key]) ||
+            !spacingRow[key] ||
             (spacingRow[key] &&
-            spacingRow[key].toString().length < (row[key] || '').toString().length)
+              spacingRow[key].toString().length <
+                (row[key] || "").toString().length)
           ) {
             spacingRow[key] = row[key];
           }
@@ -136,14 +139,14 @@ export default {
       // Place that largest value on that key of the spacingRow object.
       // Put that array in the DOM, and generate styles to be passed down based on its layout. Give the first column any leftover space.
       const finalRow = [];
-      this.headers.forEach(col => {
+      this.headers.forEach((col) => {
         let obj;
-        const foundIndex = this.headers.findIndex(o => {
+        const foundIndex = this.headers.findIndex((o) => {
           return o.property === col.property;
         });
         const spacerInfo = {
           name: col.property,
-          label: spacingRow[col.property]
+          label: spacingRow[col.property],
         };
 
         if (foundIndex > -1) {
@@ -164,19 +167,19 @@ export default {
         finalRow.push(obj);
       });
       return finalRow;
-    }
+    },
   },
   watch: {
     items(array) {
       this.myItems = array;
-    }
+    },
   },
   methods: {
     setWidths(widths) {
       this.colWidths = widths;
     },
     update(event) {
-      this.$emit('update', {
+      this.$emit("update", {
         // The ID of the item that moved.
         changedId: event.item.dataset.rowId,
         // The ID of the original parent, or 'root' if top-level.
@@ -186,19 +189,18 @@ export default {
         // The ID of the new parent, or 'root' if top-level.
         endContext: event.to.dataset.listRow,
         // The index of the moved item within its new context.
-        endIndex: event.newIndex
+        endIndex: event.newIndex,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-  @import '../scss/shared/_table-vars';
+@import "../scss/shared/_table-vars";
 
-  .apos-tree {
-    @include type-base;
-    color: var(--a-text-primary);
-  }
-
+.apos-tree {
+  @include type-base;
+  color: var(--a-text-primary);
+}
 </style>

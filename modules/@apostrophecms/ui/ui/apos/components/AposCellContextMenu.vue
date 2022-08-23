@@ -1,6 +1,9 @@
 <template>
   <div class="apos-table__cell-field apos-table__cell-field--context-menu">
-    <span class="apos-table__cell-field--context-menu__content" :class="classes">
+    <span
+      class="apos-table__cell-field--context-menu__content"
+      :class="classes"
+    >
       <AposDocContextMenu
         :disabled="disabled"
         :doc="draft"
@@ -20,53 +23,52 @@
 </template>
 
 <script>
-
-import AposCellMixin from 'Modules/@apostrophecms/ui/mixins/AposCellMixin';
+import AposCellMixin from "Modules/@apostrophecms/ui/mixins/AposCellMixin";
 
 export default {
-  name: 'AposCellContextMenu',
-  mixins: [ AposCellMixin ],
+  name: "AposCellContextMenu",
+  mixins: [AposCellMixin],
   props: {
     state: {
       type: Object,
       default() {
         return null;
-      }
+      },
     },
     options: {
       type: Object,
       default() {
         return {};
-      }
-    }
+      },
+    },
   },
   data() {
     return {
-      menuOpen: false
+      menuOpen: false,
     };
   },
   computed: {
     disabled() {
-      return this.item.type === '@apostrophecms/archive-page';
+      return this.item.type === "@apostrophecms/archive-page";
     },
     classes() {
-      const classes = [ ];
+      const classes = [];
       if (!this.state || this.state.hover || this.menuOpen) {
-        classes.push('apos-is-visible');
+        classes.push("apos-is-visible");
       }
       return classes;
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-  .apos-table__cell-field--context-menu__content {
-    @include apos-transition();
-    display: inline-block;
-    opacity: 0.3;
-    &.apos-is-visible {
-      opacity: 1;
-    }
+.apos-table__cell-field--context-menu__content {
+  @include apos-transition();
+  display: inline-block;
+  opacity: 0.3;
+  &.apos-is-visible {
+    opacity: 1;
   }
+}
 </style>

@@ -8,24 +8,24 @@
 </template>
 
 <script>
-import AposCellMixin from 'Modules/@apostrophecms/ui/mixins/AposCellMixin';
-import dayjs from 'dayjs';
+import AposCellMixin from "Modules/@apostrophecms/ui/mixins/AposCellMixin";
+import dayjs from "dayjs";
 
 export default {
-  name: 'AposCellLastEdited',
-  mixins: [ AposCellMixin ],
+  name: "AposCellLastEdited",
+  mixins: [AposCellMixin],
   computed: {
-    formattedDate () {
+    formattedDate() {
       const value = this.get(this.header.name || this.header.property);
       return this.getRelativeTime(value);
-    }
+    },
   },
   methods: {
-    getRelativeTime (value) {
-      const format = this.$t('apostrophe:dayjsRelativeTimeFormat');
+    getRelativeTime(value) {
+      const format = this.$t("apostrophe:dayjsRelativeTimeFormat");
       // endsWith allows it to still match when the i18n show debug mode
       // is in effect
-      if (!format.endsWith('apostrophe')) {
+      if (!format.endsWith("apostrophe")) {
         return dayjs(value).format(format);
       }
       // Custom format for US
@@ -46,30 +46,30 @@ export default {
       const YEAR = DAY * 365;
 
       if (secondsAgo < MINUTE) {
-        return secondsAgo + 's';
+        return secondsAgo + "s";
       } else if (secondsAgo < HOUR) {
-        [ divisor, unit ] = [ MINUTE, 'm' ];
+        [divisor, unit] = [MINUTE, "m"];
       } else if (secondsAgo < DAY) {
-        [ divisor, unit ] = [ HOUR, 'h' ];
+        [divisor, unit] = [HOUR, "h"];
       } else if (secondsAgo < WEEK) {
-        [ divisor, unit ] = [ DAY, 'd' ];
+        [divisor, unit] = [DAY, "d"];
       } else if (secondsAgo < MONTH) {
-        [ divisor, unit ] = [ WEEK, 'w' ];
+        [divisor, unit] = [WEEK, "w"];
       } else if (secondsAgo < YEAR) {
-        [ divisor, unit ] = [ MONTH, 'mo' ];
+        [divisor, unit] = [MONTH, "mo"];
       } else if (secondsAgo > YEAR) {
-        [ divisor, unit ] = [ YEAR, 'yr' ];
+        [divisor, unit] = [YEAR, "yr"];
       }
 
       const count = Math.floor(secondsAgo / divisor);
       return `${count}${unit} ago`;
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-  .apos-table__cell-field--relative-time {
-    color: var(--a-base-4);
-  }
+.apos-table__cell-field--relative-time {
+  color: var(--a-base-4);
+}
 </style>

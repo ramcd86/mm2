@@ -24,51 +24,50 @@
   </div>
 </template>
 <script>
-
 export default {
-  name: 'AposSelect',
+  name: "AposSelect",
   props: {
     icon: {
       type: String,
-      default: 'menu-down-icon'
+      default: "menu-down-icon",
     },
     uid: {
       type: Number,
-      default: null
+      default: null,
     },
     classes: {
       type: Array,
       default() {
         return [];
-      }
+      },
     },
     wrapperClasses: {
       type: Array,
       default() {
         return [];
-      }
+      },
     },
     choices: {
       type: Array,
       default() {
         return [];
-      }
+      },
     },
     selected: {
-      type: [ String, Number ],
-      default: ''
+      type: [String, Number],
+      default: "",
     },
     disabled: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
-  emits: [ 'change' ],
+  emits: ["change"],
   methods: {
     change(value) {
-      this.$emit('change', JSON.parse(value));
-    }
-  }
+      this.$emit("change", JSON.parse(value));
+    },
+  },
 };
 </script>
 

@@ -11,7 +11,8 @@
       margin-top: 0;
       line-height: var(--a-line-tall);
     }
-    ul, ol {
+    ul,
+    ol {
       padding-left: $spacing-base;
     }
     ul {
@@ -22,7 +23,7 @@
       margin-bottom: $spacing-half;
     }
     ul li:before {
-      content: '-';
+      content: "-";
       position: relative;
       left: -$spacing-half;
     }
@@ -53,7 +54,7 @@
     transform: rotate(45deg);
   }
 
-  &[x-placement^='top'] {
+  &[x-placement^="top"] {
     margin-bottom: 5px;
 
     .apos-tooltip__arrow {
@@ -64,7 +65,7 @@
     }
   }
 
-  &[x-placement^='bottom'] {
+  &[x-placement^="bottom"] {
     margin-top: 5px;
 
     .apos-tooltip__arrow {
@@ -75,7 +76,7 @@
     }
   }
 
-  &[x-placement^='right'] {
+  &[x-placement^="right"] {
     margin-left: 5px;
 
     .apos-tooltip__arrow {
@@ -86,7 +87,7 @@
     }
   }
 
-  &[x-placement^='left'] {
+  &[x-placement^="left"] {
     margin-right: 5px;
 
     .apos-tooltip__arrow {
@@ -97,13 +98,13 @@
     }
   }
 
-  &[aria-hidden='true'] {
+  &[aria-hidden="true"] {
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.15s, visibility 0.15s;
   }
 
-  &[aria-hidden='false'] {
+  &[aria-hidden="false"] {
     visibility: visible;
     opacity: 1;
     transition: opacity 0.15s;

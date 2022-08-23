@@ -26,7 +26,7 @@
         role="button"
         :attrs="{
           'aria-haspopup': 'menu',
-          'aria-expanded': isOpen ? true : false
+          'aria-expanded': isOpen ? true : false,
         }"
       />
       <template #popover class="apos-popover__slot">
@@ -44,85 +44,83 @@
 </template>
 
 <script>
-import {
-  VPopover
-} from 'v-tooltip';
-import AposThemeMixin from 'Modules/@apostrophecms/ui/mixins/AposThemeMixin';
+import { VPopover } from "v-tooltip";
+import AposThemeMixin from "Modules/@apostrophecms/ui/mixins/AposThemeMixin";
 
 export default {
-  name: 'AposContextMenu',
+  name: "AposContextMenu",
   components: {
-    'v-popover': VPopover
+    "v-popover": VPopover,
   },
-  mixins: [ AposThemeMixin ],
+  mixins: [AposThemeMixin],
   props: {
     menu: {
       type: Array,
-      default: null
+      default: null,
     },
     unpadded: {
       type: Boolean,
-      default: false
+      default: false,
     },
     modifiers: {
       type: Array,
       default() {
         return [];
-      }
+      },
     },
     button: {
       type: Object,
       default() {
         return {
-          label: 'Context Menu Label',
+          label: "Context Menu Label",
           iconOnly: true,
-          icon: 'label-icon',
-          type: 'outline'
+          icon: "label-icon",
+          type: "outline",
         };
-      }
+      },
     },
     menuPlacement: {
       type: String,
-      default: 'bottom'
+      default: "bottom",
     },
     menuOffset: {
-      type: [ Number, String ],
-      default: 15
+      type: [Number, String],
+      default: 15,
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     tooltip: {
-      type: [ String, Boolean ],
-      default: false
+      type: [String, Boolean],
+      default: false,
     },
     popoverModifiers: {
       type: Array,
       default() {
         return [];
-      }
-    }
+      },
+    },
   },
-  emits: [ 'open', 'close', 'item-clicked' ],
+  emits: ["open", "close", "item-clicked"],
   data() {
     return {
       isOpen: false,
-      position: '',
-      event: null
+      position: "",
+      event: null,
     };
   },
   computed: {
     popoverClass() {
-      const classes = [ 'apos-popover' ].concat(this.themeClass);
-      this.popoverModifiers.forEach(m => {
+      const classes = ["apos-popover"].concat(this.themeClass);
+      this.popoverModifiers.forEach((m) => {
         classes.push(`apos-popover--${m}`);
       });
       return classes;
     },
     classList() {
       const classes = [];
-      const baseClass = 'apos-context-menu__popup';
+      const baseClass = "apos-context-menu__popup";
       classes.push(`${baseClass}--tip-alignment-${this.menuPlacement}`);
       if (this.modifiers) {
         this.modifiers.forEach((m) => {
@@ -132,20 +130,20 @@ export default {
       if (this.menu || this.unpadded) {
         classes.push(`${baseClass}--unpadded`);
       }
-      return classes.join(' ');
+      return classes.join(" ");
     },
     buttonState() {
-      return this.open ? [ 'active' ] : null;
-    }
+      return this.open ? ["active"] : null;
+    },
   },
   watch: {
     isOpen(newVal, oldVal) {
       if (newVal) {
-        this.$emit('open', this.event);
+        this.$emit("open", this.event);
       } else {
-        this.$emit('close', this.event);
+        this.$emit("close", this.event);
       }
-    }
+    },
   },
   methods: {
     show() {
@@ -159,24 +157,23 @@ export default {
       this.event = e;
     },
     menuItemClicked(name) {
-      this.$emit('item-clicked', name);
+      this.$emit("item-clicked", name);
       this.hide();
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-
 .apos-context-menu {
   position: relative;
 }
 
-.apos-context-menu__popup--unpadded .apos-context-menu__pane  {
+.apos-context-menu__popup--unpadded .apos-context-menu__pane {
   padding: 0;
 }
 
-.apos-context-menu__popup--tb-padded .apos-context-menu__pane{
+.apos-context-menu__popup--tb-padded .apos-context-menu__pane {
   padding-top: 20px;
   padding-bottom: 20px;
 }
@@ -237,28 +234,28 @@ export default {
     display: none;
   }
 
-  &[x-placement^='top'] {
+  &[x-placement^="top"] {
     margin-bottom: 5px;
   }
 
-  &[x-placement^='bottom'] {
+  &[x-placement^="bottom"] {
     margin-top: 5px;
   }
 
-  &[x-placement$='end'] {
+  &[x-placement$="end"] {
     margin-right: -15px;
   }
 
-  &[x-placement$='start'] {
+  &[x-placement$="start"] {
     margin-left: -15px;
   }
 
-  &[aria-hidden='true'] {
+  &[aria-hidden="true"] {
     visibility: hidden;
     opacity: 0;
   }
 
-  &[aria-hidden='false'] {
+  &[aria-hidden="false"] {
     visibility: visible;
     opacity: 1;
   }
@@ -267,5 +264,4 @@ export default {
 .apos-popover--z-index-in-context {
   z-index: $z-index-widget-focused-controls;
 }
-
 </style>

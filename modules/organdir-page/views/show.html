@@ -1,13 +1,37 @@
 {# modules/organdir-page/views/show.html #} {% extends "layout.html" %} {% block
 main %} {% component '@apostrophecms/home-page:queensnavigation' %}
+<span id="queens-page"></span>
 <div class="row directory-base">
   <div class="col-12 directory-base__title">
     <h1>{{ data.piece.title }}</h1>
   </div>
   <div class="col-12 directory-base__desc"></div>
-  <div class="col-12">
-    <section>{% area data.piece, 'main' %}</section>
+  {% if data.piece.sideContent %}
+  <div class="row">
+    <div class="col-8">
+      <div class="row">
+        <div class="col-12">
+          <section>{% area data.piece, 'main' %}</section>
+        </div>
+        <div class="col-12">
+          <section>{% area data.piece, 'paidContent' %}</section>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <section>{% area data.piece, 'sideContent' %}</section>
+    </div>
   </div>
+  {% else %}
+  <div class="row">
+        <div class="col-12">
+          <section>{% area data.piece, 'main' %}</section>
+        </div>
+        <div class="col-12">
+          <section>{% area data.piece, 'paidContent' %}</section>
+        </div>
+  </div>
+  {% endif %}
 </div>
 
 {% endblock %}

@@ -1,18 +1,20 @@
 <template>
   <div class="apos-modal-tabs">
     <ul class="apos-modal-tabs__tabs">
-      <li
-        class="apos-modal-tabs__tab" v-for="tab in tabs"
-        :key="tab.name"
-      >
+      <li class="apos-modal-tabs__tab" v-for="tab in tabs" :key="tab.name">
         <button
-          :id="tab.name" class="apos-modal-tabs__btn"
+          :id="tab.name"
+          class="apos-modal-tabs__btn"
           :aria-selected="tab.name === currentTab ? true : false"
           @click="selectTab"
         >
           {{ $t(tab.label) }}
-          <span v-if="tabErrors[tab.name] && tabErrors[tab.name].length" class="apos-modal-tabs__label apos-modal-tabs__label--error">
-            {{ tabErrors[tab.name].length }} {{ generateErrorLabel(tabErrors[tab.name].length) }}
+          <span
+            v-if="tabErrors[tab.name] && tabErrors[tab.name].length"
+            class="apos-modal-tabs__label apos-modal-tabs__label--error"
+          >
+            {{ tabErrors[tab.name].length }}
+            {{ generateErrorLabel(tabErrors[tab.name].length) }}
           </span>
         </button>
       </li>
@@ -22,24 +24,24 @@
 
 <script>
 export default {
-  name: 'AposModalTabs',
+  name: "AposModalTabs",
   props: {
     tabs: {
       required: true,
-      type: Array
+      type: Array,
     },
     current: {
       type: String,
-      default: ''
+      default: "",
     },
     errors: {
       type: Object,
       default() {
         return {};
-      }
-    }
+      },
+    },
   },
-  emits: [ 'select-tab' ],
+  emits: ["select-tab"],
   computed: {
     currentTab() {
       return this.current || this.tabs[0].name;
@@ -55,22 +57,22 @@ export default {
         }
       }
       return errors;
-    }
+    },
   },
   methods: {
     generateErrorLabel(errorCount) {
-      let label = 'Error';
+      let label = "Error";
       if (errorCount > 1) {
-        label += 's';
+        label += "s";
       }
       return label;
     },
     selectTab: function (e) {
       const tab = e.target;
       const id = tab.id;
-      this.$emit('select-tab', id);
-    }
-  }
+      this.$emit("select-tab", id);
+    },
+  },
 };
 </script>
 
@@ -126,7 +128,7 @@ export default {
   box-sizing: border-box;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     bottom: 0;
@@ -136,9 +138,9 @@ export default {
     transition: width 0.25s cubic-bezier(0, 1.61, 1, 1.23);
   }
 
-  &[aria-selected='true'],
-  &[aria-selected='true']:hover,
-  &[aria-selected='true']:focus {
+  &[aria-selected="true"],
+  &[aria-selected="true"]:hover,
+  &[aria-selected="true"]:focus {
     background-color: var(--a-background-primary);
     &::before {
       background-color: var(--a-primary);
@@ -154,7 +156,7 @@ export default {
     }
   }
 
-  &[aria-selected='true'] {
+  &[aria-selected="true"] {
     &::before {
       width: 6px;
     }

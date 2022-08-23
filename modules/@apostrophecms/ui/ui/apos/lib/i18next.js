@@ -3,17 +3,16 @@
 // requirement to expressly pass an i18next instance to
 // each app
 
-import i18next from 'i18next';
+import i18next from "i18next";
 
 export default {
-
   install(Vue, options) {
     const i18n = options.i18n;
 
-    const fallbackLng = [ i18n.defaultLocale ];
+    const fallbackLng = [i18n.defaultLocale];
     // In case the default locale also has inadequate admin UI phrases
-    if (fallbackLng[0] !== 'en') {
-      fallbackLng.push('en');
+    if (fallbackLng[0] !== "en") {
+      fallbackLng.push("en");
     }
 
     i18next.init({
@@ -22,11 +21,11 @@ export default {
       resources: {},
       debug: i18n.debug,
       interpolation: {
-        escapeValue: false
+        escapeValue: false,
       },
       appendNamespaceToMissingKey: true,
-      defaultNS: [ apos.i18n.defaultNamespace ],
-      parseMissingKeyHandler (key) {
+      defaultNS: [apos.i18n.defaultNamespace],
+      parseMissingKeyHandler(key) {
         // We include namespaces with unrecognized l10n keys using
         // `appendNamespaceToMissingKey: true`. This passes strings containing
         // colons that were never meant to be localized through to the UI.
@@ -41,20 +40,22 @@ export default {
         } else {
           return key;
         }
-      }
+      },
     });
 
-    for (const [ ns, phrases ] of Object.entries(i18n.i18n[i18n.locale])) {
+    for (const [ns, phrases] of Object.entries(i18n.i18n[i18n.locale])) {
       i18next.addResourceBundle(i18n.locale, ns, phrases, true, true);
     }
     if (i18n.locale !== i18n.defaultLocale) {
-      for (const [ ns, phrases ] of Object.entries(i18n.i18n[i18n.defaultLocale])) {
+      for (const [ns, phrases] of Object.entries(
+        i18n.i18n[i18n.defaultLocale]
+      )) {
         i18next.addResourceBundle(i18n.defaultLocale, ns, phrases, true, true);
       }
     }
-    if ((i18n.locale !== 'en') && (i18n.defaultLocale !== 'en')) {
-      for (const [ ns, phrases ] of Object.entries(i18n.i18n.en)) {
-        i18next.addResourceBundle('en', ns, phrases, true, true);
+    if (i18n.locale !== "en" && i18n.defaultLocale !== "en") {
+      for (const [ns, phrases] of Object.entries(i18n.i18n.en)) {
+        i18next.addResourceBundle("en", ns, phrases, true, true);
       }
     }
 
@@ -67,7 +68,7 @@ export default {
     // `localize: false` to pass a string through without
     // invoking i18next.
     Vue.prototype.$t = (key, options = {}) => {
-      if ((key !== null) && ((typeof key) === 'object')) {
+      if (key !== null && typeof key === "object") {
         options = key;
         key = options.key;
       }
@@ -77,15 +78,15 @@ export default {
       // Check carefully for empty string and equivalent scenarios
       // before doing any work
       if (key == null) {
-        return '';
+        return "";
       }
-      key += '';
+      key += "";
       if (!key.length) {
-        return '';
+        return "";
       }
       const result = i18next.t(key, {
         lng: i18n.locale,
-        ...options
+        ...options,
       });
       if (i18n.show) {
         if (result === key) {
@@ -107,5 +108,5 @@ export default {
         return result;
       }
     };
-  }
+  },
 };

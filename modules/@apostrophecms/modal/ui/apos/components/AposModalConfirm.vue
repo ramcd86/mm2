@@ -16,7 +16,7 @@
             class="apos-confirm__custom-logo"
             :src="content.icon"
             alt=""
-          >
+          />
           <AposLogoIcon
             v-else-if="content.icon !== false"
             class="apos-confirm__logo"
@@ -70,45 +70,45 @@ export default {
   props: {
     mode: {
       type: String,
-      default: 'confirm'
+      default: "confirm",
     },
     content: {
       type: Object,
-      required: true
+      required: true,
     },
     callbackName: {
       type: String,
-      default: ''
+      default: "",
     },
     options: {
       type: Object,
       default() {
         return {};
-      }
-    }
+      },
+    },
   },
-  emits: [ 'safe-close', 'confirm-response', 'modal-result' ],
+  emits: ["safe-close", "confirm-response", "modal-result"],
   data() {
     return {
       modal: {
-        title: '',
+        title: "",
         active: false,
-        type: 'overlay',
+        type: "overlay",
         showModal: false,
         disableHeader: true,
-        trapFocus: true
+        trapFocus: true,
       },
-      formValues: null
+      formValues: null,
     };
   },
   computed: {
     affirmativeLabel() {
-      if (this.mode === 'confirm') {
+      if (this.mode === "confirm") {
         return (
-          this.localize(this.content.affirmativeLabel) || this.$t('Confirm')
+          this.localize(this.content.affirmativeLabel) || this.$t("Confirm")
         );
       } else {
-        return this.localize(this.content.affirmativeLabel) || this.$t('OK');
+        return this.localize(this.content.affirmativeLabel) || this.$t("OK");
       }
     },
     isDisabled() {
@@ -117,14 +117,14 @@ export default {
       }
       let disabled = false;
       if (this.content.form.schema) {
-        this.content.form.schema.forEach(field => {
+        this.content.form.schema.forEach((field) => {
           if (field.required && !this.formValues.data[field.name]) {
             disabled = true;
           }
         });
       }
       return disabled;
-    }
+    },
   },
   async mounted() {
     // Get the data. This will be more complex in actuality.
@@ -135,23 +135,23 @@ export default {
   },
   methods: {
     ready() {
-      this.$refs.confirm.$el.querySelector('button').focus();
+      this.$refs.confirm.$el.querySelector("button").focus();
     },
     confirm() {
       this.modal.showModal = false;
       const result = this.content.form ? this.formValues : true;
-      this.$emit('modal-result', result);
+      this.$emit("modal-result", result);
     },
     async cancel() {
       this.modal.showModal = false;
-      this.$emit('modal-result', false);
+      this.$emit("modal-result", false);
     },
     localize(s) {
       return this.options.localize === false
         ? s
         : this.$t(s, this.options.interpolate || {});
-    }
-  }
+    },
+  },
 };
 </script>
 

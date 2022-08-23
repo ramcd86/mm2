@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: 'AposModalTabsBody'
+  name: "AposModalTabsBody",
 };
 </script>
 

@@ -8,21 +8,29 @@
     @end="endDrag"
   >
     <li
-      v-for="row in myRows" :key="row._id"
-      :data-row-id="row._id" data-apos-tree-row
+      v-for="row in myRows"
+      :key="row._id"
+      :data-row-id="row._id"
+      data-apos-tree-row
       :class="getRowClasses(row)"
       :aria-role="options.selectable ? 'button' : null"
       :tabindex="options.selectable ? 0 : null"
-      v-on="options.selectable ? {
-        'click': selectRow,
-        'keydown': keydownRow
-      } : {}"
+      v-on="
+        options.selectable
+          ? {
+              click: selectRow,
+              keydown: keydownRow,
+            }
+          : {}
+      "
     >
       <div class="apos-tree__row-data">
         <button
           v-if="row._children && row._children.length > 0"
-          class="apos-tree__row__toggle" data-apos-tree-toggle
-          :aria-label="$t('apostrophe:toggleSection')" :aria-expanded="!options.startCollapsed"
+          class="apos-tree__row__toggle"
+          data-apos-tree-toggle
+          :aria-label="$t('apostrophe:toggleSection')"
+          :aria-expanded="!options.startCollapsed"
           @click="toggleSection($event)"
         >
           <AposIndicator
@@ -37,13 +45,17 @@
           :draft="row"
           :published="row._publishedDoc"
           :header="col"
-          :href="(getEffectiveType(col, row) === 'a') ? row[col.property] : false"
+          :href="getEffectiveType(col, row) === 'a' ? row[col.property] : false"
           :target="col.type === 'link' ? '_blank' : false"
           :class="getCellClasses(col, row)"
           :disabled="getCellDisabled(col, row)"
           :data-col="col.property"
           :style="getCellStyles(col.property, index)"
-          @click="((getEffectiveType(col, row) === 'button') && col.action) ? $emit(col.action, row._id) : null"
+          @click="
+            getEffectiveType(col, row) === 'button' && col.action
+              ? $emit(col.action, row._id)
+              : null
+          "
         >
           <AposIndicator
             v-if="options.draggable && index === 0 && !row.parked"
@@ -51,7 +63,11 @@
             class="apos-tree__row__icon apos-tree__row__icon--handle"
           />
           <AposIndicator
-            v-if="index === 0 && row.parked && row.type !== '@apostrophecms/archive-page'"
+            v-if="
+              index === 0 &&
+              row.parked &&
+              row.type !== '@apostrophecms/archive-page'
+            "
             icon="lock-icon"
             class="apos-tree__row__icon apos-tree__row__icon--parked"
             tooltip="apostrophe:pageIsParked"
@@ -71,9 +87,9 @@
               hideLabel: true,
               label: {
                 key: 'apostrophe:toggleSelectionOf',
-                title: row.title
+                title: row.title,
               },
-              disableFocus: true
+              disableFocus: true,
             }"
             :choice="{ value: row._id }"
             v-model="checkedProxy"
@@ -85,7 +101,10 @@
               class="apos-tree__cell__icon"
               :icon-size="getEffectiveIconSize(col, row)"
             />
-            <span class="apos-tree__cell__label" v-if="getEffectiveCellLabel(col, row)">
+            <span
+              class="apos-tree__cell__label"
+              v-if="getEffectiveCellLabel(col, row)"
+            >
               {{ getEffectiveCellLabel(col, row) }}
             </span>
           </span>
@@ -106,7 +125,7 @@
         :options="options"
         :class="{ 'apos-is-collapsed': options.startCollapsed }"
         :style="{
-          'max-height': options.startCollapsed ? '0' : null
+          'max-height': options.startCollapsed ? '0' : null,
         }"
         @update="$emit('update', $event)"
         v-model="checkedProxy"
@@ -116,72 +135,72 @@
 </template>
 
 <script>
-import VueDraggable from 'vuedraggable';
+import VueDraggable from "vuedraggable";
 
 export default {
-  name: 'AposTreeRows',
+  name: "AposTreeRows",
   components: {
-    VueDraggable
+    VueDraggable,
   },
   // Custom model to handle the v-model connection on the parent.
   model: {
-    prop: 'checked',
-    event: 'change'
+    prop: "checked",
+    event: "change",
   },
   props: {
     headers: {
       type: Array,
-      required: true
+      required: true,
     },
     icons: {
       type: Object,
-      default () {
+      default() {
         return {};
-      }
+      },
     },
     rows: {
       type: Array,
       default() {
         return [];
-      }
+      },
     },
     checked: {
       type: Array,
       default() {
         // If this is not provided, we don't need to initiate an array.
         return null;
-      }
+      },
     },
     colWidths: {
       type: Object,
-      default () {
+      default() {
         return {};
-      }
+      },
     },
     level: {
       type: Number,
-      required: true
+      required: true,
     },
     nested: {
       type: Boolean,
-      required: true
+      required: true,
     },
     options: {
       type: Object,
-      default () {
+      default() {
         return {};
-      }
+      },
     },
     listId: {
       type: String,
-      required: true
+      required: true,
     },
     treeId: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
-  emits: [ 'update', 'change' ],
+  emits: ["update", "change"],
   computed: {
     myRows() {
       return this.rows;
@@ -192,8 +211,8 @@ export default {
         return this.checked;
       },
       set(val) {
-        this.$emit('change', val);
-      }
+        this.$emit("change", val);
+      },
     },
     isOpen() {
       return true;
@@ -203,16 +222,16 @@ export default {
         group: { name: this.treeId },
         dataListId: this.listId,
         disabled: !this.options.draggable,
-        handle: '.apos-tree__row__icon--handle',
-        ghostClass: 'apos-is-dragging',
-        filter: '.apos-is-parked'
+        handle: ".apos-tree__row__icon--handle",
+        ghostClass: "apos-is-dragging",
+        filter: ".apos-is-parked",
       };
-    }
+    },
   },
   mounted() {
     // Use $nextTick to make sure attributes like `clientHeight` are settled.
     this.$nextTick(() => {
-      if (!this.$refs['tree-branches']) {
+      if (!this.$refs["tree-branches"]) {
         return;
       }
       this.setHeights();
@@ -220,76 +239,80 @@ export default {
   },
   methods: {
     setHeights() {
-      this.$refs['tree-branches'].forEach(branch => {
+      this.$refs["tree-branches"].forEach((branch) => {
         // Add padding to the max-height to avoid needing a `resize`
         // event listener updating values.
         const height = branch.$el.clientHeight + 20;
-        branch.$el.setAttribute('data-apos-branch-height', `${height}px`);
+        branch.$el.setAttribute("data-apos-branch-height", `${height}px`);
         branch.$el.style.maxHeight = `${height}px`;
       });
     },
     startDrag() {},
     endDrag(event) {
-      this.$emit('update', event);
+      this.$emit("update", event);
       this.$nextTick(() => {
-        if (!this.$refs['tree-branches']) {
+        if (!this.$refs["tree-branches"]) {
           return;
         }
         this.setHeights();
       });
     },
     toggleSection(event, data) {
-      const row = (data && data.row) ||
-        event.target.closest('[data-apos-tree-row]');
-      const rowList = row.querySelector('[data-apos-branch-height]');
-      const toggle = (data && data.toggle) ||
-        event.target.closest('[data-apos-tree-toggle]');
+      const row =
+        (data && data.row) || event.target.closest("[data-apos-tree-row]");
+      const rowList = row.querySelector("[data-apos-branch-height]");
+      const toggle =
+        (data && data.toggle) ||
+        event.target.closest("[data-apos-tree-toggle]");
 
-      if (toggle.getAttribute('aria-expanded') !== 'true') {
-        rowList.style.maxHeight = rowList.getAttribute('data-apos-branch-height');
-        toggle.setAttribute('aria-expanded', true);
-        rowList.classList.remove('apos-is-collapsed');
+      if (toggle.getAttribute("aria-expanded") !== "true") {
+        rowList.style.maxHeight = rowList.getAttribute(
+          "data-apos-branch-height"
+        );
+        toggle.setAttribute("aria-expanded", true);
+        rowList.classList.remove("apos-is-collapsed");
       } else if (rowList) {
         rowList.style.maxHeight = 0;
-        toggle.setAttribute('aria-expanded', false);
-        rowList.classList.add('apos-is-collapsed');
+        toggle.setAttribute("aria-expanded", false);
+        rowList.classList.add("apos-is-collapsed");
       }
     },
     keydownRow(event) {
-      if (event.key === ' ') {
+      if (event.key === " ") {
         event.preventDefault();
         this.selectRow(event);
       }
     },
     selectRow(event) {
-      const buttonParent = event.target.closest('[data-apos-tree-toggle]');
+      const buttonParent = event.target.closest("[data-apos-tree-toggle]");
 
       if (buttonParent) {
         // If we've clicked on the toggle, don't select the row.
         return;
       }
 
-      const row = event.target.closest('[data-apos-tree-row]');
-      this.$emit('change', [ row.dataset.rowId ]);
+      const row = event.target.closest("[data-apos-tree-row]");
+      this.$emit("change", [row.dataset.rowId]);
 
       // Expand a row when the full parent row is selected.
-      const toggle = row.querySelector('[data-apos-tree-toggle]');
-      if (toggle && toggle.getAttribute('aria-expanded') !== 'true') {
+      const toggle = row.querySelector("[data-apos-tree-toggle]");
+      if (toggle && toggle.getAttribute("aria-expanded") !== "true") {
         this.toggleSection(null, {
           row,
-          toggle
+          toggle,
         });
       }
     },
     getRowClasses(row) {
       const classes = [
-        'apos-tree__row',
+        "apos-tree__row",
         {
-          'apos-is-parked': !!row.parked,
-          'apos-tree__row--parent': row._children && row._children.length > 0,
-          'apos-tree__row--selectable': this.options.selectable,
-          'apos-tree__row--selected': this.options.selectable && this.checked[0] === row._id
-        }
+          "apos-is-parked": !!row.parked,
+          "apos-tree__row--parent": row._children && row._children.length > 0,
+          "apos-tree__row--selectable": this.options.selectable,
+          "apos-tree__row--selected":
+            this.options.selectable && this.checked[0] === row._id,
+        },
       ];
 
       return classes;
@@ -297,20 +320,20 @@ export default {
     getEffectiveType(col, row) {
       if (col.component) {
         return col.component;
-      } else if (row.type === '@apostrophecms/archive-page') {
-        return 'span';
-      } else if (col.type === 'link') {
-        return 'a';
-      } else if (col.type === 'button') {
-        return 'button';
+      } else if (row.type === "@apostrophecms/archive-page") {
+        return "span";
+      } else if (col.type === "link") {
+        return "a";
+      } else if (col.type === "button") {
+        return "button";
       } else {
-        return 'span';
+        return "span";
       }
     },
     getEffectiveIcon(col, row) {
       const boolStr = (!!row[col.property]).toString();
 
-      if (row.type === '@apostrophecms/archive-page' || !col.cellValue) {
+      if (row.type === "@apostrophecms/archive-page" || !col.cellValue) {
         return false;
       }
 
@@ -338,12 +361,11 @@ export default {
       return 15;
     },
     getEffectiveCellLabel(col, row) {
-      const excludedTypes = [ '@apostrophecms/archive-page' ];
+      const excludedTypes = ["@apostrophecms/archive-page"];
       const boolStr = (!!row[col.property]).toString();
 
       // Opportunity to display a custom true/false label for cell value
       if (this.isObject(col.cellValue)) {
-
         if (excludedTypes.includes(row.type)) {
           return false;
         }
@@ -351,7 +373,7 @@ export default {
         // if we have a custom label
         if (col.cellValue[boolStr]) {
           // if custom is just a string
-          if (typeof col.cellValue[boolStr] === 'string') {
+          if (typeof col.cellValue[boolStr] === "string") {
             return col.cellValue[boolStr];
           }
           // if custom has label and other props
@@ -363,19 +385,23 @@ export default {
 
       // Original default of just printing the row property value
       const publishedDoc = row._publishedDoc;
-      const value = (publishedDoc && (publishedDoc[col.cellValue] !== undefined) && publishedDoc[col.cellValue]) || row[col.cellValue];
+      const value =
+        (publishedDoc &&
+          publishedDoc[col.cellValue] !== undefined &&
+          publishedDoc[col.cellValue]) ||
+        row[col.cellValue];
       if (value) {
         return value;
       }
       return false;
     },
     getCellClasses(col, row) {
-      const classes = [ 'apos-tree__cell' ];
+      const classes = ["apos-tree__cell"];
       const boolStr = (!!row[col.property]).toString();
       classes.push(`apos-tree__cell--${col.property}`);
 
       if (col.cellValue && col.cellValue.icon) {
-        classes.push('apos-tree__cell--icon');
+        classes.push("apos-tree__cell--icon");
       }
 
       // Surface any custom label classes
@@ -389,12 +415,12 @@ export default {
     },
 
     getCellDisabled(col, row) {
-      if (this.getEffectiveType(col, row) === 'span') {
+      if (this.getEffectiveType(col, row) === "span") {
         return false;
       }
-      if ((col.type === 'link') && (!row[col.property])) {
+      if (col.type === "link" && !row[col.property]) {
         return true;
-      } else if (row.archived && (col.type === 'button')) {
+      } else if (row.archived && col.type === "button") {
         return true;
       } else {
         return false;
@@ -403,8 +429,13 @@ export default {
 
     getCellStyles(name, index) {
       const styles = {};
-      if (this.nested && index === 0 && this.colWidths && this.colWidths[name]) {
-        styles.width = `${this.colWidths[name] - (24 * this.level)}px`;
+      if (
+        this.nested &&
+        index === 0 &&
+        this.colWidths &&
+        this.colWidths[name]
+      ) {
+        styles.width = `${this.colWidths[name] - 24 * this.level}px`;
       } else if (this.colWidths && this.colWidths[name]) {
         styles.width = `${this.colWidths[name]}px`;
       }
@@ -415,150 +446,149 @@ export default {
     // From lodash core
     isObject(value) {
       const type = typeof value;
-      return value != null && (type === 'object' || type === 'function');
-    }
-  }
+      return value != null && (type === "object" || type === "function");
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-  @import '../scss/shared/_table-vars';
-  @import '../scss/shared/_table-rows';
+@import "../scss/shared/_table-vars";
+@import "../scss/shared/_table-rows";
 
-  .apos-tree__list {
-    width: 100%;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-left: 0;
-    list-style-type: none;
+.apos-tree__list {
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.apos-tree__row {
+  &.apos-is-dragging {
+    opacity: 0.5;
+  }
+}
+.apos-tree__list {
+  transition: max-height 0.3s ease;
+
+  &.apos-is-collapsed {
+    overflow-y: auto;
+  }
+}
+
+.apos-tree__row--selectable {
+  cursor: pointer;
+}
+.apos-tree__row-data {
+  .apos-tree__row--selected > & {
+    background-color: var(--a-base-9);
+  }
+}
+
+.apos-tree__row--parent {
+  position: relative;
+
+  &::before {
+    position: absolute;
+    top: 24px;
+    bottom: 0;
+    left: math.div($row-nested-h-padding, 2);
+    display: block;
+    content: "";
+    background-color: var(--a-base-8);
+    width: 1px;
+    transition: background-color 0.3s ease;
   }
 
-  .apos-tree__row {
-    &.apos-is-dragging {
-      opacity: 0.5;
-    }
+  &.apos-is-collapsed::before {
+    background-color: transparent;
   }
-  .apos-tree__list {
-    transition: max-height 0.3s ease;
+}
 
-    &.apos-is-collapsed {
-      overflow-y: auto;
-    }
+.apos-tree__row__toggle {
+  @include apos-button-reset();
+  position: absolute;
+  top: 50%;
+  left: -(math.div($row-nested-h-padding, 2));
+  background-color: var(--a-background-primary);
+  transform: translate(-50%, -50%);
+}
+
+.apos-tree__row__toggle-icon {
+  display: block;
+  transition: transform 0.3s ease;
+  transform: rotate(-90deg) translateY(0.25em);
+
+  [aria-expanded="true"] > & {
+    transform: none;
   }
+}
 
-  .apos-tree__row--selectable {
-    cursor: pointer;
+.apos-tree__row__icon {
+  margin-right: 0.25em;
+
+  ::v-deep .material-design-icon__svg {
+    transition: fill 0.2s ease;
+    fill: var(--a-base-5);
   }
-  .apos-tree__row-data {
-    .apos-tree__row--selected > & {
-      background-color: var(--a-base-9);
-    }
+}
+
+.apos-tree__row__icon--handle {
+  cursor: grab;
+  &:active {
+    cursor: grabbing;
   }
+  .sortable-chosen & ::v-deep .material-design-icon__svg,
+  &:hover ::v-deep .material-design-icon__svg {
+    fill: var(--a-base-2);
+  }
+}
 
-  .apos-tree__row--parent {
-    position: relative;
+.apos-tree__row__checkbox.apos-choice-label {
+  align-items: flex-start;
+  margin-right: 0.5em;
+}
 
+.apos-tree__row {
+  .apos-tree--nested & {
+    padding-left: $row-nested-h-padding;
+  }
+}
+
+.apos-tree__row-data {
+  .apos-tree__row--parent .apos-tree__row & {
     &::before {
       position: absolute;
-      top: 24px;
-      bottom: 0;
-      left: math.div($row-nested-h-padding, 2);
+      top: 50%;
+      left: -$row-nested-h-padding * 1.5;
       display: block;
-      content: '';
+      width: 24px;
+      height: 1px;
+      content: "";
       background-color: var(--a-base-8);
-      width: 1px;
-      transition: background-color 0.3s ease;
-    }
-
-    &.apos-is-collapsed::before {
-      background-color: transparent;
     }
   }
 
-  .apos-tree__row__toggle {
-    @include apos-button-reset();
-    position: absolute;
-    top: 50%;
-    left: -(math.div($row-nested-h-padding, 2));
-    background-color: var(--a-background-primary);
-    transform: translate(-50%, -50%);
-  }
-
-  .apos-tree__row__toggle-icon {
-    display: block;
-    transition: transform 0.3s ease;
-    transform: rotate(-90deg) translateY(0.25em);
-
-    [aria-expanded=true] > & {
-      transform: none;
+  .apos-tree__row--parent > &:first-child {
+    &::before {
+      width: 14px;
     }
   }
+}
 
-  .apos-tree__row__icon {
-    margin-right: 0.25em;
+.apos-tree__cell__value {
+  display: flex;
+  align-self: center;
+}
 
-    ::v-deep .material-design-icon__svg {
-      transition: fill 0.2s ease;
-      fill: var(--a-base-5);
-    }
-  }
+.apos-tree__cell.apos-is-published ::v-deep .apos-tree__cell__icon {
+  color: var(--a-success);
+}
 
-  .apos-tree__row__icon--handle {
-    cursor: grab;
-    &:active {
-      cursor: grabbing;
-    }
-    .sortable-chosen & ::v-deep .material-design-icon__svg,
-    &:hover ::v-deep .material-design-icon__svg {
-      fill: var(--a-base-2);
-    }
-  }
-
-  .apos-tree__row__checkbox.apos-choice-label {
-    align-items: flex-start;
-    margin-right: 0.5em;
-  }
-
-  .apos-tree__row {
-    .apos-tree--nested & {
-      padding-left: $row-nested-h-padding;
-    }
-  }
-
-  .apos-tree__row-data {
-    .apos-tree__row--parent .apos-tree__row & {
-      &::before {
-        position: absolute;
-        top: 50%;
-        left: -$row-nested-h-padding * 1.5;
-        display: block;
-        width: 24px;
-        height: 1px;
-        content: '';
-        background-color: var(--a-base-8);
-      }
-    }
-
-    .apos-tree__row--parent > &:first-child {
-      &::before {
-        width: 14px;
-      }
-    }
-  }
-
-  .apos-tree__cell__value {
-    display: flex;
-    align-self: center;
-  }
-
-  .apos-tree__cell.apos-is-published ::v-deep .apos-tree__cell__icon {
-    color: var(--a-success);
-  }
-
-  button.apos-tree__cell {
-    @include apos-button-reset();
-    padding: $cell-padding;
-    border-bottom: 1px solid var(--a-base-8);
-  }
-
+button.apos-tree__cell {
+  @include apos-button-reset();
+  padding: $cell-padding;
+  border-bottom: 1px solid var(--a-base-8);
+}
 </style>

@@ -14,23 +14,25 @@
  *   AposDocEditor that split the UI into several AposSchemas.
  */
 
-import { klona } from 'klona';
+import { klona } from "klona";
 
 export default {
   data() {
     return {
       docFields: {
-        data: {}
+        data: {},
       },
       serverErrors: null,
       restoreOnly: false,
-      changed: []
+      changed: [],
     };
   },
 
   computed: {
     schema() {
-      let schema = (this.moduleOptions.schema || []).filter(field => apos.schema.components.fields[field.type]);
+      let schema = (this.moduleOptions.schema || []).filter(
+        (field) => apos.schema.components.fields[field.type]
+      );
       if (this.restoreOnly) {
         schema = klona(schema);
         for (const field of schema) {
@@ -38,9 +40,9 @@ export default {
         }
       }
       // Archive UI is handled via action buttons
-      schema = schema.filter(field => field.name !== 'archived');
+      schema = schema.filter((field) => field.name !== "archived");
       return schema;
-    }
+    },
   },
 
   methods: {
@@ -57,7 +59,9 @@ export default {
 
       for (const field of fields) {
         if (field.following) {
-          const following = Array.isArray(field.following) ? field.following : [ field.following ];
+          const following = Array.isArray(field.following)
+            ? field.following
+            : [field.following];
           followingValues[field.name] = {};
           for (const name of following) {
             followingValues[field.name][name] = this.getFieldValue(name);
@@ -72,9 +76,13 @@ export default {
     // is falsy
     getFieldsByCategory(followedByCategory) {
       if (followedByCategory) {
-        return (followedByCategory === 'other')
-          ? this.schema.filter(field => !this.utilityFields.includes(field.name))
-          : this.schema.filter(field => this.utilityFields.includes(field.name));
+        return followedByCategory === "other"
+          ? this.schema.filter(
+              (field) => !this.utilityFields.includes(field.name)
+            )
+          : this.schema.filter((field) =>
+              this.utilityFields.includes(field.name)
+            );
       } else {
         return this.schema;
       }
@@ -94,7 +102,6 @@ export default {
     // category.
 
     conditionalFields(followedByCategory) {
-
       const self = this;
       const conditionalFields = {};
 
@@ -126,9 +133,9 @@ export default {
 
       function evaluate(clause) {
         let result = true;
-        for (const [ key, val ] of Object.entries(clause)) {
-          if (key === '$or') {
-            return val.some(clause => evaluate(clause));
+        for (const [key, val] of Object.entries(clause)) {
+          if (key === "$or") {
+            return val.some((clause) => evaluate(clause));
           }
           if (conditionalFields[key] === false) {
             result = false;
@@ -145,7 +152,6 @@ export default {
         }
         return result;
       }
-
     },
 
     // Overridden by components that split the fields into several AposSchemas
@@ -166,15 +172,15 @@ export default {
       if (e.body && e.body.data && e.body.data.errors) {
         const serverErrors = {};
         let first;
-        e.body.data.errors.forEach(e => {
+        e.body.data.errors.forEach((e) => {
           first = first || e;
           serverErrors[e.path] = e;
         });
         this.serverErrors = serverErrors;
         if (first) {
-          const field = this.schema.find(field => field.name === first.path);
+          const field = this.schema.find((field) => field.name === first.path);
           if (field) {
-            if ((field.group.name !== 'utility') && (this.switchPane)) {
+            if (field.group.name !== "utility" && this.switchPane) {
               this.switchPane(field.group.name);
             }
             // Let pane switching effects settle first
@@ -185,9 +191,9 @@ export default {
         }
       } else {
         await apos.notify((e.body && e.body.message) || fallback, {
-          type: 'danger',
-          icon: 'alert-circle-icon',
-          dismiss: true
+          type: "danger",
+          icon: "alert-circle-icon",
+          dismiss: true,
         });
       }
     },
@@ -208,38 +214,49 @@ export default {
         }
         const withType = relationship.field.withType;
         const module = apos.modules[withType];
-        relationship.context[relationship.field.name] = (await apos.http.post(`${module.action}/${relationship.field.postprocessor}`, {
-          qs: {
-            aposMode: 'draft'
-          },
-          body: {
-            relationship: relationship.value,
-            // Pass the options of the widget currently being edited, some
-            // postprocessors need these (e.g. autocropping cares about widget aspectRatio)
-            widgetOptions: apos.area.widgetOptions[0]
-          },
-          busy: true
-        })).relationship;
+        relationship.context[relationship.field.name] = (
+          await apos.http.post(
+            `${module.action}/${relationship.field.postprocessor}`,
+            {
+              qs: {
+                aposMode: "draft",
+              },
+              body: {
+                relationship: relationship.value,
+                // Pass the options of the widget currently being edited, some
+                // postprocessors need these (e.g. autocropping cares about widget aspectRatio)
+                widgetOptions: apos.area.widgetOptions[0],
+              },
+              busy: true,
+            }
+          )
+        ).relationship;
       }
       function findRelationships(schema, object) {
         let relationships = [];
         for (const field of schema) {
-          if (field.type === 'relationship') {
+          if (field.type === "relationship") {
             relationships.push({
               context: object,
               field,
-              value: object[field.name]
+              value: object[field.name],
             });
-          } else if (field.type === 'array') {
-            for (const value of (object[field.name] || [])) {
-              relationships = [ ...relationships, findRelationships(field.schema, value) ];
+          } else if (field.type === "array") {
+            for (const value of object[field.name] || []) {
+              relationships = [
+                ...relationships,
+                findRelationships(field.schema, value),
+              ];
             }
-          } else if (field.type === 'object') {
-            relationships = [ ...relationships, findRelationships(field.schema, object[field.name] || {}) ];
+          } else if (field.type === "object") {
+            relationships = [
+              ...relationships,
+              findRelationships(field.schema, object[field.name] || {}),
+            ];
           }
         }
         return relationships;
       }
-    }
-  }
+    },
+  },
 };

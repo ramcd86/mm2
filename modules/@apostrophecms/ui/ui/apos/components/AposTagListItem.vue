@@ -1,7 +1,8 @@
 <template>
   <li class="apos-tag-list__item">
     <button
-      :class="{'apos-is-active' : active}" class="apos-tag-list__button"
+      :class="{ 'apos-is-active': active }"
+      class="apos-tag-list__button"
       @click="click(tag)"
     >
       <AposIndicator
@@ -22,24 +23,24 @@ export default {
   props: {
     activeTag: {
       type: String,
-      default: null
+      default: null,
     },
     tag: {
       required: true,
-      type: Object
-    }
+      type: Object,
+    },
   },
-  emits: [ 'click' ],
+  emits: ["click"],
   computed: {
-    active () {
+    active() {
       return this.activeTag === this.tag.value;
-    }
+    },
   },
   methods: {
     click(tag) {
-      this.$emit('click', tag.value);
-    }
-  }
+      this.$emit("click", tag.value);
+    },
+  },
 };
 </script>
 
@@ -100,5 +101,4 @@ export default {
 .apos-tag-list__label {
   @include type-base;
 }
-
 </style>

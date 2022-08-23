@@ -1,11 +1,11 @@
 module.exports = {
   options: {
-    alias: 'ui',
-    widgetMargin: '20px 0'
+    alias: "ui",
+    widgetMargin: "20px 0",
   },
   icons: {
-    'earth-icon': 'Earth',
-    'database-check-icon': 'DatabaseCheck'
+    "earth-icon": "Earth",
+    "database-check-icon": "DatabaseCheck",
   },
   init(self) {
     self.enableBrowserData();
@@ -14,7 +14,7 @@ module.exports = {
     return {
       getBrowserData(req) {
         const theme = {
-          primary: 'default'
+          primary: "default",
         };
         if (req.data.global && req.data.global.aposThemePrimary) {
           theme.primary = req.data.global.aposThemePrimary;
@@ -24,9 +24,9 @@ module.exports = {
         }
         return {
           theme,
-          widgetMargin: self.options.widgetMargin
+          widgetMargin: self.options.widgetMargin,
         };
-      }
+      },
     };
-  }
+  },
 };

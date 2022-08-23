@@ -8,15 +8,17 @@
 </template>
 
 <script>
-import AposCellMixin from 'Modules/@apostrophecms/ui/mixins/AposCellMixin';
+import AposCellMixin from "Modules/@apostrophecms/ui/mixins/AposCellMixin";
 
 export default {
-  name: 'AposCellType',
-  mixins: [ AposCellMixin ],
+  name: "AposCellType",
+  mixins: [AposCellMixin],
   methods: {
     label(typeName) {
-      return (apos.modules[typeName] && apos.modules[typeName].label) || typeName;
-    }
-  }
+      return (
+        (apos.modules[typeName] && apos.modules[typeName].label) || typeName
+      );
+    },
+  },
 };
 </script>

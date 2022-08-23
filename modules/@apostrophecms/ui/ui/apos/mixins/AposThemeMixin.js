@@ -6,6 +6,6 @@ export default {
       const classes = [];
       classes.push(`apos-theme--primary-${window.apos.ui.theme.primary}`);
       return classes;
-    }
-  }
+    },
+  },
 };

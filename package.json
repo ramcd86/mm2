@@ -28,7 +28,7 @@
     ],
     "ignore": [
       "**/ui/apos/",
-      "**ui/public/",
+      "**/ui/public/",
       "locales/*.json",
       "public/uploads/",
       "public/apos-frontend/*.js",
@@ -43,7 +43,7 @@
   "author": "Apostrophe Technologies, Inc.",
   "license": "MIT",
   "dependencies": {
-    "apostrophe": "3.26.0",
+    "apostrophe": "3.26.1",
     "normalize.css": "^8.0.1",
     "bootstrap": "^5.1.3",
     "prettier": "^2.5.1"

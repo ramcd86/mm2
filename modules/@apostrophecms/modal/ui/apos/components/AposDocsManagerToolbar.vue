@@ -11,13 +11,7 @@
         @click="$emit('select-click')"
       />
       <div
-        v-for="{
-          action,
-          label,
-          icon,
-          operations,
-          ...rest
-        } in activeOperations"
+        v-for="{ action, label, icon, operations, ...rest } in activeOperations"
         :key="action"
       >
         <AposButton
@@ -35,7 +29,7 @@
             label,
             icon,
             iconOnly: true,
-            type: 'outline'
+            type: 'outline',
           }"
           :disabled="!checkedCount"
           :menu="operations"
@@ -46,8 +40,10 @@
     <template #rightControls>
       <AposPager
         v-if="!options.noPager && totalPages !== 0"
-        @click="registerPageChange" @change="registerPageChange"
-        :total-pages="totalPages" :current-page="currentPage"
+        @click="registerPageChange"
+        @change="registerPageChange"
+        :total-pages="totalPages"
+        :current-page="currentPage"
       />
       <AposFilterMenu
         v-if="filters.length"
@@ -58,9 +54,11 @@
       />
       <AposInputString
         v-if="!options.noSearch"
-        @input="search" @return="search($event, true)"
+        @input="search"
+        @return="search($event, true)"
         :field="searchField.field"
-        :status="searchField.status" :value="searchField.value"
+        :status="searchField.status"
+        :value="searchField.value"
         :modifiers="['small']"
       />
     </template>
@@ -68,103 +66,96 @@
 </template>
 
 <script>
-
 export default {
   props: {
     selectedState: {
       type: String,
-      required: true
+      required: true,
     },
     applyTags: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     filterChoices: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     filterValues: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     filters: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     totalPages: {
       type: Number,
-      default: 1
+      default: 1,
     },
     currentPage: {
       type: Number,
-      default: 1
+      default: 1,
     },
     isRelationship: {
       type: Boolean,
-      default: false
+      default: false,
     },
     labels: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     options: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     batchOperations: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     displayedItems: {
       type: Number,
-      required: true
+      required: true,
     },
     checkedCount: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
-  emits: [
-    'select-click',
-    'filter',
-    'search',
-    'page-change',
-    'batch'
-  ],
+  emits: ["select-click", "filter", "search", "page-change", "batch"],
   data() {
     return {
       searchField: {
         field: {
-          name: 'search',
+          name: "search",
           placeholder: {
-            key: 'apostrophe:searchDocType',
-            type: this.$t(this.labels.plural)
+            key: "apostrophe:searchDocType",
+            type: this.$t(this.labels.plural),
           },
-          icon: 'magnify-icon',
-          enterSubmittable: true
+          icon: "magnify-icon",
+          enterSubmittable: true,
         },
         status: {},
-        value: { data: '' }
+        value: { data: "" },
       },
-      activeOperations: []
+      activeOperations: [],
     };
   },
   computed: {
     checkboxIcon() {
-      if (this.selectedState === 'checked') {
-        return 'checkbox-marked-icon';
-      } else if (this.selectedState === 'indeterminate') {
-        return 'minus-box-icon';
+      if (this.selectedState === "checked") {
+        return "checkbox-marked-icon";
+      } else if (this.selectedState === "indeterminate") {
+        return "minus-box-icon";
       } else {
-        return 'checkbox-blank-icon';
+        return "checkbox-blank-icon";
       }
-    }
+    },
   },
-  mounted () {
+  mounted() {
     this.computeActiveOperations();
   },
   methods: {
-    computeActiveOperations () {
+    computeActiveOperations() {
       if (this.isRelationship) {
         this.activeOperations = [];
         return;
@@ -175,15 +166,16 @@ export default {
           if (!operations) {
             return {
               ...rest,
-              operations
+              operations,
             };
           }
 
           return {
             operations: operations.filter((op) => this.isOperationActive(op)),
-            ...rest
+            ...rest,
           };
-        }).filter((operation) => {
+        })
+        .filter((operation) => {
           if (operation.operations && !operation.operations.length) {
             return false;
           }
@@ -191,59 +183,63 @@ export default {
           return this.isOperationActive(operation);
         });
     },
-    isOperationActive (operation) {
-      return Object.entries(operation.if || {})
-        .every(([ filter, val ]) => {
-          if (Array.isArray(val)) {
-            return val.includes(this.filterValues[filter]);
-          }
+    isOperationActive(operation) {
+      return Object.entries(operation.if || {}).every(([filter, val]) => {
+        if (Array.isArray(val)) {
+          return val.includes(this.filterValues[filter]);
+        }
 
-          return this.filterValues[filter] === val;
-        });
+        return this.filterValues[filter] === val;
+      });
     },
     filter(filter, value) {
-      this.$emit('filter', filter, value.data);
+      this.$emit("filter", filter, value.data);
       if (this.filterValues[filter] !== value) {
         this.computeActiveOperations();
       }
     },
     search(value, force) {
-      if ((force && !value) || value.data === '') {
+      if ((force && !value) || value.data === "") {
         value = {
-          data: '',
-          error: false
+          data: "",
+          error: false,
         };
       } else if (!value || value.error || (!force && value.data.length < 3)) {
         return;
       }
 
-      this.$emit('search', value.data);
+      this.$emit("search", value.data);
     },
     registerPageChange(pageNum) {
-      this.$emit('page-change', pageNum);
+      this.$emit("page-change", pageNum);
     },
     async beginGroupedOperation(action, operations) {
-      const operation = operations.find(o => o.action === action);
+      const operation = operations.find((o) => o.action === action);
 
       await this.confirmOperation(operation);
     },
-    async confirmOperation ({
-      modalOptions = {}, action, operations, label, ...rest
+    async confirmOperation({
+      modalOptions = {},
+      action,
+      operations,
+      label,
+      ...rest
     }) {
       const {
         title = label,
-        description = '',
-        confirmationButton = 'apostrophe:affirmativeLabel',
-        form
+        description = "",
+        confirmationButton = "apostrophe:affirmativeLabel",
+        form,
       } = action && operations
-        ? (operations.find((op) => op.action === action)).modalOptions
+        ? operations.find((op) => op.action === action).modalOptions
         : modalOptions;
 
       const interpolations = {
         count: this.checkedCount,
-        type: this.checkedCount === 1
-          ? this.$t(this.labels.singular)
-          : this.$t(this.labels.plural)
+        type:
+          this.checkedCount === 1
+            ? this.$t(this.labels.singular)
+            : this.$t(this.labels.plural),
       };
 
       const confirmed = await apos.confirm({
@@ -251,23 +247,23 @@ export default {
         description: this.$t(description, interpolations),
         affirmativeLabel: confirmationButton,
         localize: false,
-        ...form && form
+        ...(form && form),
       });
 
       if (confirmed) {
-        this.$emit('batch', {
+        this.$emit("batch", {
           label,
           action,
-          ...rest
+          ...rest,
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-  .apos-manager-toolbar ::v-deep .apos-field--search {
-    width: 250px;
-  }
+.apos-manager-toolbar ::v-deep .apos-field--search {
+  width: 250px;
+}
 </style>

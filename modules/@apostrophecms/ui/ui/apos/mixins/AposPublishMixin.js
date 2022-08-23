@@ -4,7 +4,7 @@ export default {
   computed: {
     manuallyPublished() {
       return !this.moduleOptions.autopublish;
-    }
+    },
   },
   methods: {
     // A UI method to publish a document. If errors occur they are displayed to the user
@@ -22,61 +22,78 @@ export default {
       try {
         doc = await apos.http.post(`${action}/${doc._id}/publish`, {
           body: {},
-          busy: true
+          busy: true,
         });
-        apos.notify('apostrophe:changesPublished', {
-          type: 'success',
+        apos.notify("apostrophe:changesPublished", {
+          type: "success",
           dismiss: true,
-          icon: 'check-all-icon',
+          icon: "check-all-icon",
           buttons: [
             {
-              type: 'event',
-              label: 'apostrophe:undoPublish',
-              name: previouslyPublished ? 'revert-published-to-previous' : 'unpublish',
+              type: "event",
+              label: "apostrophe:undoPublish",
+              name: previouslyPublished
+                ? "revert-published-to-previous"
+                : "unpublish",
               data: {
                 action,
-                _id: doc._id
-              }
-            }
-          ]
+                _id: doc._id,
+              },
+            },
+          ],
         });
-        apos.bus.$emit('content-changed', {
+        apos.bus.$emit("content-changed", {
           doc,
-          action: 'publish'
+          action: "publish",
         });
         return doc;
       } catch (e) {
-        if ((e.name === 'invalid') && e.body && e.body.data && e.body.data.unpublishedAncestors) {
-          if (await apos.confirm({
-            heading: 'apostrophe:unpublishedParent',
-            description: 'apostrophe:unpublishedParentDescription'
-          }, {
-            interpolate: {
-              unpublishedParents: e.body.data.unpublishedAncestors.map(page => page.title).join(this.$t('apostrophe:listJoiner'))
-            }
-          })) {
+        if (
+          e.name === "invalid" &&
+          e.body &&
+          e.body.data &&
+          e.body.data.unpublishedAncestors
+        ) {
+          if (
+            await apos.confirm(
+              {
+                heading: "apostrophe:unpublishedParent",
+                description: "apostrophe:unpublishedParentDescription",
+              },
+              {
+                interpolate: {
+                  unpublishedParents: e.body.data.unpublishedAncestors
+                    .map((page) => page.title)
+                    .join(this.$t("apostrophe:listJoiner")),
+                },
+              }
+            )
+          ) {
             try {
               for (const page of e.body.data.unpublishedAncestors) {
                 await apos.http.post(`${action}/${page._id}/publish`, {
                   body: {},
-                  busy: true
+                  busy: true,
                 });
               }
               // Retry now that ancestors are published
               return this.publish(doc);
             } catch (e) {
               await apos.alert({
-                heading: this.$t('apostrophe:errorWhilePublishing'),
-                description: e.message || this.$t('apostrophe:errorWhilePublishingParentPage'),
-                localize: false
+                heading: this.$t("apostrophe:errorWhilePublishing"),
+                description:
+                  e.message ||
+                  this.$t("apostrophe:errorWhilePublishingParentPage"),
+                localize: false,
               });
             }
           }
         } else {
           await apos.alert({
-            heading: this.$t('apostrophe:errorWhilePublishing'),
-            description: e.message || this.$t('apostrophe:errorWhilePublishingDocument'),
-            localize: false
+            heading: this.$t("apostrophe:errorWhilePublishing"),
+            description:
+              e.message || this.$t("apostrophe:errorWhilePublishingDocument"),
+            localize: false,
           });
         }
         return false;
@@ -88,22 +105,23 @@ export default {
       try {
         doc = await apos.http.post(`${action}/${doc._id}/unpublish`, {
           body: {},
-          busy: true
+          busy: true,
         });
-        apos.notify('apostrophe:noLongerPublished', {
-          type: 'success',
-          dismiss: true
+        apos.notify("apostrophe:noLongerPublished", {
+          type: "success",
+          dismiss: true,
         });
-        apos.bus.$emit('content-changed', {
+        apos.bus.$emit("content-changed", {
           doc,
-          action: 'unpublish'
+          action: "unpublish",
         });
         return doc;
       } catch (e) {
         await apos.alert({
-          heading: this.$t('apostrophe:error'),
-          description: e.message || this.$t('apostrophe:errorWhileUnpublishing'),
-          localize: false
+          heading: this.$t("apostrophe:error"),
+          description:
+            e.message || this.$t("apostrophe:errorWhileUnpublishing"),
+          localize: false,
         });
         return false;
       }
@@ -116,23 +134,24 @@ export default {
         const submitted = await apos.http.post(`${action}/${doc._id}/submit`, {
           busy: true,
           body: {},
-          draft: true
+          draft: true,
         });
-        apos.notify('apostrophe:submittedForReview', {
-          type: 'success',
-          icon: 'list-status-icon',
-          dismiss: true
+        apos.notify("apostrophe:submittedForReview", {
+          type: "success",
+          icon: "list-status-icon",
+          dismiss: true,
         });
-        apos.bus.$emit('content-changed', {
+        apos.bus.$emit("content-changed", {
           doc: submitted,
-          action: 'submit'
+          action: "submit",
         });
         return submitted;
       } catch (e) {
         await apos.alert({
-          heading: this.$t('apostrophe:errorWhileSubmitting'),
-          description: e.message || this.$t('apostrophe:errorWhileSubmittingDescription'),
-          localize: false
+          heading: this.$t("apostrophe:errorWhileSubmitting"),
+          description:
+            e.message || this.$t("apostrophe:errorWhileSubmittingDescription"),
+          localize: false,
         });
         return false;
       }
@@ -144,26 +163,27 @@ export default {
       try {
         await apos.http.post(`${action}/${doc._id}/dismiss-submission`, {
           body: {},
-          busy: true
+          busy: true,
         });
-        apos.notify('apostrophe:dismissedSubmission', {
-          type: 'success',
+        apos.notify("apostrophe:dismissedSubmission", {
+          type: "success",
           dismiss: true,
-          icon: 'close-circle-icon'
+          icon: "close-circle-icon",
         });
         doc = {
           ...doc,
-          submitted: null
+          submitted: null,
         };
-        apos.bus.$emit('content-changed', {
+        apos.bus.$emit("content-changed", {
           doc,
-          action: 'dismiss-submission'
+          action: "dismiss-submission",
         });
       } catch (e) {
         await apos.alert({
-          heading: this.$t('apostrophe:errorWhileDismissing'),
-          description: e.message || this.$t('apostrophe:errorWhileDismissingDescription'),
-          localize: false
+          heading: this.$t("apostrophe:errorWhileDismissing"),
+          description:
+            e.message || this.$t("apostrophe:errorWhileDismissingDescription"),
+          localize: false,
         });
         return false;
       }
@@ -178,61 +198,67 @@ export default {
     async discardDraft(doc) {
       const isPublished = !!doc.lastPublishedAt;
       try {
-        if (await apos.confirm({
-          heading: isPublished
-            ? 'apostrophe:discardDraft'
-            : 'apostrophe:deleteDraft',
-          description: isPublished
-            ? 'apostrophe:discardDraftDescription'
-            : 'apostrophe:deleteDraftDescription',
-          affirmativeLabel: isPublished
-            ? 'apostrophe:discardDraftAffirmativeLabel'
-            : 'apostrophe:deleteDraftAffirmativeLabel',
-          interpolate: {
-            title: doc.title
-          }
-        })) {
+        if (
+          await apos.confirm({
+            heading: isPublished
+              ? "apostrophe:discardDraft"
+              : "apostrophe:deleteDraft",
+            description: isPublished
+              ? "apostrophe:discardDraftDescription"
+              : "apostrophe:deleteDraftDescription",
+            affirmativeLabel: isPublished
+              ? "apostrophe:discardDraftAffirmativeLabel"
+              : "apostrophe:deleteDraftAffirmativeLabel",
+            interpolate: {
+              title: doc.title,
+            },
+          })
+        ) {
           const action = window.apos.modules[doc.type].action;
           if (isPublished) {
-            const newDoc = await apos.http.post(`${action}/${doc._id}/revert-draft-to-published`, {
-              body: {},
-              busy: true
-            });
-            apos.notify('apostrophe:draftDiscarded', {
-              type: 'success',
+            const newDoc = await apos.http.post(
+              `${action}/${doc._id}/revert-draft-to-published`,
+              {
+                body: {},
+                busy: true,
+              }
+            );
+            apos.notify("apostrophe:draftDiscarded", {
+              type: "success",
               dismiss: true,
-              icon: 'text-box-remove-icon'
+              icon: "text-box-remove-icon",
             });
-            apos.bus.$emit('content-changed', {
+            apos.bus.$emit("content-changed", {
               doc: newDoc,
-              action: 'revert-draft-to-published'
+              action: "revert-draft-to-published",
             });
             return {
-              doc: newDoc
+              doc: newDoc,
             };
           } else {
             await apos.http.delete(`${action}/${doc._id}`, {
               body: {},
-              busy: true
+              busy: true,
             });
-            apos.notify('apostrophe:draftDeleted', {
-              type: 'success',
-              dismiss: true
+            apos.notify("apostrophe:draftDeleted", {
+              type: "success",
+              dismiss: true,
             });
-            apos.bus.$emit('content-changed', {
+            apos.bus.$emit("content-changed", {
               doc,
-              action: 'delete'
+              action: "delete",
             });
             return {};
           }
         }
       } catch (e) {
         await apos.alert({
-          heading: this.$t('apostrophe:error'),
-          description: e.message || this.$t('apostrophe:errorWhileRestoringPrevious'),
-          localize: false
+          heading: this.$t("apostrophe:error"),
+          description:
+            e.message || this.$t("apostrophe:errorWhileRestoringPrevious"),
+          localize: false,
         });
       }
-    }
-  }
+    },
+  },
 };

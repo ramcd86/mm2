@@ -1,7 +1,8 @@
 <template>
   <div id="apos-modals" :class="themeClass">
     <component
-      v-for="modal in stack" :key="modal.id"
+      v-for="modal in stack"
+      :key="modal.id"
       :is="modal.componentName"
       v-bind="modal.props"
       @modal-result="modal.result = $event"
@@ -11,20 +12,20 @@
 </template>
 
 <script>
-import cuid from 'cuid';
-import AposThemeMixin from 'Modules/@apostrophecms/ui/mixins/AposThemeMixin';
+import cuid from "cuid";
+import AposThemeMixin from "Modules/@apostrophecms/ui/mixins/AposThemeMixin";
 export default {
-  name: 'TheAposModals',
-  mixins: [ AposThemeMixin ],
+  name: "TheAposModals",
+  mixins: [AposThemeMixin],
   props: {
     modals: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      stack: []
+      stack: [],
     };
   },
   mounted() {
@@ -33,29 +34,33 @@ export default {
     // object, it must have an itemName property and a props property. The props
     // property is merged with the props supplied by the server-side configuration.
 
-    apos.bus.$on('admin-menu-click', async (itemName) => {
+    apos.bus.$on("admin-menu-click", async (itemName) => {
       let item;
-      if (itemName === '@apostrophecms/global:singleton-editor') {
+      if (itemName === "@apostrophecms/global:singleton-editor") {
         // Special case: the global doc is a singleton, and we know its
         // _id in browserland
         item = {
-          ...apos.modal.modals.find(modal => modal.itemName === '@apostrophecms/global:editor'),
+          ...apos.modal.modals.find(
+            (modal) => modal.itemName === "@apostrophecms/global:editor"
+          ),
           props: {
-            docId: apos.modules['@apostrophecms/global']._id
-          }
+            docId: apos.modules["@apostrophecms/global"]._id,
+          },
         };
-      } else if ((typeof itemName) === 'object') {
+      } else if (typeof itemName === "object") {
         item = {
-          ...apos.modal.modals.find(modal => modal.itemName === itemName.itemName),
-          ...itemName
+          ...apos.modal.modals.find(
+            (modal) => modal.itemName === itemName.itemName
+          ),
+          ...itemName,
         };
       } else {
-        item = apos.modal.modals.find(modal => modal.itemName === itemName);
+        item = apos.modal.modals.find((modal) => modal.itemName === itemName);
       }
       if (item) {
         await this.execute(item.componentName, {
           ...item.props,
-          moduleName: item.moduleName || this.getModuleName(item.itemName)
+          moduleName: item.moduleName || this.getModuleName(item.itemName),
         });
       }
     });
@@ -67,20 +72,20 @@ export default {
           id: cuid(),
           componentName,
           resolve,
-          props: props || {}
+          props: props || {},
         });
       });
     },
     resolve(modal) {
-      this.stack = this.stack.filter(_modal => modal.id !== _modal.id);
+      this.stack = this.stack.filter((_modal) => modal.id !== _modal.id);
       modal.resolve(modal.result);
     },
     getModuleName(itemName) {
       if (!itemName) {
         return null;
       }
-      return (itemName.indexOf(':') > -1) ? itemName.split(':')[0] : itemName;
-    }
-  }
+      return itemName.indexOf(":") > -1 ? itemName.split(":")[0] : itemName;
+    },
+  },
 };
 </script>

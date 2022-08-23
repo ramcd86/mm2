@@ -1,9 +1,6 @@
 <template>
   <div class="apos-min-max-count">
-    <span
-      v-if="countLabel"
-      class="apos-min-max-count__label"
-    >
+    <span v-if="countLabel" class="apos-min-max-count__label">
       {{ countLabel }}
     </span>
     <span
@@ -24,22 +21,23 @@
 </template>
 
 <script>
-
 export default {
-  name: 'AposMinMaxCount',
+  name: "AposMinMaxCount",
   props: {
     value: {
       required: true,
-      type: Array
+      type: Array,
     },
     field: {
       required: true,
-      type: Object
-    }
+      type: Object,
+    },
   },
   computed: {
     maxed() {
-      return (this.field.max !== undefined) && (this.value.length >= this.field.max);
+      return (
+        this.field.max !== undefined && this.value.length >= this.field.max
+      );
     },
     minError() {
       let minError = false;
@@ -61,8 +59,8 @@ export default {
       return maxError;
     },
     countLabel() {
-      return this.$t('apostrophe:numberAdded', {
-        count: this.value.length
+      return this.$t("apostrophe:numberAdded", {
+        count: this.value.length,
       });
     },
     // Here in the array editor we use effectiveMin to factor in the
@@ -71,17 +69,17 @@ export default {
     // representation of "required".
     minLabel() {
       if (this.effectiveMin) {
-        return this.$t('apostrophe:minUi', {
-          number: this.effectiveMin
+        return this.$t("apostrophe:minUi", {
+          number: this.effectiveMin,
         });
       } else {
         return false;
       }
     },
     maxLabel() {
-      if ((typeof this.field.max) === 'number') {
-        return this.$t('apostrophe:maxUi', {
-          number: this.field.max
+      if (typeof this.field.max === "number") {
+        return this.$t("apostrophe:maxUi", {
+          number: this.field.max,
         });
       } else {
         return false;
@@ -95,24 +93,24 @@ export default {
       } else {
         return 0;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-  .apos-min-max-count {
-    @include type-help;
-    display: flex;
-    flex-grow: 1;
-    margin-bottom: $spacing-base;
-  }
+.apos-min-max-count {
+  @include type-help;
+  display: flex;
+  flex-grow: 1;
+  margin-bottom: $spacing-base;
+}
 
-  .apos-has-error {
-    color: var(--a-danger);
-  }
+.apos-has-error {
+  color: var(--a-danger);
+}
 
-  .apos-min-max-count__label {
-    margin-right: 10px;
-  }
+.apos-min-max-count__label {
+  margin-right: 10px;
+}
 </style>

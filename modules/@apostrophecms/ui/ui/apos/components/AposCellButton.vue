@@ -1,6 +1,7 @@
 <template>
   <button
-    class="apos-table__cell-field" type="button"
+    class="apos-table__cell-field"
+    type="button"
     :class="`apos-table__cell-field--${header.name}`"
   >
     {{ get(header.name) }}
@@ -8,10 +9,10 @@
 </template>
 
 <script>
-import AposCellMixin from 'Modules/@apostrophecms/ui/mixins/AposCellMixin';
+import AposCellMixin from "Modules/@apostrophecms/ui/mixins/AposCellMixin";
 
 export default {
-  name: 'AposCellButton',
-  mixins: [ AposCellMixin ]
+  name: "AposCellButton",
+  mixins: [AposCellMixin],
 };
 </script>

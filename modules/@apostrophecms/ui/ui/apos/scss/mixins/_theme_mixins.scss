@@ -1,4 +1,4 @@
-@use 'sass:math';
+@use "sass:math";
 
 $brand-red: #ea433a;
 $brand-gold: #cc9300;
@@ -24,7 +24,7 @@ $input-color-disabled: var(--a-base-4);
   --a-primary-transparent-10: #{transparentize($color, 0.9)};
   --a-primary-dark-10: #{mix(#000, $color, 10%)};
   --a-primary-dark-15: #{mix(#000, $color, 15%)};
-  --a-primary-light-40: #{mix(#FFF, $color, 40%)};
+  --a-primary-light-40: #{mix(#fff, $color, 40%)};
 }
 
 //Application Styles

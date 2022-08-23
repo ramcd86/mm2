@@ -1,32 +1,36 @@
 // Vue plugin. Create a new directive with i18n support by applying the decorator
 // pattern to VTooltip, then add it to the Vue instance
 
-import { VTooltip } from 'v-tooltip';
+import { VTooltip } from "v-tooltip";
 
 export default {
   install(Vue, options) {
-
     const directive = {};
 
     Object.assign(VTooltip.options, options);
     let instance;
 
     // Right now VTooltip only uses bind, but be forwards-compatible
-    extendHandler('bind');
-    extendHandler('inserted');
-    extendHandler('update');
-    extendHandler('componentUpdated');
-    extendHandler('unbind');
+    extendHandler("bind");
+    extendHandler("inserted");
+    extendHandler("update");
+    extendHandler("componentUpdated");
+    extendHandler("unbind");
 
-    Vue.directive('apos-tooltip', directive);
+    Vue.directive("apos-tooltip", directive);
 
     function extendHandler(name) {
       if (VTooltip[name]) {
         directive[name] = (el, binding, vnode, oldVnode) => {
-          return VTooltip[name](el, {
-            ...binding,
-            value: localize(binding.value)
-          }, vnode, oldVnode);
+          return VTooltip[name](
+            el,
+            {
+              ...binding,
+              value: localize(binding.value),
+            },
+            vnode,
+            oldVnode
+          );
         };
       }
     }
@@ -50,7 +54,10 @@ export default {
         if (value && value.content) {
           return {
             ...value,
-            content: (value.localize === false) ? value.content : instance.$t(value.content)
+            content:
+              value.localize === false
+                ? value.content
+                : instance.$t(value.content),
           };
         } else {
           return value;
@@ -59,5 +66,5 @@ export default {
         return instance.$t(value);
       }
     }
-  }
+  },
 };

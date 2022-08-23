@@ -18,8 +18,10 @@
       </transition>
       <transition :name="transitionType" @after-leave="$emit('inactive')">
         <div
-          v-if="modal.showModal" :class="innerClasses"
-          class="apos-modal__inner" data-apos-modal-inner
+          v-if="modal.showModal"
+          :class="innerClasses"
+          class="apos-modal__inner"
+          data-apos-modal-inner
         >
           <template v-if="modal.busy">
             <div class="apos-modal__busy">
@@ -32,7 +34,10 @@
           <template v-else>
             <header class="apos-modal__header" v-if="!modal.disableHeader">
               <div class="apos-modal__header__main">
-                <div v-if="hasSecondaryControls" class="apos-modal__controls--secondary">
+                <div
+                  v-if="hasSecondaryControls"
+                  class="apos-modal__controls--secondary"
+                >
                   <slot name="secondaryControls" />
                 </div>
                 <h2 :id="id" class="apos-modal__heading">
@@ -41,15 +46,22 @@
                   </span>
                   {{ $t(modalTitle) }}
                 </h2>
-                <div class="apos-modal__controls--header" v-if="hasBeenLocalized || hasPrimaryControls">
+                <div
+                  class="apos-modal__controls--header"
+                  v-if="hasBeenLocalized || hasPrimaryControls"
+                >
                   <div class="apos-modal__locale" v-if="hasBeenLocalized">
                     <span class="apos-modal__locale-label">
-                      {{ $t('apostrophe:locale') }}:
-                    </span> <span class="apos-modal__locale-name">
+                      {{ $t("apostrophe:locale") }}:
+                    </span>
+                    <span class="apos-modal__locale-name">
                       {{ currentLocale }}
                     </span>
                   </div>
-                  <div class="apos-modal__controls--primary" v-if="hasPrimaryControls">
+                  <div
+                    class="apos-modal__controls--primary"
+                    v-if="hasPrimaryControls"
+                  >
                     <slot name="primaryControls" />
                   </div>
                 </div>
@@ -86,39 +98,39 @@
 // `false`, then `active` is set to `false` once the modal has finished its
 // transition.
 export default {
-  name: 'AposModal',
+  name: "AposModal",
   props: {
     modal: {
       type: Object,
-      required: true
+      required: true,
     },
     modalTitle: {
-      type: [ String, Object ],
-      default: ''
-    }
+      type: [String, Object],
+      default: "",
+    },
   },
-  emits: [ 'inactive', 'esc', 'show-modal', 'no-modal', 'ready' ],
+  emits: ["inactive", "esc", "show-modal", "no-modal", "ready"],
   data() {
     return {
       // For aria purposes
-      id: 'modal:' + Math.random().toString().replace('.', '')
+      id: "modal:" + Math.random().toString().replace(".", ""),
     };
   },
   computed: {
     transitionType: function () {
-      if (this.modal.type === 'slide') {
-        return 'slide';
+      if (this.modal.type === "slide") {
+        return "slide";
       } else {
-        return 'fade';
+        return "fade";
       }
     },
-    modalReady () {
+    modalReady() {
       return this.modal.active;
     },
-    hasBeenLocalized: function() {
+    hasBeenLocalized: function () {
       return Object.keys(apos.i18n.locales).length > 1;
     },
-    currentLocale: function() {
+    currentLocale: function () {
       return apos.i18n.locale;
     },
     hasPrimaryControls: function () {
@@ -140,100 +152,100 @@ export default {
       return !!this.$slots.footer;
     },
     classes() {
-      const classes = [ 'apos-modal' ];
+      const classes = ["apos-modal"];
       classes.push(`apos-modal--${this.modal.type}`);
-      if (this.modal.type === 'slide') {
-        classes.push('apos-modal--full-height');
+      if (this.modal.type === "slide") {
+        classes.push("apos-modal--full-height");
       }
       if (this.modal.busy) {
-        classes.push('apos-modal--busy');
+        classes.push("apos-modal--busy");
       }
-      return classes.join(' ');
+      return classes.join(" ");
     },
     innerClasses() {
       const classes = [];
       if (this.modal.width) {
         classes.push(`apos-modal__inner--${this.modal.width}`);
-      };
+      }
       return classes;
     },
     gridModifier() {
       if (this.hasLeftRail && this.hasRightRail) {
-        return 'apos-modal__main--with-rails';
+        return "apos-modal__main--with-rails";
       }
       if (this.hasLeftRail && !this.hasRightRail) {
-        return 'apos-modal__main--with-left-rail';
+        return "apos-modal__main--with-left-rail";
       }
       if (!this.hasLeftRail && this.hasRightRail) {
-        return 'apos-modal__main--with-right-rail';
+        return "apos-modal__main--with-right-rail";
       }
       return false;
-    }
+    },
   },
   watch: {
-    modalReady (newVal) {
+    modalReady(newVal) {
       this.$nextTick(() => {
         if (newVal && this.modal.trapFocus && this.$refs.modalEl) {
           this.trapFocus();
         }
       });
-    }
+    },
   },
   methods: {
-    esc (e) {
+    esc(e) {
       if (apos.modal.stack[apos.modal.stack.length - 1] !== this) {
         return;
       }
       if (e.keyCode === 27) {
         e.stopPropagation();
-        this.$emit('esc');
+        this.$emit("esc");
       }
     },
-    finishEnter () {
-      this.$emit('show-modal');
+    finishEnter() {
+      this.$emit("show-modal");
       this.bindEventListeners();
       apos.modal.stack = apos.modal.stack || [];
       apos.modal.stack.push(this);
       this.$nextTick(() => {
-        this.$emit('ready');
+        this.$emit("ready");
       });
     },
-    finishExit () {
+    finishExit() {
       this.removeEventListeners();
-      this.$emit('no-modal');
+      this.$emit("no-modal");
       // pop doesn't quite suffice because of race conditions when
       // closing one and opening another
-      apos.modal.stack = apos.modal.stack.filter(modal => modal !== this);
+      apos.modal.stack = apos.modal.stack.filter((modal) => modal !== this);
     },
-    bindEventListeners () {
-      window.addEventListener('keydown', this.esc);
+    bindEventListeners() {
+      window.addEventListener("keydown", this.esc);
     },
-    removeEventListeners () {
-      window.removeEventListener('keydown', this.esc);
+    removeEventListeners() {
+      window.removeEventListener("keydown", this.esc);
     },
-    trapFocus () {
+    trapFocus() {
       // Adapted from https://uxdesign.cc/how-to-trap-focus-inside-modal-to-make-it-ada-compliant-6a50f9a70700
       // All the elements inside modal which you want to make focusable.
       const focusableElements = [
-        'button',
-        '[href]',
-        'input',
-        'select',
-        'textarea',
-        '[tabindex]:not([tabindex="-1"]'
+        "button",
+        "[href]",
+        "input",
+        "select",
+        "textarea",
+        '[tabindex]:not([tabindex="-1"]',
       ];
-      const focusableString = focusableElements.join(', ');
+      const focusableString = focusableElements.join(", ");
       const modalEl = this.$refs.modalEl;
       const focusables = modalEl.querySelectorAll(focusableString);
       const firstFocusableElement = focusables[0];
       const lastFocusableElement = focusables[focusables.length - 1];
 
-      modalEl.addEventListener('keydown', cycleFocusables);
+      modalEl.addEventListener("keydown", cycleFocusables);
 
       firstFocusableElement.focus();
 
-      function cycleFocusables (e) {
-        const isTabPressed = e.key === 'Tab' || e.code === 'Tab';
+      function cycleFocusables(e) {
+        const isTabPressed = e.key === "Tab" || e.code === "Tab";
         if (!isTabPressed) {
           return;
         }
@@ -254,213 +266,213 @@ export default {
           }
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-  // NOTE: Transition timings below are set to match the wrapper transition
-  // timing in the template to coordinate the inner and overlay animations.
-  .apos-modal__inner {
-    z-index: $z-index-modal;
+// NOTE: Transition timings below are set to match the wrapper transition
+// timing in the template to coordinate the inner and overlay animations.
+.apos-modal__inner {
+  z-index: $z-index-modal;
+  position: fixed;
+  top: $spacing-double;
+  right: $spacing-double;
+  bottom: $spacing-double;
+  left: $spacing-double;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: calc(100vh - #{$spacing-double * 2});
+  border-radius: var(--a-border-radius);
+  background-color: var(--a-background-primary);
+  border: 1px solid var(--a-base-9);
+  color: var(--a-text-primary);
+
+  .apos-modal--slide & {
     position: fixed;
-    top: $spacing-double;
-    right: $spacing-double;
-    bottom: $spacing-double;
-    left: $spacing-double;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    height: calc(100vh - #{$spacing-double * 2});
-    border-radius: var(--a-border-radius);
-    background-color: var(--a-background-primary);
-    border: 1px solid var(--a-base-9);
-    color: var(--a-text-primary);
-
-    .apos-modal--slide & {
-      position: fixed;
-      transition: transform 0.15s ease;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: auto;
-      transform: translateX(0);
-      width: 90%;
-      border-radius: 0;
-
-      @media screen and (min-width: 800px) {
-        max-width: 540px;
-      }
-    }
-
-    &.apos-modal__inner--two-thirds {
-      @media screen and (min-width: 800px) {
-        max-width: 66%;
-      }
-    }
-
-    &.apos-modal__inner--half {
-      @media screen and (min-width: 800px) {
-        max-width: 50%;
-      }
-    }
-
-    &.slide-enter,
-    &.slide-leave-to {
-      transform: translateX(100%);
-    }
-
-    .apos-modal--overlay & {
-      transform: scale(1);
-      transition: opacity 0.15s ease, transform 0.15s ease;
-    }
-
-    &.fade-enter,
-    &.fade-leave-to {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-  }
-
-  .apos-modal--full-height .apos-modal__inner {
-    height: 100%;
-  }
-
-  .apos-modal__header {
-    grid-row: 1 / 2;
-  }
-
-  .apos-modal__main {
-    display: grid;
-    grid-row: 2 / 3;
-    overflow-y: auto;
-  }
-
-  .apos-modal__overlay {
-    z-index: $z-index-modal;
-    position: fixed;
+    transition: transform 0.15s ease;
     top: 0;
     right: 0;
     bottom: 0;
-    left: 0;
-    background-color: var(--a-overlay-modal);
+    left: auto;
+    transform: translateX(0);
+    width: 90%;
+    border-radius: 0;
 
-    .apos-modal--slide &,
-    .apos-modal--overlay & {
-      transition: opacity 0.15s ease;
-    }
-
-    &.slide-enter,
-    &.slide-leave-to,
-    &.fade-enter,
-    &.fade-leave-to {
-      opacity: 0;
+    @media screen and (min-width: 800px) {
+      max-width: 540px;
     }
   }
 
-  .apos-modal__footer {
+  &.apos-modal__inner--two-thirds {
+    @media screen and (min-width: 800px) {
+      max-width: 66%;
+    }
+  }
+
+  &.apos-modal__inner--half {
+    @media screen and (min-width: 800px) {
+      max-width: 50%;
+    }
+  }
+
+  &.slide-enter,
+  &.slide-leave-to {
+    transform: translateX(100%);
+  }
+
+  .apos-modal--overlay & {
+    transform: scale(1);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+
+  &.fade-enter,
+  &.fade-leave-to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.apos-modal--full-height .apos-modal__inner {
+  height: 100%;
+}
+
+.apos-modal__header {
+  grid-row: 1 / 2;
+}
+
+.apos-modal__main {
+  display: grid;
+  grid-row: 2 / 3;
+  overflow-y: auto;
+}
+
+.apos-modal__overlay {
+  z-index: $z-index-modal;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: var(--a-overlay-modal);
+
+  .apos-modal--slide &,
+  .apos-modal--overlay & {
+    transition: opacity 0.15s ease;
+  }
+
+  &.slide-enter,
+  &.slide-leave-to,
+  &.fade-enter,
+  &.fade-leave-to {
+    opacity: 0;
+  }
+}
+
+.apos-modal__footer {
+  z-index: $z-index-base;
+  position: relative;
+
+  &::before {
+    content: "";
     z-index: $z-index-base;
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 0;
+    box-shadow: var(--a-box-shadow);
+  }
+}
 
-    &::before {
-      content: '';
-      z-index: $z-index-base;
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: block;
-      width: 100%;
-      height: 0;
-      box-shadow: var(--a-box-shadow);
-    }
-  }
+.apos-modal__footer__inner,
+.apos-modal__header__main {
+  display: flex;
+  padding: $spacing-double;
+  align-items: center;
+}
 
-  .apos-modal__footer__inner,
-  .apos-modal__header__main {
-    display: flex;
-    padding: $spacing-double;
-    align-items: center;
-  }
+.apos-modal__header__main {
+  border-bottom: 1px solid var(--a-base-9);
+}
 
-  .apos-modal__header__main {
-    border-bottom: 1px solid var(--a-base-9);
-  }
+.apos-modal__footer {
+  grid-row: 3 / 4;
+}
 
-  .apos-modal__footer {
-    grid-row: 3 / 4;
-  }
+.apos-modal__footer__inner {
+  z-index: $z-index-default;
+  position: relative;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: var(--a-white);
+}
 
-  .apos-modal__footer__inner {
-    z-index: $z-index-default;
-    position: relative;
-    justify-content: space-between;
-    padding: 20px;
-    background-color: var(--a-white);
-  }
+.apos-modal__controls--header,
+.apos-modal__controls--primary,
+.apos-modal__controls--secondary {
+  display: flex;
+  align-items: center;
+}
 
-  .apos-modal__controls--header,
-  .apos-modal__controls--primary,
-  .apos-modal__controls--secondary {
-    display: flex;
-    align-items: center;
+.apos-modal__controls--header {
+  justify-content: flex-end;
+  flex-grow: 1;
+}
+.apos-modal__controls--primary ::v-deep {
+  & > .apos-button__wrapper,
+  & > .apos-context-menu {
+    margin-left: 7.5px;
   }
+}
 
-  .apos-modal__controls--header {
-    justify-content: flex-end;
-    flex-grow: 1;
-  }
-  .apos-modal__controls--primary ::v-deep {
-    & > .apos-button__wrapper,
-    & > .apos-context-menu {
-      margin-left: 7.5px;
-    }
-  }
+.apos-modal__locale {
+  @include type-base;
+  margin-right: $spacing-double;
+  font-weight: var(--a-weight-bold);
+}
 
-  .apos-modal__locale {
-    @include type-base;
-    margin-right: $spacing-double;
-    font-weight: var(--a-weight-bold);
-  }
+.apos-modal__locale-name {
+  color: var(--a-primary);
+}
 
-  .apos-modal__locale-name {
-    color: var(--a-primary);
-  }
+.apos-modal__heading {
+  @include type-title;
+  margin: 0;
+}
 
-  .apos-modal__heading {
-    @include type-title;
-    margin: 0;
-  }
+.apos-modal__controls--secondary {
+  margin-right: 20px;
+}
 
-  .apos-modal__controls--secondary {
-    margin-right: 20px;
-  }
+.apos-modal__main--with-rails {
+  grid-template-columns: 20% 1fr minmax(250px, $modal-rail-right-w);
+}
 
-  .apos-modal__main--with-rails {
-    grid-template-columns: 20% 1fr minmax(250px, $modal-rail-right-w);
-  }
+.apos-modal__main--with-left-rail {
+  grid-template-columns: 22% 78%;
+}
 
-  .apos-modal__main--with-left-rail {
-    grid-template-columns: 22% 78%;
-  }
+.apos-modal__main--with-right-rail {
+  grid-template-columns: 78% $modal-rail-right-w;
+}
 
-  .apos-modal__main--with-right-rail {
-    grid-template-columns: 78% $modal-rail-right-w;
-  }
+.apos-modal--busy .apos-modal__inner {
+  $height: 190px;
+  top: 50%;
+  bottom: -50%;
+  display: flex;
+  height: $height;
+  transform: translateY(math.div($height, 2) * -1);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 
-  .apos-modal--busy .apos-modal__inner {
-    $height: 190px;
-    top: 50%;
-    bottom: -50%;
-    display: flex;
-    height: $height;
-    transform: translateY(math.div($height, 2) * -1);
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-
-  .apos-modal__busy-text {
-    margin-bottom: $spacing-triple;
-    font-size: var(--a-type-heading);
-  }
+.apos-modal__busy-text {
+  margin-bottom: $spacing-triple;
+  font-size: var(--a-type-heading);
+}
 </style>
