@@ -1,3 +1,11 @@
+
+
+
+
+
+
+
+
 {# Automatically extends the right outer layout and also handles AJAX siutations
 #} {% extends data.outerLayout %} {% set title = [data.global.websiteTitle," -
 ",data.piece.title or data.page.title] | join %} {% block title %} {{ title }}
@@ -16,7 +24,10 @@ block in a template that does not have access to an Apostrophe page or piece.')
     <div id="pageBase" class="mm-index__body">
       <header id="header" class="mm-index__header">
         <div class="container">
-          <div id="logo" class="mm-index__logo"></div>
+
+          <div id="logo" class="mm-index__logo">
+            <img src="./../../../images/nk-logo.jpg" alt="">
+          </div>
         </div>
       </header>
       <nav class="mm-index__nav">

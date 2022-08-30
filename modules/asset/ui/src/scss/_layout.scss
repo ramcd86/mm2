@@ -113,6 +113,15 @@ img {
       background-size: auto 100%;
       background-position: center top;
       background-repeat: no-repeat;
+      img {
+        height: 100px;
+        margin-top: 24px;
+        transform: rotate(341deg);
+        box-shadow: 6px 7px 11px 5px #43362b;
+      }
+    }
+    img {
+      display: none;
     }
     height: 400px;
     width: 100%;
@@ -281,9 +290,9 @@ img {
   }
   &__footer-image {
     background-image: url("./../../../images/mm-logo.png");
-    height: 400px;
+    height: 290px;
     background-position: center top;
-    background-size: 100%;
+    background-size: contain;
     background-repeat: no-repeat;
   }
   &__footer-content {
