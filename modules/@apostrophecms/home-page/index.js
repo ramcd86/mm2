@@ -1,6 +1,7 @@
 module.exports = {
   components(self) {
     return {
+      async homepagenavigation(req, data) {},
       async searchcomponent(req, data) {},
       async queensnavigation(req, data) {
         return [];
@@ -112,6 +113,80 @@ module.exports = {
           organsHeadlines,
         };
       },
+      async musicianheadlines(req, data) {
+        const musiciansHeadlines = [];
+
+        const dbData = await self.apos.db
+          .collection("aposDocs")
+          .find({ type: "musiciandir" })
+          .toArray();
+
+        const slicedDbData = dbData.slice(-(data.max + 1)).reverse();
+
+        slicedDbData.forEach((item) => {
+          if (
+            !item.archived &&
+            item.visibility === "public" &&
+            item.aposLocale === "en:published"
+          ) {
+            musiciansHeadlines.push({
+              title: item.title || "",
+              alpha: item.alpha.toLowerCase() || "",
+              slug: item.slug || "",
+              updatedAt:
+                new Date(item.updatedAt).toLocaleDateString("de-DE", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                }) || "",
+            });
+          }
+        });
+
+        return {
+          musiciansHeadlines,
+        };
+      },
+      async publicationheadlines(req, data) {
+        const publicationHeadlines = [];
+
+        const dbData = await self.apos.db
+          .collection("aposDocs")
+          .find({ type: "publicationsdir" })
+          .toArray();
+
+        const slicedDbData = dbData.slice(-(data.max + 1)).reverse();
+
+        slicedDbData.forEach((item) => {
+          if (
+            !item.archived &&
+            item.visibility === "public" &&
+            item.aposLocale === "en:published"
+          ) {
+            publicationHeadlines.push({
+              title: item.title || "",
+              alpha: item.alpha.toLowerCase() || "",
+              slug: item.slug || "",
+              updatedAt:
+                new Date(item.updatedAt).toLocaleDateString("de-DE", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                }) || "",
+            });
+          }
+        });
+
+        return {
+          publicationHeadlines,
+        };
+      },
     };
   },
   options: {
@@ -119,6 +194,60 @@ module.exports = {
   },
   fields: {
     add: {
+      shopBlocks: {
+        label: "Shop Blocks",
+        type: "area",
+        options: {
+          widgets: {
+            "custom-area": {},
+          },
+        },
+      },
+      featuredArticle: {
+        label: "Feature Article",
+        type: "area",
+        options: {
+          widgets: {
+            "custom-image": {},
+            "@apostrophecms/rich-text": {
+              toolbar: [
+                "styles",
+                "|",
+                "bold",
+                "italic",
+                "strike",
+                "link",
+                "|",
+                "blockquote",
+                "bulletList",
+                "orderedList",
+                "alignLeft",
+                "alignCenter",
+                "alignRight",
+                "undo",
+                "redo",
+              ],
+              styles: [
+                {
+                  tag: "p",
+                  label: "Paragraph (P)",
+                },
+                {
+                  tag: "h3",
+                  label: "Heading 3 (H3)",
+                },
+                {
+                  tag: "h4",
+                  label: "Heading 4 (H4)",
+                },
+              ],
+            },
+            "@apostrophecms/html": {},
+            "custom-divider": {},
+            "custom-area": {},
+          },
+        },
+      },
       main: {
         type: "area",
         options: {
@@ -161,11 +290,26 @@ module.exports = {
           },
         },
       },
+      additionalBlocks: {
+        label: "Miscellaneous Blocks",
+        type: "area",
+        options: {
+          widgets: {
+            "custom-area": {},
+          },
+        },
+      },
     },
     group: {
       basics: {
         label: "Basics",
-        fields: ["title", "main"],
+        fields: [
+          "title",
+          "main",
+          "shopBlocks",
+          "featuredArticle",
+          "additionalBlocks",
+        ],
       },
     },
   },

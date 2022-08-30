@@ -1,0 +1,23 @@
+.home-page {
+  //margin: 20px;
+  &__shop-blocks {
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 5px;
+    background-color: $peach;
+  }
+  &__featured-article {
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 5px;
+    background-color: $peach;
+  }
+  &__news-blocks {
+  }
+  &__additional-blocks {
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 5px;
+    background-color: $peach;
+  }
+}

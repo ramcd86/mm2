@@ -1,9 +1,9 @@
 {# Automatically extends the right outer layout and also handles AJAX siutations
-#} {% extends data.outerLayout %} {% set title = data.piece.title or
-data.page.title %} {% block title %} {{ title }} {% if not title %} {{
-apos.log('Looks like you forgot to override the title block in a template that
-does not have access to an Apostrophe page or piece.') }} {% endif %} {%
-endblock %} {% block beforeMain %}
+#} {% extends data.outerLayout %} {% set title = [data.global.websiteTitle," -
+",data.piece.title or data.page.title] | join %} {% block title %} {{ title }}
+{% if not title %} {{ apos.log('Looks like you forgot to override the title
+block in a template that does not have access to an Apostrophe page or piece.')
+}} {% endif %} {% endblock %} {% block beforeMain %}
 
 <div class="image-container"></div>
 <div id="base" class="container-fluid mm-index">
@@ -42,12 +42,15 @@ endblock %} {% block beforeMain %}
           <div class="row">
             <div class="col-4 mm-index__footer-image"></div>
             <div class="col-8 mm-index__footer-content">
-              {% for item in data.global.mediaLinks %}
+              <ul>
+                {% for item in data.global.mediaLinks %}
 
-              <li>
-                <a href="{{ item.url }}">{{ item.label }}</a>
-              </li>
-              {% endfor %}
+                <li>
+                  <a href="{{ item.url }}">{{ item.label }}</a>
+                </li>
+                {% endfor %}
+              </ul>
+              <span>{{ data.global.footerText }}</span>
             </div>
           </div>
         </div>

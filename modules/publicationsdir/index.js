@@ -120,39 +120,6 @@ module.exports = {
           },
         ],
       },
-      isRetired: {
-        type: "select",
-        label: "Organ Company is Retired/Removed?",
-        required: true,
-        choices: [
-          {
-            label: "No",
-            value: false,
-          },
-          {
-            label: "Yes",
-            value: true,
-          },
-        ],
-      },
-      outsideGermany: {
-        type: "string",
-        label: "Outside Germany Label, (IE, DK, NL, etc)",
-        textarea: false,
-        required: false,
-      },
-      postcode: {
-        type: "string",
-        label: "Postcode",
-        textarea: false,
-        required: false,
-      },
-      externalUrl: {
-        type: "string",
-        label: "External URL? (WITHOUT http:// !)",
-        textarea: false,
-        required: false,
-      },
       main: {
         type: "area",
         options: {
@@ -200,15 +167,7 @@ module.exports = {
     },
     group: {
       basics: {
-        fields: [
-          "title",
-          "main",
-          "externalUrl",
-          "postcode",
-          "isRetired",
-          "outsideGermany",
-          "alpha",
-        ],
+        fields: ["title", "main", "alpha"],
       },
     },
   },

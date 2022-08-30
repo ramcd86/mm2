@@ -1,0 +1,13 @@
+<div class="headlines">
+  {% for publication in data.publicationHeadlines %}
+  <div>
+    &#8250;
+    <a
+      class="subnav-items"
+      href="./publisher-book-note-portal/our-publications/publications-{{publication.alpha}}/{{publication.slug}}"
+      >{{ publication.title }}</a
+    >
+  </div>
+  <div><span>{{publication.updatedAt}}</span></div>
+  {% endfor %}
+</div>

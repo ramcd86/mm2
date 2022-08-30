@@ -2,6 +2,16 @@ module.exports = {
   fields: {
     add: {
       // Adding our array field, `primaryNav`
+      websiteTitle: {
+        label: "Footer Text",
+        type: "string",
+        fields: {
+          add: {
+            label: "Footer text",
+            type: "string",
+          },
+        },
+      },
       mediaLinks: {
         label: "Social Media Links",
         type: "array",
@@ -44,6 +54,43 @@ module.exports = {
                 },
               },
             },
+          },
+        },
+      },
+      homePagePortalGeneralLinks: {
+        label: "Home Page Subnavigation Links",
+        type: "array",
+        titleField: "label",
+        // The array schema for each item
+        fields: {
+          add: {
+            label: {
+              label: "Nav item label",
+              type: "string",
+            },
+            _page: {
+              label: "Page to link",
+              type: "relationship",
+              withType: "@apostrophecms/page",
+              max: 1,
+              required: false,
+              builders: {
+                project: {
+                  title: 1,
+                  _url: 1,
+                },
+              },
+            },
+          },
+        },
+      },
+      footerText: {
+        label: "Footer Text",
+        type: "string",
+        fields: {
+          add: {
+            label: "Footer text",
+            type: "string",
           },
         },
       },
@@ -409,7 +456,14 @@ module.exports = {
     group: {
       siteLayout: {
         label: "Layout Links",
-        fields: ["mediaLinks", "mainNavLinks", "miniFooter"],
+        fields: [
+          "websiteTitle",
+          "mediaLinks",
+          "mainNavLinks",
+          "homePagePortalGeneralLinks",
+          "miniFooter",
+          "footerText",
+        ],
       },
       queensPortal: {
         label: "Queen's Portal",

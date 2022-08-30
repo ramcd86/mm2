@@ -24,12 +24,12 @@ main %} {% component '@apostrophecms/home-page:queensnavigation' %}
   </div>
   {% else %}
   <div class="row">
-        <div class="col-12">
-          <section>{% area data.piece, 'main' %}</section>
-        </div>
-        <div class="col-12">
-          <section>{% area data.piece, 'paidContent' %}</section>
-        </div>
+    <div class="col-12">
+      <section>{% area data.piece, 'main' %}</section>
+    </div>
+    <div class="col-12">
+      <section>{% area data.piece, 'paidContent' %}</section>
+    </div>
   </div>
   {% endif %}
 </div>

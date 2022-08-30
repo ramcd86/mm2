@@ -288,6 +288,40 @@ img {
   }
   &__footer-content {
     color: $white;
+    span {
+      display: block;
+      text-align: center;
+      font-size: 18px;
+      color: $white;
+      font-family: "Raleway", sans-serif;
+    }
+    ul {
+      margin-top: 95px;
+      margin-bottom: 5px;
+      justify-content: center;
+      color: $white;
+      font-size: 26px;
+      font-weight: 600;
+      font-family: "Vollkorn", serif;
+      display: flex;
+      padding-left: 0px;
+      :last-child {
+        border-right: 0px;
+      }
+      li {
+        padding-left: 10px;
+        padding-right: 10px;
+        border-right: 2px solid $white;
+        a {
+          color: $white;
+          text-decoration: none;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+        list-style: none;
+      }
+    }
   }
 }
 
