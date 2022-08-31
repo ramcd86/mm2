@@ -2,11 +2,7 @@
   {% for organ in data.organsHeadlines %}
   <div>
     &#8250;
-    <a
-      class="subnav-items"
-      href="./../../{{organ.slug}}"
-      >{{ organ.title }}</a
-    >
+    <a class="subnav-items" href="./../../{{organ.slug}}">{{ organ.title }}</a>
   </div>
   <div><span>{{organ.updatedAt}}</span></div>
   {% endfor %}
